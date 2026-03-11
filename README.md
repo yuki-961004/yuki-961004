@@ -1,13 +1,11 @@
-<p align="center">
+<div align="center" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
   <a href="https://yuki-961004.github.io/multiRL/">
-    <img src="./fig/multiRL.png" alt="multiRL" width="20%" 
-         style="display: inline;">
+    <img src="./fig/multiRL.png" alt="multiRL" width="123">
   </a>
   <a href="https://yuki-961004.github.io/binaryRL/">
-    <img src="./fig/binaryRL.png" alt="binaryRL" width="20%" 
-         style="display: inline;">
+    <img src="./fig/binaryRL.png" alt="binaryRL" width="123">
   </a>
-</p>
+</div>
 
 <h1 align="center"><sup>multi</sub> ❅ <sub>🅁L</sub></h1>
 
