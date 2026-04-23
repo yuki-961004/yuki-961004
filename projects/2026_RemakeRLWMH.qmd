@@ -8,9 +8,14 @@ language:
 github: https://github.com/yuki-961004/RLWMH
 image: "fig/2026_RemakeRLWMH/HWM(-weight).png" 
 categories: [ongoing]
-list_description: "A recent reanalysis by Collins (2025) suggests that learning in the RLWM paradigm is driven by Habit (H) and Working Memory (WM), rather than a slow RL process. This project uses the custom <code>multiRL</code> R package to re-implement these models, progressing from simple (RL, WM, H) to complex mixtures to test parameter redundancy and recoverability. Results show that a parsimonious 3-parameter HWM model sufficiently recovers key experimental effects, while adding parameters degrades performance, strongly supporting Occam's razor. Furthermore, benchmarking MLE, ABC, and RNN reveals that ABC yields the best parameter recovery for this paradigm."
+list_description: "A recent reanalysis by Anne G. E. Collins (<a href='https://doi.org/10.1038/s41562-025-02340-0'>2025</a>) suggests that learning in the RLWM paradigm may be driven more by Habit (H) and Working Memory (WM) than by a slow reinforcement learning (RL) process. In this project, I used the custom <code>multiRL</code> R package to re-implement these models, starting from simple models (RL, WM, H) and gradually building more complex combinations to evaluate parameter recovery and parameter redundancy. The results showed that a simple 3-parameter HWM model was enough to recover the main experimental effects, while adding more parameters often reduced model performance, consistent with Occam’s razor. In addition, although different estimation methods performed reasonably well for simple models, only simulation-based inference (SBI) methods maintained good parameter recovery as model complexity increased, with ABC showing the strongest overall performance."
 responsibilities: "Stand-Up Comedy."
 ---
+
+Our goal in model building was to develop a model with recoverable parameters (indicating good reliability) that could also reproduce the three experimental effects shown below (indicating good validity).
+
+1. If a parameter isn’t recoverable, it suggests it may be redundant or effectively masked by other parameters.
+2. If a model cannot even reproduce the experimental effects—oh come on, then there is really no point in discussing it further.
 
 ::: {style="text-align: center;"}
 
@@ -26,7 +31,7 @@ responsibilities: "Stand-Up Comedy."
 
 :::
 
-Here’s my take on Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)). In an MDP, two systems are involved: a reinforcement learning system and a working memory system. Within the reinforcement learning system, the process can be further differentiated into standard RL and Habit (H) based on whether the feedback is constantly treated as a subjective value of 1. The WM system consists of three parameters: the memory decay rate(`zeta`), working memory `capacity`, and the mixture `weight` between the RL and WM systems. Additionally, there are two system-independent parameters: sticky choice (action perseveration) and lapse rate (the probability of making an accidental motor error). 
+Here is my personal interpretation of Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)). In an MDP, two systems are involved: a reinforcement learning system and a working memory system. Within the reinforcement learning system, the process can be further differentiated into standard RL and Habit (H) based on whether the feedback is constantly treated as a subjective value of 1. The WM system consists of three parameters: the memory decay rate(`zeta`), working memory `capacity`, and the mixture `weight` between the RL and WM systems. Additionally, there are two system-independent parameters: sticky choice (action perseveration) and lapse rate (the probability of making an accidental motor error). 
 
 ::: {style="text-align: center;"}
 
@@ -54,7 +59,7 @@ Here’s my take on Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0))
 
 :::
 
-First, I need to establish whether the model’s free parameters are recoverable. If a parameter isn’t recoverable, it suggests it may be redundant or effectively masked by other parameters. In this process, I found that, compared to the optimal HWM model proposed in Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)), a streamlined three-parameter model shows better parameter recovery.
+HWM model remade using `multiRL` (originally proposed by Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0))) did not show good parameter recovery (in fact, the parameter recovery results reported in the original paper were also relatively weak for several parameters). It also failed to reproduce the experimental effects observed in human participants. 
 
 ::: {style="text-align: center;"}
 
@@ -76,4 +81,4 @@ First, I need to establish whether the model’s free parameters are recoverable
 
 :::
 
-Compared to the full six-parameter HWM model, the three-parameter model also does a better job reproducing the behavioral effects. However, it could be a misunderstanding on my part or a bug in the code. In any case, I’ll share any interesting findings here.
+Compared to the full six-parameter HWM model, the simplified HWM model without the `weight`, `lapse`, and `sticky` parameters was already able to reproduce the main experimental effects reasonably well. In addition, it showed substantially better parameter recovery performance. 

@@ -534,7 +534,7 @@ window.Quarto = {
         
           <details open="" style="margin-bottom: 10px;">
             <summary style="cursor: pointer; font-weight: 500; outline: none; color: var(--bs-body-color);">Description</summary>
-            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">This study conducted a matched meta-evaluation of 119 pairs of original research articles (Registered Reports [RRs] vs. traditional non-registered reports [non-RRs]) across 33 psychology journals, matching them by publication venue, time, and research topic. The findings indicate that while RRs are designed to improve scientific transparency and reduce bias, they have not yet garnered higher academic or public attention compared to traditional reports; in fact, RRs were found to receive relatively fewer citations.</div>
+            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">This study conducted a matched meta-evaluation of 119 pairs of original research articles (Registered Reports [RRs] vs. traditional non-registered reports [non-RRs]) across 33 psychology journals, matching them by journal, time, and research topic. The findings indicate that while RRs are designed to improve scientific transparency and reduce bias, they have not yet garnered higher academic or public attention compared to traditional reports; in fact, RRs were found to receive relatively fewer citations.</div>
           </details>
         
 
@@ -596,7 +596,7 @@ window.Quarto = {
         
           <details open="" style="margin-bottom: 10px;">
             <summary style="cursor: pointer; font-weight: 500; outline: none; color: var(--bs-body-color);">Description</summary>
-            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">Although the Self-Matching Task exhibits highly robust effects at the group level, its individual-level reliability (both split-half and test-retest reliability) remains relatively low. This further corroborates the existence of the reliability paradox in cognitive paradigms.</div>
+            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">A cognitive paradigm may exhibit highly robust effects at the group level while showing poor reliability at the individual level, a phenomenon known as the reliability paradox. Based on 42 publicly available datasets, we found that this reliability paradox is also present in the Self-Matching Task (SMT).</div>
           </details>
         
 
@@ -604,7 +604,7 @@ window.Quarto = {
         
           <details>
             <summary style="cursor: pointer; font-weight: 500; outline: none; color: var(--bs-body-color);">My Responsibilities</summary>
-            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">I assumed nearly all responsibilities for the project's workflow. I managed the end-to-end process of data curation—scouring databases for open data and coordinating with authors for raw datasets. I also handled the rigorous side of open science by writing the pre-registration and the manuscript itself. To ensure our analysis was robust, I also built two R packages specifically for our split-half reliability metrics and executed the entire analysis pipeline.</div>
+            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">I took on most of the responsibilities throughout the project. I managed the full data curation process, including searching for open datasets and contacting authors to obtain raw data. I also wrote the preregistration and drafted the manuscript. To improve the reproducibility and overall manageability of the project, I developed two R packages for data splitting and for computing split-half reliability across six different metrics.</div>
           </details>
         
       </div>
@@ -667,7 +667,7 @@ window.Quarto = {
         
           <details open="" style="margin-bottom: 10px;">
             <summary style="cursor: pointer; font-weight: 500; outline: none; color: var(--bs-body-color);">Description</summary>
-            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">Reinforcement learning often poses a high barrier for psychologists due to the complexity of building MDPs and writing low-level code. The <code>binaryRL</code> package addresses this with a modular, Lego-like approach that decomposes the framework into core components. By using simple if-else logic to define cognitive processes, researchers can easily execute a complete pipeline—from model construction and parameter recovery to fitting and visualization. This streamlines the transition from raw behavioral data to theoretical inference with minimal technical complexity.</div>
+            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">Reinforcement learning often presents a steep learning curve for psychologists, especially when it comes to building MDPs and estimating free parameters with optimization algorithms. The <code>binaryRL</code> package simplifies this process with a modular, Lego-like design that breaks the framework into easy-to-understand components. Using straightforward <code>if-else</code> logic to define cognitive processes, researchers can run the entire workflow—from model construction and parameter recovery to model fitting and visualization—with much less coding overhead.</div>
           </details>
         
 
@@ -730,7 +730,7 @@ window.Quarto = {
         
           <details open="" style="margin-bottom: 10px;">
             <summary style="cursor: pointer; font-weight: 500; outline: none; color: var(--bs-body-color);">Description</summary>
-            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">A recent reanalysis by Collins (2025) suggests that learning in the RLWM paradigm is driven by Habit (H) and Working Memory (WM), rather than a slow RL process. This project uses the custom <code>multiRL</code> R package to re-implement these models, progressing from simple (RL, WM, H) to complex mixtures to test parameter redundancy and recoverability. Results show that a parsimonious 3-parameter HWM model sufficiently recovers key experimental effects, while adding parameters degrades performance, strongly supporting Occam's razor. Furthermore, benchmarking MLE, ABC, and RNN reveals that ABC yields the best parameter recovery for this paradigm.</div>
+            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">A recent reanalysis by Anne G. E. Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>) suggests that learning in the RLWM paradigm may be driven more by Habit (H) and Working Memory (WM) than by a slow reinforcement learning (RL) process. In this project, I used the custom <code>multiRL</code> R package to re-implement these models, starting from simple models (RL, WM, H) and gradually building more complex combinations to evaluate parameter recovery and parameter redundancy. The results showed that a simple 3-parameter HWM model was enough to recover the main experimental effects, while adding more parameters often reduced model performance, consistent with Occam’s razor. In addition, although different estimation methods performed reasonably well for simple models, only simulation-based inference (SBI) methods maintained good parameter recovery as model complexity increased, with ABC showing the strongest overall performance.</div>
           </details>
         
 
@@ -903,7 +903,7 @@ window.Quarto = {
         
           <details open="" style="margin-bottom: 10px;">
             <summary style="cursor: pointer; font-weight: 500; outline: none; color: var(--bs-body-color);">Description</summary>
-            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">This project is a systematic, multi-level meta-analysis designed to synthesize empirical evidence regarding how newly acquired self-relevance modulates cognitive processes. While previous research often used pre-existing self-related stimuli (like one's own name or face), this study focuses on lab-based associative learning tasks, specifically the Self-Matching Task (SMT) and the Ownership Paradigm.</div>
+            <div style="margin-top: 8px; color: var(--bs-body-color); font-size: 0.95em; opacity: 0.9;">This project is a large-scale meta-analysis examining how newly acquired self-relevance influences cognitive processing. Specifically, it focuses on two widely used associative learning paradigms: the Self-Matching Task (SMT) and the Ownership Paradigm. By systematically reviewing and synthesizing findings across existing studies, the project aims to estimate the overall size of the self-prioritization effect and identify the conditions under which the effect becomes stronger or weaker.</div>
           </details>
         
 

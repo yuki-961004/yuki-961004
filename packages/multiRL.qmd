@@ -1,6 +1,6 @@
 ---
 title: multiRL
-description: "This package modularizes the Markov Decision Process (MDP) into six core components, enabling users to flexibly construct the Rescorla-Wagner Model for Multi-Armed Bandit tasks. Beginners can define models using simple if-else logic."
+description: "This package is designed to help users build Rescorla–Wagner models for <b>multi</b>-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into <b>six</b> core components, allowing users to flexibly construct models using simple <code>if-else</code> logic."
 image: "fig/multiRL.png"
 homepage: "https://yuki-961004.github.io/multiRL/"
 cran: "https://CRAN.R-project.org/package=multiRL"
@@ -12,18 +12,24 @@ categories: [active]
 <a href="https://yuki-961004.github.io/multiRL/"><img src="./fig/multiRL.png" alt="LOGO" align="right" width="120"/></a>
 
 <!-- badges: start -->
-<a href="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml">
-  <img src="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check">
-</a>
-<a href="https://app.codecov.io/gh/yuki-961004/multiRL">
-  <img src="https://codecov.io/gh/yuki-961004/multiRL/graph/badge.svg" alt="Code Coverage">
-</a>
-<a href="https://CRAN.R-project.org/package=multiRL">
-  <img src="https://www.r-pkg.org/badges/version/multiRL?color=1E63B5" alt="CRAN-Version">
-</a>
-<a href="https://CRAN.R-project.org/package=multiRL">
-  <img src="https://cranlogs.r-pkg.org/badges/grand-total/multiRL?color=FA812F" alt="CRAN-Downloads">
-</a>
+<style>
+  .badges a {
+    text-decoration: none !important;
+    box-shadow: none !important; /* 有些主题（如 Academic）使用 box-shadow 代替下划线 */
+  }
+</style>
+
+<div class="badges" style="text-decoration: none;">
+  <a href="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml">
+    <img src="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check">
+  </a><a href="https://app.codecov.io/gh/yuki-961004/multiRL">
+    <img src="https://codecov.io/gh/yuki-961004/multiRL/graph/badge.svg" alt="Code Coverage">
+  </a><a href="https://CRAN.R-project.org/package=multiRL">
+    <img src="https://www.r-pkg.org/badges/version/multiRL?color=1E63B5" alt="CRAN-Version">
+  </a><a href="https://CRAN.R-project.org/package=multiRL">
+    <img src="https://cranlogs.r-pkg.org/badges/grand-total/multiRL?color=FA812F" alt="CRAN-Downloads">
+  </a>
+</div>
 <!-- badges: end -->
 
 ## Overview
@@ -148,12 +154,3 @@ $$
 | | **MAP** Maximum A Posteriori (EM-MAP) | [8 Optimization Algorithms](https://yuki-961004.github.io/multiRL/reference/algorithm.html) |
 | **SBI** Simulation Based Inference | **ABC** Approximate Bayesian Computation | [2 Dimension Reduction](https://yuki-961004.github.io/multiRL/reference/reduction.html) |
 | | **RNN** Recurrent Neural Network | [3 Layers & 6 Loss Functions](https://yuki-961004.github.io/multiRL/reference/layer.html) |
-
-
-## Reference  
-
-- Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed). MIT press.  
-- Wilson, R. C., & Collins, A. G. (2019). Ten simple rules for the computational modeling of behavioral data. *Elife, 8*, e49547. https://doi.org/10.7554/eLife.49547  
-- Niv, Y., Edlund, J. A., Dayan, P., & O'Doherty, J. P. (2012). Neural prediction errors reveal a risk-sensitive reinforcement-learning process in the human brain. *Journal of Neuroscience, 32*(2), 551-562. https://doi.org/10.1523/JNEUROSCI.5498-10.2012  
-- Collins, A. G., & Frank, M. J. (2012). How much of reinforcement learning is working memory, not reinforcement learning? A behavioral, computational, and neurogenetic analysis. European Journal of Neuroscience, 35(7), 1024-1035. https://doi.org/10.1111/j.1460-9568.2011.07980.x  
-- Eckstein, M. K., & Collins, A. G. (2020). Computational evidence for hierarchically structured reinforcement learning in humans. Proceedings of the National Academy of Sciences, 117(47), 29381-29389. https://doi.org/10.1073/pnas.1912330117  

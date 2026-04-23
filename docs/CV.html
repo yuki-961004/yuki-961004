@@ -356,6 +356,16 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 
 <style>
 /* ===== 🎓 Academic Psychology CV Style ===== */
+/* Define pure black/white for headings */
+:root, html[data-bs-theme="light"] {
+  --cv-heading-color: #000000;
+  --bs-heading-color: #000000;
+}
+html[data-bs-theme="dark"], body.quarto-dark {
+  --cv-heading-color: #ffffff;
+  --bs-heading-color: #ffffff;
+}
+
 /* Force Serif font (Times New Roman) for the main content to mimic APA format */
 main, main p, main li {
   font-family: "Times New Roman", Times, serif !important;
@@ -365,18 +375,18 @@ main, main p, main li {
 main p, main ul, main ol {
   margin-bottom: 0.6em;
 }
-main h1, main h2, main h3, main h4, main h5, main h6, .project-title {
+h1, h2, h3, h4, h5, h6, .project-title {
   font-family: "Times New Roman", Times, serif !important;
   font-weight: bold;
-  color: var(--bs-heading-color, var(--bs-body-color)) !important;
+  color: var(--cv-heading-color) !important;
 }
-main h2 {
-  border-bottom: 2px solid var(--bs-body-color);
+h2 {
+  border-bottom: 2px solid var(--cv-heading-color);
   padding-bottom: 3px;
   margin-top: 1.2em;
   margin-bottom: 0.5em;
 }
-main h3 {
+h3 {
   margin-top: 1em;
   margin-bottom: 0.2em;
 }
@@ -393,12 +403,108 @@ main h3 {
   margin-top: 12px;
   margin-bottom: 2px;
 }
+h1.title {
+  text-align: center;
+}
+
+/* ===== 🖨️ Floating Download Button ===== */
+.floating-dl-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.floating-dl-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* ===== 🖨️ Print Styles for PDF ===== */
+@page {
+  /* 关键：将页面的物理边距设为0，这会直接屏蔽浏览器的默认页眉和页脚（时间、文件名、页码） */
+  margin: 0mm; 
+  size: A4 portrait;
+}
+
+@media print {
+  /* 防止标题打印在页面底部而内容在下一页（避免孤立标题） */
+  h1, h2, h3, h4, h5, h6, .project-title {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* 隐藏按钮、导航栏以及任何背景动画（如雪花特效） */
+  .floating-dl-btn, #quarto-header, #quarto-margin-sidebar, .toc-active, canvas {
+    display: none !important; }
+  
+  /* 强制锁定为A4纸的排版宽度，并在内容区重新增加安全边距，防止文字贴近纸张边缘 */
+  body {
+    width: 210mm !important;
+    margin: 0 auto !important;
+    padding: 15mm 20mm !important; 
+  }
+
+  html, body, .quarto-container {
+    -webkit-print-color-adjust: exact !important; /* 强制保留暗黑模式的背景色 */
+    print-color-adjust: exact !important;
+    background-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
+  }
+}
 </style>
-<div data-align="center">
+
+<a class="floating-dl-btn" onclick="window.print()" title="Download as PDF">
+  <i class="bi bi-file-earmark-arrow-down-fill" style="font-size: 24px;"></i>
+</a>
+<div class="text-center">
 <p><strong>Master’s student, School of Psychology, Nanjing Normal University</strong></p>
 </div>
+<style>
+  .badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .badges a {
+    text-decoration: none !important;
+    box-shadow: none !important; /* 有些主题（如 Academic）使用 box-shadow 代替下划线 */
+  }
+  .badge-full {
+    display: inline-block;
+    height: 20px;
+  }
+  .badge-short {
+    display: none;
+    height: 20px;
+  }
+  @media (max-width: 600px) {
+    .badges {
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+    .badge-full {
+      display: none;
+    }
+    .badge-short {
+      display: inline-block;
+    }
+  }
+</style>
 <div class="badges">
-<p><a href="mailto:hmz1969a@gmail.com"> <img src="https://img.shields.io/badge/Email-hmz1969a@gmail.com-EA4335?style=flat-square&amp;logo=gmail&amp;logoColor=white" alt="Email" style="height: 20px;"> </a> <a href="https://orcid.org/0009-0000-1378-1318"> <img src="https://img.shields.io/badge/ORCID-0009--0000--1378--1318-A6CE39?style=flat-square&amp;logo=orcid&amp;logoColor=white" alt="ORCID" style="height: 20px;"> </a> <a href="https://github.com/yuki-961004"> <img src="https://img.shields.io/badge/GitHub-yuki--961004-181717?style=flat-square&amp;logo=github&amp;logoColor=white" alt="GitHub" style="height: 20px;"> </a></p>
+<p><a href="mailto:hmz1969a@gmail.com"> <img class="badge-full" src="https://img.shields.io/badge/Email-hmz1969a@gmail.com-EA4335?style=flat-square&amp;logo=gmail&amp;logoColor=white" alt="Email"> <img class="badge-short" src="https://img.shields.io/badge/Email-EA4335?style=flat-square&amp;logo=gmail&amp;logoColor=white" alt="Email"> </a> <a href="https://orcid.org/0009-0000-1378-1318"> <img class="badge-full" src="https://img.shields.io/badge/ORCID-0009--0000--1378--1318-A6CE39?style=flat-square&amp;logo=orcid&amp;logoColor=white" alt="ORCID"> <img class="badge-short" src="https://img.shields.io/badge/ORCID-A6CE39?style=flat-square&amp;logo=orcid&amp;logoColor=white" alt="ORCID"> </a> <a href="https://github.com/yuki-961004"> <img class="badge-full" src="https://img.shields.io/badge/GitHub-yuki--961004-181717?style=flat-square&amp;logo=github&amp;logoColor=white" alt="GitHub"> <img class="badge-short" src="https://img.shields.io/badge/GitHub-181717?style=flat-square&amp;logo=github&amp;logoColor=white" alt="GitHub"> </a></p>
 </div>
 <section id="research-interests" class="level2">
 <h2 class="anchored" data-anchor-id="research-interests">Research Interests</h2>

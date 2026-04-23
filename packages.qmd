@@ -17,14 +17,25 @@ listing:
 ---
 
 ## Active
+
 ::: {#list-active}
 :::
 
-## Archived
+<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: -1.5em; max-width: 900px;">
 
-<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: 1.5em; max-width: 900px;">
-  These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.
+  `multiRL` is not simply a larger version or straightforward extension of `binaryRL` (much like how an F-test is not just a “bigger” t-test). The difference is not merely about displaying more bandits on the screen. Instead, `multiRL` supports more complex cognitive architectures, including latent rule learning, simultaneous updating of multiple Q-tables (e.g., RL + WM systems), and a much more flexible platform for model construction. It also supports a wider range of parameter estimation approaches, including MLE, MAP, ABC, and RNN-based methods.
+
+  Although the two packages differ substantially in functionality, they share a very similar high-level structure. This allows users who are already familiar with `binaryRL` to transition smoothly to `multiRL` with minimal additional learning. At the same time, `multiRL` introduces many new interfaces and customization options, giving advanced users much greater flexibility in defining complex models.
+
 </p>
+
+## Archived
 
 ::: {#list-archived}
 :::
+
+<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: -1.5em; max-width: 900px;">
+
+  These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.
+
+</p>

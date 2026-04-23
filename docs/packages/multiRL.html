@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="This package modularizes the Markov Decision Process (MDP) into six core components, enabling users to flexibly construct the Rescorla-Wagner Model for Multi-Armed Bandit tasks. Beginners can define models using simple if-else logic.">
+<meta name="description" content="This package is designed to help users build Rescorla–Wagner models for multi-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into six core components, allowing users to flexibly construct models using simple if-else logic.">
 
 <title>multiRL – Mengzhen Hu (YuKi)</title>
 <style>
@@ -380,7 +380,6 @@ window.Quarto = {
   <li><a href="#multiple-modules" id="toc-multiple-modules" class="nav-link" data-scroll-target="#multiple-modules">Multiple Modules</a></li>
   <li><a href="#multiple-estimators" id="toc-multiple-estimators" class="nav-link" data-scroll-target="#multiple-estimators">Multiple Estimators</a></li>
   </ul></li>
-  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
   </ul>
 </nav>
     </div>
@@ -398,7 +397,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    This package modularizes the Markov Decision Process (MDP) into six core components, enabling users to flexibly construct the Rescorla-Wagner Model for Multi-Armed Bandit tasks. Beginners can define models using simple if-else logic.
+    This package is designed to help users build Rescorla–Wagner models for <b>multi</b>-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into <b>six</b> core components, allowing users to flexibly construct models using simple <code>if-else</code> logic.
   </div>
 </div>
 
@@ -417,7 +416,16 @@ window.Quarto = {
 
 <p><a href="https://yuki-961004.github.io/multiRL/"><img src="./fig/multiRL.png" alt="LOGO" align="right" width="120"></a></p>
 <!-- badges: start -->
-<p><a href="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml"> <img src="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"> </a> <a href="https://app.codecov.io/gh/yuki-961004/multiRL"> <img src="https://codecov.io/gh/yuki-961004/multiRL/graph/badge.svg" alt="Code Coverage"> </a> <a href="https://CRAN.R-project.org/package=multiRL"> <img src="https://www.r-pkg.org/badges/version/multiRL?color=1E63B5" alt="CRAN-Version"> </a> <a href="https://CRAN.R-project.org/package=multiRL"> <img src="https://cranlogs.r-pkg.org/badges/grand-total/multiRL?color=FA812F" alt="CRAN-Downloads"> </a> <!-- badges: end --></p>
+<style>
+  .badges a {
+    text-decoration: none !important;
+    box-shadow: none !important; /* 有些主题（如 Academic）使用 box-shadow 代替下划线 */
+  }
+</style>
+<div class="badges" style="text-decoration: none;">
+<p><a href="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml"> <img src="https://github.com/yuki-961004/multiRL/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"> </a><a href="https://app.codecov.io/gh/yuki-961004/multiRL"> <img src="https://codecov.io/gh/yuki-961004/multiRL/graph/badge.svg" alt="Code Coverage"> </a><a href="https://CRAN.R-project.org/package=multiRL"> <img src="https://www.r-pkg.org/badges/version/multiRL?color=1E63B5" alt="CRAN-Version"> </a><a href="https://CRAN.R-project.org/package=multiRL"> <img src="https://cranlogs.r-pkg.org/badges/grand-total/multiRL?color=FA812F" alt="CRAN-Downloads"> </a></p>
+</div>
+<!-- badges: end -->
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>This package modularizes the <strong>Markov Decision Process (MDP)</strong> into <strong>six</strong> core components, enabling users to flexibly construct the <strong>Rescorla-Wagner Model</strong> for <strong>Multi-Armed Bandit</strong> tasks (see Sutton &amp; Barto, <a href="https://mitpress.mit.edu/9780262039246/reinforcement-learning/">2018</a>). Beginners can define models using simple <strong><code>if-else</code></strong> logic, making model construction more accessible (built-in three basic models, see Niv et al., <a href="https://doi.org/10.1523/JNEUROSCI.5498-10.2012">2012</a>).</p>
@@ -540,23 +548,9 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="reference" class="level2">
-<h2 class="anchored" data-anchor-id="reference">Reference</h2>
-<ul>
-<li>Sutton, R. S., &amp; Barto, A. G. (2018). <em>Reinforcement Learning: An Introduction</em> (2nd ed). MIT press.<br>
-</li>
-<li>Wilson, R. C., &amp; Collins, A. G. (2019). Ten simple rules for the computational modeling of behavioral data. <em>Elife, 8</em>, e49547. https://doi.org/10.7554/eLife.49547<br>
-</li>
-<li>Niv, Y., Edlund, J. A., Dayan, P., &amp; O’Doherty, J. P. (2012). Neural prediction errors reveal a risk-sensitive reinforcement-learning process in the human brain. <em>Journal of Neuroscience, 32</em>(2), 551-562. https://doi.org/10.1523/JNEUROSCI.5498-10.2012<br>
-</li>
-<li>Collins, A. G., &amp; Frank, M. J. (2012). How much of reinforcement learning is working memory, not reinforcement learning? A behavioral, computational, and neurogenetic analysis. European Journal of Neuroscience, 35(7), 1024-1035. https://doi.org/10.1111/j.1460-9568.2011.07980.x<br>
-</li>
-<li>Eckstein, M. K., &amp; Collins, A. G. (2020). Computational evidence for hierarchically structured reinforcement learning in humans. Proceedings of the National Academy of Sciences, 117(47), 29381-29389. https://doi.org/10.1073/pnas.1912330117</li>
-</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

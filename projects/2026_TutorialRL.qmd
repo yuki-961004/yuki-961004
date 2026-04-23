@@ -10,11 +10,11 @@ github: https://github.com/yuki-961004/binaryRL
 osf: https://osf.io/b7tvc
 image: "fig/2026_TutorialRL/workflow_right.png" 
 categories: [manuscript]
-list_description: "Reinforcement learning often poses a high barrier for psychologists due to the complexity of building MDPs and writing low-level code. The <code>binaryRL</code> package addresses this with a modular, Lego-like approach that decomposes the framework into core components. By using simple if-else logic to define cognitive processes, researchers can easily execute a complete pipeline—from model construction and parameter recovery to fitting and visualization. This streamlines the transition from raw behavioral data to theoretical inference with minimal technical complexity."
+list_description: "Reinforcement learning often presents a steep learning curve for psychologists, especially when it comes to building MDPs and estimating free parameters with optimization algorithms. The <code>binaryRL</code> package simplifies this process with a modular, Lego-like design that breaks the framework into easy-to-understand components. Using straightforward <code>if-else</code> logic to define cognitive processes, researchers can run the entire workflow—from model construction and parameter recovery to model fitting and visualization—with much less coding overhead."
 responsibilities: "Oh, Come on~."
 ---
 
-`binaryRL` is built upon the foundational four-step framework (Wilson & Collins, [2019](https://doi.org/10.7554/eLife.49547)) for computational modeling. This provides a systematic roadmap that ensures methodological rigor throughout the entire process, from model construction to result reporting. To facilitate immediate use, the package includes three pre-built, canonical reinforcement learning models as described by Niv et al. [(2012)](https://doi.org/10.1523/JNEUROSCI.5498-10.2012).
+`binaryRL` was developed to make it easier for general psychology researchers to apply reinforcement learning models to their own experimental paradigms. By utilizing familiar `if-else` logic to define custom cognitive processes, users can bypass the steep learning curve traditionally associated with coding reinforcement learning from scratch. The entire modeling workflow is streamlined into four key functions: `run_m()` for core model execution, `rcv_d()` for parameter and model recovery, `fit_p()` for fitting real data, and `rpl_e()` for replaying experimental effects, which are built upon the foundational four-step framework (Wilson & Collins, [2019](https://doi.org/10.7554/eLife.49547)) for computational modeling. (For users who do not want to build models from scratch, the package also includes three built-in canonical reinforcement learning models described by Niv et al. [(2012)](https://doi.org/10.1523/JNEUROSCI.5498-10.2012).)
 
 <p align="center">
 
@@ -22,7 +22,7 @@ responsibilities: "Oh, Come on~."
 
 </p>
 
-Researchers need only understand the interaction between the core components of a Markov Decision Process (MDP) to begin building their own tailored models. By utilizing familiar `if-else` logic to define custom cognitive processes, users can bypass the steep learning curve traditionally associated with coding reinforcement learning from scratch. The entire modeling workflow is streamlined into four key functions: `run_m()` for core model execution, `rcv_d()` for parameter and model recovery, `fit_p()` for fitting real data, and `rpl_e()` for replaying experimental effects.
+Although this workflow is already well established, in practice researchers often rebuild MDPs based on their own interpretations and coding styles. This process is not only time-consuming, but also creates challenges for reproducibility. Different researchers may use different programming languages, optimization algorithms, and implementation details, making results from the same model difficult to compare across studies. Another important goal of the `binaryRL` package is therefore to provide a more standardized framework for reinforcement learning research in psychology.
 
 <p align="center">
     <img src="./fig/2026_TutorialRL/workflow_full.png" alt="arrow" width="80%" style="display: inline;">

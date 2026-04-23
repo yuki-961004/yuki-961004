@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="This package is designed to help users build the Rescorla-Wagner Model for Two-Alternative Forced Choice tasks. Beginners can define models using simple if-else logic, making model construction more accessible.">
+<meta name="description" content="This package is designed to help users build Rescorla–Wagner models for two-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into five core components, allowing users to flexibly construct models using simple if-else logic.">
 
 <title>binaryRL – Mengzhen Hu (YuKi)</title>
 <style>
@@ -344,7 +344,6 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">How to cite</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#tutorial" id="toc-tutorial" class="nav-link" data-scroll-target="#tutorial">Tutorial</a>
   <ul class="collapse">
@@ -368,7 +367,7 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 
 <div>
   <div class="description">
-    This package is designed to help users build the Rescorla-Wagner Model for Two-Alternative Forced Choice tasks. Beginners can define models using simple if-else logic, making model construction more accessible.
+    This package is designed to help users build Rescorla–Wagner models for <b>two</b>-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into <b>five</b> core components, allowing users to flexibly construct models using simple <code>if-else</code> logic.
   </div>
 </div>
 
@@ -387,7 +386,15 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 
 <p><a href="https://yuki-961004.github.io/binaryRL/"><img src="./fig/binaryRL.png" alt="LOGO" align="right" width="120"></a></p>
 <!-- badges: start -->
-<p><a href="https://github.com/yuki-961004/binaryRL/actions/workflows/R-CMD-check.yaml"> <img src="https://github.com/yuki-961004/binaryRL/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"> </a> <a href="https://app.codecov.io/gh/yuki-961004/binaryRL"> <img src="https://codecov.io/gh/yuki-961004/binaryRL/graph/badge.svg" alt="Code Coverage"> </a> <a href="https://CRAN.R-project.org/package=binaryRL"> <img src="https://www.r-pkg.org/badges/version/binaryRL?color=1E63B5" alt="CRAN-Version"> </a> <a href="https://CRAN.R-project.org/package=binaryRL"> <img src="https://cranlogs.r-pkg.org/badges/grand-total/binaryRL?color=FA812F" alt="CRAN-Downloads"> </a></p>
+<style>
+  .badges a {
+    text-decoration: none !important;
+    box-shadow: none !important; /* 有些主题（如 Academic）使用 box-shadow 代替下划线 */
+  }
+</style>
+<div class="badges" style="text-decoration: none;">
+<p><a href="https://github.com/yuki-961004/binaryRL/actions/workflows/R-CMD-check.yaml"> <img src="https://github.com/yuki-961004/binaryRL/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"> </a><a href="https://app.codecov.io/gh/yuki-961004/binaryRL"> <img src="https://codecov.io/gh/yuki-961004/binaryRL/graph/badge.svg" alt="Code Coverage"> </a><a href="https://CRAN.R-project.org/package=binaryRL"> <img src="https://www.r-pkg.org/badges/version/binaryRL?color=1E63B5" alt="CRAN-Version"> </a><a href="https://CRAN.R-project.org/package=binaryRL"> <img src="https://cranlogs.r-pkg.org/badges/grand-total/binaryRL?color=FA812F" alt="CRAN-Downloads"> </a></p>
+</div>
 <!-- badges: end -->
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
@@ -399,11 +406,6 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 <li><a href="https://yuki-961004.github.io/binaryRL/articles/binaryRL.html#id_4-replay-the-experiment">Step 4</a>: Replay the Experiment <code>rpl_e()</code></li>
 </ul>
 <!---------------------------------------------------------->
-</section>
-<section id="how-to-cite" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-cite">How to cite</h2>
-<p>Hu, M., Liu, Z., Wang, X.T., &amp; Li, R. (2025). <em>binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R — A Step-by-Step Tutorial.</em> PsyArXiv. https://doi.org/10.31234/osf.io/b7tvc_v1</p>
-<p>YuKi. (2025). <em>binaryRL: Reinforcement Learning Tools for Two-Alternative Forced Choice Tasks.</em> https://CRAN.R-project.org/package=binaryRL</p>
 </section>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
@@ -444,11 +446,6 @@ _.__/  _| _|  _| \__,_| _|    \__, |  ║ | ██║  ██║ |  ████
 <p align="center">
 </p><p><img src="./fig/rl_process.png" alt="RL Process" width="34.25%" style="display: inline;"> <img src="./fig/rl_models.png" alt="RL Models" width="61%" style="display: inline;"></p>
 <p></p>
-<p><strong>Reference</strong></p>
-<p>Sutton, R. S., &amp; Barto, A. G. (2018). <em>Reinforcement Learning: An Introduction</em> (2nd ed). MIT press.</p>
-<p>Wilson, R. C., &amp; Collins, A. G. (2019). Ten simple rules for the computational modeling of behavioral data. <em>Elife, 8</em>, e49547. https://doi.org/10.7554/eLife.49547</p>
-<p>Niv, Y., Edlund, J. A., Dayan, P., &amp; O’Doherty, J. P. (2012). Neural prediction errors reveal a risk-sensitive reinforcement-learning process in the human brain. <em>Journal of Neuroscience, 32</em>(2), 551-562. https://doi.org/10.1523/JNEUROSCI.5498-10.2012</p>
-<p>Mason, A., Ludvig, E. A., Spetch, M. L., &amp; Madan, C. R. (2024). Rare and extreme outcomes in risky choice. <em>Psychonomic Bulletin &amp; Review, 31</em>(3), 1301-1308. https://doi.org/10.3758/s13423-023-02415-x</p>
 <!---------------------------------------------------------->
 <section id="example-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-data"><a href="https://yuki-961004.github.io/binaryRL/demo/DATA/binaryRL_data.html">Example Data</a></h2>

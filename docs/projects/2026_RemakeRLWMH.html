@@ -338,6 +338,11 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 </header>
 
 
+<p>Our goal in model building was to develop a model with recoverable parameters (indicating good reliability) that could also reproduce the three experimental effects shown below (indicating good validity).</p>
+<ol type="1">
+<li>If a parameter isn’t recoverable, it suggests it may be redundant or effectively masked by other parameters.</li>
+<li>If a model cannot even reproduce the experimental effects—oh come on, then there is really no point in discussing it further.</li>
+</ol>
 <div style="text-align: center;">
 <div>
 <p><img src="./fig/2026_RemakeRLWMH/SetSize_Effect_Human.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Error_Effect_Human.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_Human.png" width="30%"></p>
@@ -346,7 +351,7 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 <strong>Figure:</strong> Human
 </p>
 </div>
-<p>Here’s my take on Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>). In an MDP, two systems are involved: a reinforcement learning system and a working memory system. Within the reinforcement learning system, the process can be further differentiated into standard RL and Habit (H) based on whether the feedback is constantly treated as a subjective value of 1. The WM system consists of three parameters: the memory decay rate(<code>zeta</code>), working memory <code>capacity</code>, and the mixture <code>weight</code> between the RL and WM systems. Additionally, there are two system-independent parameters: sticky choice (action perseveration) and lapse rate (the probability of making an accidental motor error).</p>
+<p>Here is my personal interpretation of Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>). In an MDP, two systems are involved: a reinforcement learning system and a working memory system. Within the reinforcement learning system, the process can be further differentiated into standard RL and Habit (H) based on whether the feedback is constantly treated as a subjective value of 1. The WM system consists of three parameters: the memory decay rate(<code>zeta</code>), working memory <code>capacity</code>, and the mixture <code>weight</code> between the RL and WM systems. Additionally, there are two system-independent parameters: sticky choice (action perseveration) and lapse rate (the probability of making an accidental motor error).</p>
 <div style="text-align: center;">
 <div>
 <p><img src="./fig/2026_RemakeRLWMH/HWM_alpha.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/HWM_zeta.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/HWM_weight.png" width="30%"></p>
@@ -361,7 +366,7 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 <strong>Figure:</strong> HWM(6-parameter)
 </p>
 </div>
-<p>First, I need to establish whether the model’s free parameters are recoverable. If a parameter isn’t recoverable, it suggests it may be redundant or effectively masked by other parameters. In this process, I found that, compared to the optimal HWM model proposed in Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>), a streamlined three-parameter model shows better parameter recovery.</p>
+<p>HWM model remade using <code>multiRL</code> (originally proposed by Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>)) did not show good parameter recovery (in fact, the parameter recovery results reported in the original paper were also relatively weak for several parameters). It also failed to reproduce the experimental effects observed in human participants.</p>
 <div style="text-align: center;">
 <div>
 <p><img src="./fig/2026_RemakeRLWMH/HWM(-weight)_alpha.png" width="30%" style="display: inline;"> <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_zeta.png" width="30%" style="display: inline;"> <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_capacity.png" width="30%" style="display: inline;"></p>
@@ -373,7 +378,7 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 <strong>Figure:</strong> HWM(3-parameter)
 </p>
 </div>
-<p>Compared to the full six-parameter HWM model, the three-parameter model also does a better job reproducing the behavioral effects. However, it could be a misunderstanding on my part or a bug in the code. In any case, I’ll share any interesting findings here.</p>
+<p>Compared to the full six-parameter HWM model, the simplified HWM model without the <code>weight</code>, <code>lapse</code>, and <code>sticky</code> parameters was already able to reproduce the main experimental effects reasonably well. In addition, it showed substantially better parameter recovery performance.</p>
 
 
 
