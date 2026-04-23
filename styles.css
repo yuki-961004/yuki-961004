@@ -163,3 +163,16 @@ body.quarto-dark .navbar-brand.snow-glowing:hover {
   position: relative;
   z-index: 10;
 }
+
+/* ===== 📏 Navbar Size Adjustment (调整导航栏厚度/高度) ===== */
+.navbar {
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
+  min-height: 45px !important; /* 覆盖默认的最小高度 */
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
+}

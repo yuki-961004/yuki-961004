@@ -1381,15 +1381,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const closeBtn = suitsEgg.querySelector('.egg-close');
 
+  const closeEggModal = () => {
+
+    suitsEgg.style.display = 'none';
+
+  };
+
+
+
   if (closeBtn) {
 
-    closeBtn.onclick = () => {
-
-      suitsEgg.style.display = 'none';
-
-    };
+    closeBtn.addEventListener('click', closeEggModal);
 
   }
+
+
+
+  // 点击遮罩层(虚化背景)时自动关闭弹窗，提升手机端体验
+
+  suitsEgg.addEventListener('click', (e) => {
+
+    // 确保点击的是遮罩层本身，而不是弹窗内部的内容
+
+    if (e.target === suitsEgg) {
+
+      closeEggModal();
+
+    }
+
+  });
 
 
 
