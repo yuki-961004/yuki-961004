@@ -100,10 +100,21 @@ h1.title {
     display: none !important; }
   
   /* 强制锁定为A4纸的排版宽度，并在内容区重新增加安全边距，防止文字贴近纸张边缘 */
-  body {
+  html, body {
     width: 210mm !important;
-    margin: 0 auto !important;
+    min-width: 210mm !important;
+    max-width: 210mm !important;
+    margin: 0 !important;
+    -webkit-text-size-adjust: none !important;
+    text-size-adjust: none !important;
+  }
+  body {
     padding: 15mm 20mm !important; 
+    box-sizing: border-box !important; /* 关键：确保 padding 包含在 210mm 宽度内，防止移动端缩放导致边距异常变大 */
+  }
+  /* 强制写死打印时的字号 */
+  main, main p, main li {
+    font-size: 11.5pt !important;
   }
 
   html, body, .quarto-container {
