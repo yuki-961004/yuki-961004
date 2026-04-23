@@ -1,0 +1,83 @@
+```{=html}
+<style>
+  /* 默认（亮色）模式下的 Archived 标签样式 */
+  .archived-badge {
+    font-size: 0.5em;
+    font-weight: normal;
+    background-color: rgba(0, 0, 0, 0.05); /* 极淡的灰底 */
+    color: #6c757d; /* 柔和的次要文字颜色 */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  /* 暗黑模式下的 Archived 标签样式 */
+  body.quarto-dark .archived-badge,
+  html[data-bs-theme="dark"] .archived-badge {
+    background-color: rgba(255, 255, 255, 0.1); /* 半透明白底 */
+    color: #ced4da; /* 提亮的浅灰色文字，确保对比度 */
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+</style>
+<div class="quarto-listing-container-custom">
+  <% for (const item of items) { %>
+    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
+      
+      <!-- 渲染包的 Logo -->
+      <% if (item.image) { %>
+        <div class="package-logo" style="flex: 0 0 160px; display: flex; justify-content: center; align-items: flex-start;">
+          <a href="<%= item.path %>">
+            <!-- object-fit: contain 保证 Logo 不会被裁切 -->
+            <img src="<%= item.image %>" alt="<%= item.title %> logo" style="width: 100%; max-width: 160px; border-radius: 8px; object-fit: contain;">
+          </a>
+        </div>
+      <% } %>
+
+      <!-- 渲染内容部分 -->
+      <div class="package-content" style="flex: 1; min-width: 300px;">
+        <h3 style="margin-top: 0; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+          <a href="<%= item.path %>" style="text-decoration: none; color: var(--bs-link-color);"><%= item.title %></a>
+          <% if (item.categories && item.categories.includes('archived')) { %>
+            <span class="archived-badge">Archived</span>
+          <% } %>
+        </h3>
+        
+        <!-- 包的相关链接 (如 CRAN, GitHub 等，你可以在 YAML 中配置这些字段) -->
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--bs-secondary-color); margin-bottom: 15px; font-size: 0.9em;">
+          <% if (item.homepage) { %>
+            <a href="<%= item.homepage %>" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+              <i class="bi bi-house-door"></i> Homepage
+            </a>
+          <% } %>
+          <% if (item.cran) { %>
+            <a href="<%= item.cran %>" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+              <i class="fa-brands fa-r-project"></i> CRAN
+            </a>
+          <% } %>
+          <% if (item.github) { %>
+            <a href="<%= item.github %>" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+              <i class="bi bi-github"></i> GitHub
+            </a>
+          <% } %>
+          <% if (item.osf) { %>
+            <a href="<%= item.osf %>" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+              <i class="ai ai-osf"></i> OSF
+            </a>
+          <% } %>
+        <% if (item.pkg_doi) { %>
+          <a href="<%= item.pkg_doi %>" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+              <i class="ai ai-doi"></i> DOI
+            </a>
+          <% } %>
+        </div>
+
+        <!-- 包的简介 (直接展示，不使用折叠) -->
+        <% if (item.description) { %>
+          <div style="color: var(--bs-body-color); font-size: 0.95em; line-height: 1.6; opacity: 0.9;">
+            <%= item.description %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+</div>
+```

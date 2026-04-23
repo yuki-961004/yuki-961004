@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - "effect/fig/"
+
+website:
+  title: "Mengzhen Hu (YuKi)"
+  navbar:
+    logo: fig/logo.png
+    right: 
+      - href: index.html
+        text: Home
+      - href: packages.html
+        text: Packages
+      - href: projects.html
+        text: Projects 
+      - href: CV.html 
+        text: CV
+  google-analytics: "G-1SZEQKJ1H1" 
+format:
+  html:
+    include-in-header:
+      - text: |
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    include-after-body: 
+      - effect/snow.html
+      - effect/egg.html
+    theme:
+      light: flatly
+      dark: darkly
+    css:
+      - styles.css
+    toc: true
+
+editor: visual

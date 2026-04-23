@@ -1,0 +1,30 @@
+---
+title: "My Packages"
+listing:
+  - id: list-active
+    contents: "packages/*.qmd"
+    template: packages-list.ejs
+    sort: "title desc"
+    include: 
+      categories: ["active"]
+
+  - id: list-archived
+    contents: "packages/*.qmd"
+    template: packages-list.ejs
+    sort: "title desc"
+    include: 
+      categories: ["archived"]
+---
+
+## Active
+::: {#list-active}
+:::
+
+## Archived
+
+<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: 1.5em; max-width: 900px;">
+  These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.
+</p>
+
+::: {#list-archived}
+:::

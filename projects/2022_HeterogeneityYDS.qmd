@@ -1,0 +1,14 @@
+---
+title: "The Heterogeneity of Youth Depression Scales"
+short_title: "The Heterogeneity of Youth Depression Scales"
+format: html
+date: "2022-07-28"
+language: 
+  title-block-published: "Started on"
+doi: https://doi.org/10.31234/osf.io/scb6v
+github: https://github.com/Chuan-Peng-Lab/YouthDepressioninScales
+osf: https://doi.org/10.31234/osf.io/scb6v
+categories: [longterm]
+description: "This study systematically examined the heterogeneity of depression scales for Chinese children and adolescents. Across 27 scales, we found substantial differences in symptom coverage and low overlap between instruments. Analyses of data from over 12,000 participants further showed that commonly used scales produced different detection rates and captured distinct symptom profiles. These findings suggest that youth depression scales are not interchangeable and highlight the need for culturally and developmentally adapted assessment tools in non-Western contexts."
+responsibilities: "I contributed to the early-stage coding work and visualized the differences in what the scales measure."
+---

@@ -1,0 +1,165 @@
+/* ===== 🌞 Light mode: Main Navbar ===== */
+body:not(.quarto-dark) .navbar {
+  background-color: #ffffff !important;
+}
+
+body:not(.quarto-dark) .navbar .navbar-brand,
+body:not(.quarto-dark) .navbar .nav-link {
+  color: #222222 !important;
+}
+
+body:not(.quarto-dark) .navbar .nav-link:hover {
+  color: #555555 !important; /* 鼠标悬停时的颜色 */
+}
+
+body:not(.quarto-dark) .navbar .dropdown-item:hover {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+/* ===== 🌙 Dark mode: Main Navbar ===== */
+body.quarto-dark .navbar {
+  background-color: #222222 !important;
+}
+
+body.quarto-dark .navbar .navbar-brand,
+body.quarto-dark .navbar .nav-link {
+  color: #e0e0e0 !important;
+}
+
+body.quarto-dark .navbar .nav-link:hover {
+  color: #ffffff !important;
+}
+
+body.quarto-dark .navbar .dropdown-item:hover {
+  background-color: #2a2a2a;
+  color: #ffffff;
+}
+
+/* ===== 🔗 Global Hyperlinks (Black & White) ===== */
+/* Light mode */
+body:not(.quarto-dark) {
+  --bs-link-color: #000000;
+  --bs-link-hover-color: #999999;
+}
+body:not(.quarto-dark) a {
+  color: var(--bs-link-color);
+}
+body:not(.quarto-dark) a:hover {
+  color: var(--bs-link-hover-color);
+}
+
+/* Dark mode */
+body.quarto-dark {
+  --bs-link-color: #ffffff;
+  --bs-link-hover-color: #aaaaaa;
+}
+body.quarto-dark a {
+  color: var(--bs-link-color);
+}
+body.quarto-dark a:hover {
+  color: var(--bs-link-hover-color);
+}
+
+/* ===== 📑 Right Table of Contents (TOC) ===== */
+/* 未激活时的默认颜色（使用柔和的次级灰色） */
+#TOC a,
+nav[role="doc-toc"] a,
+nav[role="doc-toc"] .nav-link {
+  color: var(--bs-secondary-color) !important;
+}
+
+/* 激活时的颜色（左侧竖线和文字均使用主链接颜色） */
+#TOC a.active,
+nav[role="doc-toc"] a.active,
+nav[role="doc-toc"] .nav-link.active {
+  border-left-color: var(--bs-link-color) !important;
+  color: var(--bs-link-color) !important;
+}
+
+/* 鼠标悬停时的颜色 */
+#TOC a:hover,
+nav[role="doc-toc"] a:hover,
+nav[role="doc-toc"] .nav-link:hover {
+  color: var(--bs-link-hover-color) !important;
+}
+
+/* ===== 💻 Inline Code Highlighting ===== */
+/* Light mode */
+body:not(.quarto-dark) code {
+  background-color: #f4f4f4 !important;
+  color: #333333 !important;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+/* Dark mode */
+body.quarto-dark code {
+  background-color: #2b2b2b !important;
+  color: #cccccc !important;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+/* Prevent inline styles from affecting multi-line code blocks */
+pre code {
+  background-color: transparent !important;
+  padding: 0;
+}
+
+/* ===== 👤 About Page Links (Jolla Template) ===== */
+/* Light mode */
+body:not(.quarto-dark) .about-links .about-link,
+body:not(.quarto-dark) .about-links a {
+  color: #666666 !important; /* 默认深灰 */
+}
+body:not(.quarto-dark) .about-links .about-link:hover,
+body:not(.quarto-dark) .about-links a:hover {
+  color: #000000 !important; /* 悬停纯黑 */
+}
+
+/* Dark mode */
+body.quarto-dark .about-links .about-link,
+body.quarto-dark .about-links a {
+  color: #a0a0a0 !important; /* 默认浅灰 */
+}
+body.quarto-dark .about-links .about-link:hover,
+body.quarto-dark .about-links a:hover {
+  color: #ffffff !important; /* 悬停纯白 */
+}
+
+/* ===== ❄️ Snowflake Logo Glow Effect ===== */
+/* 修改 Quarto 默认的主题切换图标 (将亮色模式下的月亮换成雪花) */
+.quarto-color-scheme-toggle .bi-moon::before {
+  content: "\f5b8" !important; /* Bootstrap Icon: bi-snow 的 Unicode */
+}
+
+/* 给雪花（主题切换按钮）添加发光与暗淡的呼吸灯特效 */
+@keyframes snowflake-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(135, 206, 235, 0.4));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(135, 206, 235, 0.9)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+    transform: scale(1.1);
+  }
+}
+/* 给雪花 Logo (navbar-brand) 添加呼吸灯特效，仅在暗色模式且有雪花时生效 */
+html[data-bs-theme="dark"] .navbar-brand.snow-glowing,
+body.quarto-dark .navbar-brand.snow-glowing {
+  animation: snowflake-glow 2.5s infinite ease-in-out;
+  transform-origin: center;
+}
+html[data-bs-theme="dark"] .navbar-brand.snow-glowing:hover,
+body.quarto-dark .navbar-brand.snow-glowing:hover {
+  animation: none;
+  filter: drop-shadow(0 0 10px rgba(135, 206, 235, 1)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+}
+
+/* ===== 🥞 Z-Index Layering ===== */
+/* 提升网页主体内容的层级，确保其位于雪花和词云之上，防止遮挡链接与头像 */
+#quarto-content {
+  position: relative;
+  z-index: 10;
+}

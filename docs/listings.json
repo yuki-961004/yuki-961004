@@ -1,0 +1,23 @@
+[
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/2025_RecognitionRR.html",
+      "/projects/2025_ReliabilitySMT.html",
+      "/projects/2026_TutorialRL.html",
+      "/projects/2026_RemakeRLWMH.html",
+      "/projects/2023_MetaBDMG.html",
+      "/projects/2022_HeterogeneityYDS.html",
+      "/projects/2021_MetaSMT.html"
+    ]
+  },
+  {
+    "listing": "/packages.html",
+    "items": [
+      "/packages/multiRL.html",
+      "/packages/binaryRL.html",
+      "/packages/yukiSH.html",
+      "/packages/yukiBP.html"
+    ]
+  }
+]

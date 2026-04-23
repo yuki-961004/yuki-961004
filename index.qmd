@@ -1,0 +1,105 @@
+---
+title: "Mengzhen Hu (YuKi)"
+image: fig/avatar.png
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/yuki-961004
+    - text: "{{< ai google-scholar >}} Scholar"
+      href: https://scholar.google.com/citations?user=sCUQMAoAAAAJ
+    - text: "{{< ai orcid >}} ORCID"
+      href: https://orcid.org/0009-0000-1378-1318
+    - icon: twitter-x
+      text: Twitter
+      href: https://x.com/yuki_961004
+    - icon: envelope
+      text: Email
+      href: mailto:hmz1969a@gmail.com
+---
+
+
+<div style="text-align: center; font-size: 1.2em; color: var(--bs-secondary-color); margin-top: -10px; margin-bottom: -20px;">
+  <i>Fool-Stack Developer</i>
+</div>
+
+```{=html}
+<style>
+/* Slogan 绝对定位，具体坐标由 JS 动态计算 */
+#snowy-slogan {
+  position: fixed;
+  font-size: 0.85em;
+  color: var(--bs-secondary-color);
+  z-index: 1000;
+  text-align: center;
+  pointer-events: none; /* 防止文字框阻挡下方的鼠标点击事件 */
+  background: rgba(128, 128, 128, 0.1); /* 加一点极淡的背景框提升辨识度 */
+  padding: 8px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.5s ease, visibility 0.5s ease, left 0.3s ease, top 0.3s ease;
+}
+@media (max-width: 768px) {
+  #snowy-slogan { font-size: 0.8em; }
+}
+
+/* 暗黑模式下的显示与隐藏逻辑 (兼容 Quarto 与 Bootstrap 新规范) */
+body.quarto-dark #snowy-slogan,
+html[data-bs-theme="dark"] #snowy-slogan {
+  opacity: 0;
+  visibility: hidden;
+}
+</style>
+
+<div id="snowy-slogan">
+  <i>Try switching to <b>Dark Mode</b></i>
+</div>
+
+<script>
+  // 动态寻找主题切换按钮，并将 Slogan 绑定在它的正下方
+  document.addEventListener("DOMContentLoaded", function() {
+    const navbar = document.querySelector('.navbar');
+    const slogan = document.getElementById('snowy-slogan');
+    // 获取 Quarto 原生的明暗切换按钮
+    const toggleBtn = document.querySelector('.quarto-color-scheme-toggle'); 
+
+    if (slogan) {
+      const updateSloganPos = () => {
+        if (toggleBtn && toggleBtn.getBoundingClientRect().width > 0) {
+          // 如果找到了按钮且按钮可见，就绑定在按钮下方
+          const btnRect = toggleBtn.getBoundingClientRect();
+          // 垂直方向：取整个导航栏的底部，防止被导航栏遮挡
+          const navBottom = navbar ? navbar.getBoundingClientRect().bottom : btnRect.bottom;
+          slogan.style.top = (navBottom + 10) + 'px';
+          
+          // 水平方向：与按钮的中心点对齐
+          let leftPos = btnRect.left + (btnRect.width / 2) - (slogan.offsetWidth / 2);
+          
+          // 边界保护：防止标语跑到屏幕外面去
+          if (leftPos < 10) leftPos = 10;
+          if (leftPos + slogan.offsetWidth > window.innerWidth - 10) {
+            leftPos = window.innerWidth - slogan.offsetWidth - 10;
+          }
+          
+          slogan.style.left = leftPos + 'px';
+          slogan.style.right = 'auto';
+        } else if (navbar) {
+          // 备用逻辑：如果没有按钮（比如在手机端被收进折叠菜单了），默认放在导航栏右下角
+          const navRect = navbar.getBoundingClientRect();
+          slogan.style.top = (navRect.bottom + 10) + 'px';
+          slogan.style.right = '15px';
+          slogan.style.left = 'auto';
+        }
+      };
+      
+      setTimeout(updateSloganPos, 100); 
+      setTimeout(updateSloganPos, 500); // 多加一次延迟计算，防止字体加载慢导致宽度计算不准
+      window.addEventListener('resize', updateSloganPos);
+    }
+  });
+</script>
+
+<!-- 引入动态分布景深特效词云图层 -->
+{{< include effect/cloud.html >}}
+```

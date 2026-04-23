@@ -1,0 +1,228 @@
+---
+slug: CV
+title: Mengzhen Hu (YuKi) 
+---
+
+```{=html}
+<style>
+/* ===== 🎓 Academic Psychology CV Style ===== */
+/* Force Serif font (Times New Roman) for the main content to mimic APA format */
+main, main p, main li {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 11.5pt;
+  line-height: 1.4;
+}
+main p, main ul, main ol {
+  margin-bottom: 0.6em;
+}
+main h1, main h2, main h3, main h4, main h5, main h6, .project-title {
+  font-family: "Times New Roman", Times, serif !important;
+  font-weight: bold;
+  color: var(--bs-heading-color, var(--bs-body-color)) !important;
+}
+main h2 {
+  border-bottom: 2px solid var(--bs-body-color);
+  padding-bottom: 3px;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+main h3 {
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+}
+.project-title {
+  font-size: 1.15em;
+  margin-top: -0.1em;
+  margin-bottom: 0.2em;
+  line-height: 1.3;
+}
+.cv-links {
+  display: flex;
+  gap: 15px;
+  font-size: 0.95em;
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
+</style>
+```
+
+<div align="center">
+
+**Master's student, School of Psychology, Nanjing Normal University**
+
+</div>
+
+<div class="badges">
+  <a href="mailto:hmz1969a@gmail.com">
+    <img src="https://img.shields.io/badge/Email-hmz1969a@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email" style="height: 20px;">
+  </a>
+  <a href="https://orcid.org/0009-0000-1378-1318">
+    <img src="https://img.shields.io/badge/ORCID-0009--0000--1378--1318-A6CE39?style=flat-square&logo=orcid&logoColor=white" alt="ORCID" style="height: 20px;">
+  </a>
+  <a href="https://github.com/yuki-961004">
+    <img src="https://img.shields.io/badge/GitHub-yuki--961004-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" style="height: 20px;">
+  </a>
+</div>
+
+## Research Interests
+
+Cognition, Decision Making, Reinforcement Learning, Open Science.
+
+## Education 
+- 2024.06 ~ Now (Gap Years)
+  - Developing a R package [`binaryRL`](https://yuki-961004.github.io/binaryRL/) and [`multiRL`](https://yuki-961004.github.io/multiRL/)
+  - Finishing up previous projects.  
+
+- 2021.09 ~ 2024.06	M.Sc. in Psychology, Nanjing Normal University, Nanjing, China
+
+- 2019.06 ~ 2021.09	(Gap Years)
+  - Preparing for graduate entrance exams 
+  - Reading textbooks about SEM and HLM  
+
+- 2015.09 ~ 2019.06	B.Sc. in Psychology, Capital Normal University, Beijing, China
+
+## R Packages
+-	YuKi & Xinyu. (2026). multiRL: Reinforcement Learning Tools for Multi-Armed Bandit. R package version 0.3.7. https://CRAN.R-project.org/package=multiRL 
+- YuKi. (2025). binaryRL: Reinforcement Learning Tools for Two-Alternative Forced Choice Tasks. R package version 0.9.9. https://CRAN.R-project.org/package=binaryRL 
+
+## RStudio Theme
+- A VS Code–inspired dark theme for the RStudio IDE ([RSCode](https://github.com/yuki-961004/RSCode)).
+
+## Publications 
+-	**Hu, M.**<sup>#</sup>, Liu, Z.<sup>#</sup>, Zheng, Y., Sui, J., & Chuan-Peng, H. (2025). A multiverse assessment of the reliability of the self-matching task as a measurement of the self-prioritization effect. *Behavior Research Methods, 57*(1), 37. https://doi.org/10.3758/s13428-024-02538-6 
+-	Liu, Z., Wang, X., Wang, Z., Yan, W., & **Hu, M.** (2025). Registered reports in psychology across scholarly citations and public dissemination: A comparative meta evaluation of more than a decade of practice. *American Psychologist*. https://doi.org/10.1037/amp0001503
+
+## Manuscript 
+-	**Hu, M.**, Liu, Z., Wang, X., & Li, R. (2025). binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R—A Step-by-Step Tutorial. *OSF* https://doi.org/10.31234/osf.io/b7tvc_v1. 
+
+## Research Projects 
+### Project 1
+
+<div class="project-title">Beyond the Ten Simple Rules: Reliability, Validity, and Parsimony in Evaluating the RLWMH Models </div>
+
+<div class="cv-links">
+  <a href="https://github.com/yuki-961004/RLWMH" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+</div>
+
+*In the field of computational modeling, various estimation methods are available to identify optimal parameter values for black-box functions. However, these methods often yield diverging estimates for the same model. To assess the robustness of different estimation methods, this project uses the open-access data and the RLWMH model from Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)) as a case study. We provide a comprehensive benchmark of different estimation techniques. The goal of this research is to evaluate the stability of these estimation methods. Furthermore, we will systematically increase the number of free parameters, starting from the basic Rescorla-Wagner model and progressing toward the full RLWMH model. This incremental approach allows us to evaluate the model's parsimony and identify potential parameter redundancy within the RLWMH framework proposed by Collins.*
+
+### Project 2
+
+<div class="project-title">binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R—A Step-by-Step Tutorial.</div>
+
+<div class="cv-links">
+  <a href="https://github.com/yuki-961004/binaryRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+  <a href="https://doi.org/10.31234/osf.io/b7tvc_v1" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-osf"></i> OSF</a>
+  <a href="https://doi.org/10.31234/osf.io/b7tvc_v1" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-doi"></i> DOI</a>
+</div>
+
+*Building reinforcement learning (RL) models can be a steep learning curve for many psychologists. To bridge this gap, we developed an R package that enables researchers to construct complex RL models using intuitive if-else logic. By providing a streamlined workflow, the package simplifies the entire process—from model specification to parameter estimation—making computational modeling accessible to all.*
+
+### Project 3
+
+<div class="project-title">Registered reports in psychology across scholarly citations and public dissemination: A comparative meta evaluation of more than a decade of practice</div>
+
+<div class="cv-links">
+  <a href="https://github.com/HelenLiu0609/Effectiveness_RegisteredReport" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+  <a href="https://osf.io/2kezn/" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-osf"></i> OSF</a>
+  <a href="https://dx.doi.org/10.1037/amp0001503" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-doi"></i> DOI</a>
+</div>
+
+*This project conducted a meta-analytical comparison of 120 pairs of Registered Reports (RRs) and non-Registered Reports (non-RRs) from 34 psychological journals, matched by journal, publication time, and research topic. It examined the academic recognition (citations) and public dissemination (Altmetric Attention Scores and Twitter posts) of RRs compared to traditional articles, controlling for factors like null-results reporting, transparency, and authorship.*
+
+- Responsibility:
+    - Coded collected articles, extracting key information.
+    - Used `lme4` to build *hierarchical linear models* to test for differences between RR and non-RR articles in citations and altmetrics, and to identify reasons for such differences.
+    - Used *Mplus* to construct *hierarchical linear models*, examining whether journal impact factor moderates the relationship between article type (RR vs. non-RR) and dependent variables (e.g., citations and altmetrics).
+    - Visualized the results using `ggplot2`.
+    - Responded to reviewers' statistical questions and provided solutions.
+    - Authored the *Methods* and *Results* sections of the original draft.
+
+### Project 4
+
+<div class="project-title">A multiverse assessment of the reliability of the self-matching task as a measurement of the self-prioritization effect</div>
+
+<div class="cv-links">
+  <a href="https://github.com/yuki-961004/Reliability_SPMT" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+  <a href="https://osf.io/6dghm/" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-osf"></i> OSF</a>
+  <a href="https://doi.org/10.3758/s13428-024-02538-6" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-doi"></i> DOI</a>
+</div>
+
+*This project addresses the recently proposed reliability paradox (a phenomenon where a cognitive paradigm exhibits stable experimental effects at the group level, but is unstable at the individual level). It collected 42 datasets (from a total of 22 articles) to examine the reliability of a self-prioritization effect paradigm (self-matching task). Additionally, this paper also examined the reliability of six indices: reaction time (RT), accuracy, efficiency (reaction time / accuracy), d-prime from Signal Detection Theory, and drift rate (v) and start point (z) from the Drift Diffusion Model.*
+
+- Responsibility:  
+    - Emailed authors to request raw data from papers that utilized the self-matching task.
+    - Utilized `dplyr` and `tidyr` to clean the raw data.
+    - Developed two R packages ([`yukiSH`](https://github.com/yuki-961004/yukiSH) & [`yukiBP`](https://github.com/yuki-961004/yukiBP)) for splitting the raw data into two halves to calculate split-half reliability across six indices in this paradigm.
+    - Conducted a classic meta-analysis using `metafor` to demonstrate the robustness of the experimental effect across papers.
+    - Visualized the results using `ggplot2`.
+    - Authored the original draft.
+
+### Project 5
+
+<div class="project-title">A Meta-analytical Comparison of the Self Prioritization Effect.</div>
+
+<div class="cv-links">
+  <a href="https://github.com/yuki-961004/Meta_SPMT" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+  <a href="https://osf.io/euqmf" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-osf"></i> OSF</a>
+  <a href="https://doi.org/10.17605/osf.io/euqmf" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-doi"></i> DOI</a>
+</div>
+
+*This meta-analysis aims to quantify the overall Self-Prioritization Effect (SPE) observed in associative learning tasks, such as the Self-Matching Task and the Ownership paradigm. It will investigate the magnitude, generalizability, and specificity of the SPE, exploring how its effect size varies across different cognitive processes and identifying potential moderators including associative learning task types, baseline conditions, individual differences, experimental procedures, and publication-related factors.*
+
+- Responsibility:
+    - Trained recruited coders and assigned coding tasks.
+    - Coded collected articles, extracting key information.
+    - Conducted a traditional meta-analysis using `metafor`.
+    - Visualized the results using `ggplot2`.
+    - Authored the original draft.
+
+### Project 6
+
+<div class="project-title">The Heterogeneity of Youth Depression Scales</div>
+
+<div class="cv-links">
+  <a href="https://github.com/Chuan-Peng-Lab/YouthDepressioninScales" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+  <a href="https://doi.org/10.31234/osf.io/scb6v" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-osf"></i> OSF</a>
+  <a href="https://doi.org/10.31234/osf.io/scb6v" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-doi"></i> DOI</a>
+</div>
+
+**Role: Contributor**
+
+*This study systematically examined the heterogeneity of depression scales for Chinese children and adolescents. Across 27 scales, we found substantial differences in symptom coverage and low overlap between instruments. These findings suggest that youth depression scales are not interchangeable and highlight the need for culturally and developmentally adapted assessment tools in non-Western contexts.*
+
+- Responsibility: I contributed to the early-stage coding work and visualized the differences in what the scales measure.
+
+### Project 7
+
+<div class="project-title">Business Decision-making Game Facilitates Training Effectiveness: A Three-level Meta‑Analysis</div>
+
+<div class="cv-links">
+  <a href="https://github.com/HelenLiu0609/Meta_SimulationGame_Business" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
+  <a href="https://doi.org/10.5465/AMPROC.2024.13471abstract" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="ai ai-doi"></i> DOI</a>
+</div>
+
+**Role: Contributor**
+
+*This three-level meta-analysis of 41 studies (N = 8376) reveals that business decision-making games significantly enhance training effectiveness with a moderate overall effect (g = 0.53). These positive outcomes remain robust across various participant types, game designs, and academic fields, supporting the broad implementation of such games in business education.*
+
+- Responsibility: I was responsible for developing the standardized workflow code for the meta-analysis.
+
+
+
+## Skills
+
+### Programming: 
+
+- Proficient in R, Rcpp, Mplus, SPSS, HLM, Python and LaTeX. 
+
+- Proficient in Keras/Keras3 for building Recurrent Neural Networks.
+
+- Basic programming knowledge in PsychoPy and E-prime.
+
+## Referees 
+
+- Assistant Professor Dongqing Zhu, School of Psychology, Capital Normal University, Beijing, China 
+- Professor Chuanpeng Hu, School of Psychology, Nanjing Normal University, Nanjing, China 
+- Professor Xiaotian Wang, Department of Applied Psychology, The Chinese
+University of Hong Kong, Shenzhen, China 

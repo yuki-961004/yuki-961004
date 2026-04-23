@@ -1,0 +1,48 @@
+---
+title: "My Projects"
+listing:
+
+  - id: list-publication
+    contents: "projects/*.qmd"
+    template: project-list.ejs
+    sort: "date desc"
+    include: 
+      categories: ["publication"] 
+
+  - id: list-manuscript
+    contents: "projects/*.qmd"
+    template: project-list.ejs
+    sort: "date desc"
+    include: 
+      categories: ["manuscript"]
+
+  - id: list-ongoing
+    contents: "projects/*.qmd"
+    template: project-list.ejs
+    sort: "date desc"
+    include: 
+      categories: ["ongoing"]
+
+  - id: list-longterm
+    contents: "projects/*.qmd"
+    template: project-list.ejs
+    sort: "date desc"
+    include: 
+      categories: ["longterm"]
+---
+
+## Publications
+::: {#list-publication}
+:::
+
+## Manuscript
+::: {#list-manuscript}
+:::
+
+## Work-In-Progress
+::: {#list-ongoing}
+:::
+
+## Long-term Initiatives
+::: {#list-longterm}
+:::

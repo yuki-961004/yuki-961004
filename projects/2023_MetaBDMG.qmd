@@ -1,0 +1,13 @@
+---
+title: "Business Decision-making Game Facilitates Training Effectiveness: A Three-level Meta‑Analysis"
+short_title: "Meta-analysis of Decision-Making Game"
+format: html
+date: "2023-12-05"
+language: 
+  title-block-published: "Started on"
+doi: https://doi.org/10.5465/AMPROC.2024.13471abstract
+github: https://github.com/HelenLiu0609/Meta_SimulationGame_Business
+categories: [longterm]
+description: "This three-level meta-analysis of 41 studies (N = 8376) reveals that business decision-making games significantly enhance training effectiveness with a moderate overall effect (g = 0.53). The games effectively improve reactions (g = 0.44), learning processes (g = 0.66), and performance (g = 0.45), with the strongest impact on trainee motivation (g = 0.85). These positive outcomes remain robust across various participant types, game designs, and academic fields, supporting the broad implementation of such games in business education."
+responsibilities: "I was responsible for developing the standardized workflow code for the meta-analysis."
+---

@@ -1,0 +1,79 @@
+---
+title: "Beyond the Ten Simple Rules: Reliability, Validity, and Parsimony in Evaluating the RLWMH Models"
+short_title: "Remake of RLWMH with multiRL"
+format: html
+date: "today"
+language: 
+  title-block-published: "Updated on"
+github: https://github.com/yuki-961004/RLWMH
+image: "fig/2026_RemakeRLWMH/HWM(-weight).png" 
+categories: [ongoing]
+list_description: "A recent reanalysis by Collins (2025) suggests that learning in the RLWM paradigm is driven by Habit (H) and Working Memory (WM), rather than a slow RL process. This project uses the custom <code>multiRL</code> R package to re-implement these models, progressing from simple (RL, WM, H) to complex mixtures to test parameter redundancy and recoverability. Results show that a parsimonious 3-parameter HWM model sufficiently recovers key experimental effects, while adding parameters degrades performance, strongly supporting Occam's razor. Furthermore, benchmarking MLE, ABC, and RNN reveals that ABC yields the best parameter recovery for this paradigm."
+responsibilities: "Stand-Up Comedy."
+---
+
+::: {style="text-align: center;"}
+
+<div>
+  <img src="./fig/2026_RemakeRLWMH/SetSize_Effect_Human.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/Error_Effect_Human.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_Human.png" width="30%"/>
+</div>
+
+<p style="margin-top: 10px;">
+<strong>Figure:</strong> Human
+</p>
+
+:::
+
+Here’s my take on Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)). In an MDP, two systems are involved: a reinforcement learning system and a working memory system. Within the reinforcement learning system, the process can be further differentiated into standard RL and Habit (H) based on whether the feedback is constantly treated as a subjective value of 1. The WM system consists of three parameters: the memory decay rate(`zeta`), working memory `capacity`, and the mixture `weight` between the RL and WM systems. Additionally, there are two system-independent parameters: sticky choice (action perseveration) and lapse rate (the probability of making an accidental motor error). 
+
+::: {style="text-align: center;"}
+
+<div>
+  <img src="./fig/2026_RemakeRLWMH/HWM_alpha.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/HWM_zeta.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/HWM_weight.png" width="30%"/>
+</div>
+
+<div>
+  <img src="./fig/2026_RemakeRLWMH/HWM_capacity.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/HWM_sticky.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/HWM_weight.png" width="30%"/>
+</div>
+
+<div>
+  <img src="./fig/2026_RemakeRLWMH/SetSize_Effect_HWM.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/Error_Effect_HWM.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_HWM.png" width="30%"/>
+</div>
+
+<p style="margin-top: 10px;">
+<strong>Figure:</strong> HWM(6-parameter)
+</p>
+
+:::
+
+First, I need to establish whether the model’s free parameters are recoverable. If a parameter isn’t recoverable, it suggests it may be redundant or effectively masked by other parameters. In this process, I found that, compared to the optimal HWM model proposed in Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)), a streamlined three-parameter model shows better parameter recovery.
+
+::: {style="text-align: center;"}
+
+<div>
+  <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_alpha.png" width="30%" style="display: inline;"/> 
+  <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_zeta.png" width="30%" style="display: inline;"/> 
+  <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_capacity.png" width="30%" style="display: inline;"/> 
+</div>
+
+<div>
+  <img src="./fig/2026_RemakeRLWMH/SetSize_Effect_HWM(-weight).png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/Error_Effect_HWM(-weight).png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_HWM(-weight).png" width="30%"/>
+</div>
+
+<p style="margin-top: 10px;">
+<strong>Figure:</strong> HWM(3-parameter)
+</p>
+
+:::
+
+Compared to the full six-parameter HWM model, the three-parameter model also does a better job reproducing the behavioral effects. However, it could be a misunderstanding on my part or a bug in the code. In any case, I’ll share any interesting findings here.

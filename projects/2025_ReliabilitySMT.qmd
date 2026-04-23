@@ -1,0 +1,45 @@
+---
+title: "A multiverse assessment of the reliability of the self‑matching task as a measurement of the self‑prioritization effect"
+short_title: "Reliability of the Self‑Matching Task"
+format: html
+date: "2025-01-02"
+doi: https://doi.org/10.3758/s13428-024-02538-6
+github: https://github.com/yuki-961004/Reliability_SPMT
+osf: https://osf.io/6dghm/
+image: "fig/2025_ReliabilitySMT/Fig4_shr_icc.png" 
+categories: [publication]
+list_description: "Although the Self-Matching Task exhibits highly robust effects at the group level, its individual-level reliability (both split-half and test-retest reliability) remains relatively low. This further corroborates the existence of the reliability paradox in cognitive paradigms."
+responsibilities: "I assumed nearly all responsibilities for the project's workflow. I managed the end-to-end process of data curation—scouring databases for open data and coordinating with authors for raw datasets. I also handled the rigorous side of open science by writing the pre-registration and the manuscript itself. To ensure our analysis was robust, I also built two R packages specifically for our split-half reliability metrics and executed the entire analysis pipeline."
+---
+
+The self-matching task (SMT) has become a widely adopted paradigm for investigating the self-prioritization effect (SPE), consistently demonstrating a robust processing advantage for self-associated stimuli. To quantify this robustness, we synthesized 42 independent datasets ($N = 2250$) using a meta-analytical approach. Our results confirmed that the SPE is a highly stable experimental effect at the group level, exhibiting moderate to large effect sizes across nearly all examined measures.
+
+<p align="center">
+
+<img src="./fig/2025_ReliabilitySMT/Fig_3_Forest_RT.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>
+
+Despite its group-level stability, the SMT exhibits a notable reliability paradox when evaluated for individual differences. In our assessment of six key metrics—reaction time (RT), accuracy (ACC), efficiency ($\eta$), sensitivity ($d'$), and the drift-diffusion model (DDM) parameters $v$ and $z$—we found generally low split-half reliability. Among these, RT and efficiency emerged as the most relatively reliable indicators, though their coefficients still hovered around an unsatisfactory level of approximately $0.5$.
+
+<p align="center">
+
+<img src="./fig/2025_ReliabilitySMT/Fig4_shr_icc.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>
+
+Since trial counts vary significantly across studies, we utilized the Spearman-Brown prediction formula to estimate the number of observations required to achieve a "good" reliability threshold of $0.8$. Our predictions indicate that while RT requires approximately $170$ trials to reach this level, other metrics require substantially more. Notably, the reliability for DDM-derived parameters was exceptionally poor, with the starting point ($z$) near zero, suggesting that the standard DDM may not be an appropriate fit for the cognitive architecture of the SMT.
+
+<p align="center">
+
+<img src="./fig/2025_ReliabilitySMT/Fig_5_Spear_Brown.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>
+
+In addition, to identify the most effective computational tools for this paradigm, we performed parameter recovery tests on simulated data. We observed significant discrepancies in recovery accuracy among various R packages. After comparing five different algorithms, we determined that the `RWiener` package provided the most favorable balance of accuracy and computational efficiency, outperforming other R packages.
+
+<p align="center">
+
+<img src="./fig/2025_ReliabilitySMT/Fig_S3_DDM_Pkg_Comp.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>

@@ -1,0 +1,262 @@
+<style>
+  /* 词云基础样式 */
+  .word-cloud-item {
+    position: fixed;
+    z-index: 1; /* 最底层：置于雪花和网页正文之后 */
+    color: #888888; /* 亮色模式下的专用灰色 */
+    opacity: 0.15; /* 默认微透明 */
+    filter: blur(4px); /* 默认模糊 */
+    pointer-events: none; /* 穿透鼠标事件，防止遮挡背后的链接点击 */
+    user-select: none; /* 防止意外选中文字产生系统高亮色 */
+    white-space: nowrap;
+    font-weight: 600;
+    font-family: inherit;
+    /* 让雪花脚本也能识别该元素（如果你现有的雪花脚本需要特定的 class 才能融化，可以加在这里） */
+  }
+
+  /* 暗色模式下的词云字体灰色 */
+  html[data-bs-theme="dark"] .word-cloud-item,
+  body.quarto-dark .word-cloud-item {
+    color: #bbbbbb; 
+  }
+</style>
+
+<div id="word-cloud-container"></div>
+
+<script>
+  // ==========================================
+  // 📝 词云配置区 (随时可以在这里修改你的单词)
+  // ==========================================
+  const cloudConfig = {
+    // 左侧：研究兴趣
+    leftWords: [
+      "Cognitive Computational Modeling", 
+      "Decision-Making", 
+      "Open Science", 
+      "Reinforcement Learning", 
+      "Recurrent Neural Network",
+      "Working Memory", 
+      "Drift Diffusion Model",
+      "Meta-Analysis", 
+      "Structural Equation Modeling"
+    ],
+    // 左侧单词的权重 (数值越大字号越大，需与上方单词一一对应)
+    leftWeights: [
+      1.2, // Cognitive Computational Modeling
+      2.3, // Decision-Making (重要，调大)
+      1.2, // Open Science
+      2.0, // Reinforcement Learning (最重要，调最大)
+      1.2, // Recurrent Neural Network
+      1.8, // Working Memory
+      1.0, // Drift Diffusion Model
+      1.2, // Meta-Analysis
+      0.3  // Structural Equation Modeling (字母最多，调最小)
+    ],
+    // 右侧：技能与工具 (已矫正标准大小写)
+    rightWords: [
+      "R", 
+      "Python", 
+      "C++", 
+      "TensorFlow", 
+      "Keras", 
+      "PsychoPy", 
+      "HTML", 
+      "CSS",
+      "Mplus", 
+    ],
+    // 右侧单词的权重
+    rightWeights: [
+      3.2, // R (重要且单字母，调极大)
+      1.7, // Python
+      2.8, // C++ (重要且极短，调很大)
+      2.2, // TensorFlow (重要，调大)
+      1.9, // Keras
+      1.2, // PsychoPy
+      0.5, // HTML (字母多/次要，调小)
+      0.3, // CSS (字母多/次要，调小)
+      1.3  // Mplus
+    ],
+    // 特效设置
+    showSeedBox: false,  // 新增：是否在屏幕左下角显示当前的种子号 (找到喜欢的排版后改为 false)
+    //leftSeed: Math.floor(Math.random() * 10000),   // 左侧词云的随机种子
+    leftSeed: 7932,   // 左侧词云的随机种子
+    //rightSeed: Math.floor(Math.random() * 10000),  // 右侧词云的随机种子
+    rightSeed: 2052,  // 右侧词云的随机种子
+    clearDistance: 120, // 新增：鼠标距离多近时完全清晰，不用死死对准 (容差区半径)
+    maxDistance: 500,   // 鼠标距离多近时开始逐渐变得清晰 (像素，敏感区)
+    leftHorizontalPadding: 6,  // 左侧单词距离左边缘的基准距离(vw)，越小越远离中心 (给长单词腾出空间)
+    rightHorizontalPadding: 18, // 右侧单词距离右边缘的基准距离(vw)，越大越靠近中心 (短单词往里靠)
+    exclusionPadding: 100, // 距离正文核心区(头像/名字/链接)多近时强制虚化。现在测量非常精确，建议设为 30~50
+    minOpacity: 0.25,   // 默认最暗的透明度
+    maxOpacity: 1.0,    // 鼠标最接近时的透明度
+    maxBlur: 3          // 默认最模糊的程度 (px)
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("word-cloud-container");
+    const words = [];
+    
+    // 为左右两侧实现独立的伪随机数生成器，保证每次刷新位置固定
+    let leftCurrentSeed = cloudConfig.leftSeed;
+    function leftSeededRandom() {
+      const x = Math.sin(leftCurrentSeed++) * 10000;
+      return x - Math.floor(x);
+    }
+    let rightCurrentSeed = cloudConfig.rightSeed;
+    function rightSeededRandom() {
+      const x = Math.sin(rightCurrentSeed++) * 10000;
+      return x - Math.floor(x);
+    }
+
+    // 将词云容器移动到 body 末尾，打破 Quarto 默认容器的层级(Stacking Context)束缚
+    document.body.appendChild(container);
+
+    // ========== 种子显示面板 ==========
+    if (cloudConfig.showSeedBox) {
+      const seedBox = document.createElement("div");
+      seedBox.innerHTML = `🌱 L: <b>${cloudConfig.leftSeed}</b> | R: <b>${cloudConfig.rightSeed}</b>`;
+      seedBox.style.cssText = "position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgba(0,0,0,0.6); color: #fff; padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px; pointer-events: none; backdrop-filter: blur(4px);";
+      document.body.appendChild(seedBox);
+    }
+    // ==================================
+
+    // 随机生成词云位置与样式 (采用分块算法防止严重重叠)
+    function createWord(text, isLeft, index, total) {
+      const seededRandom = isLeft ? leftSeededRandom : rightSeededRandom;
+
+      const el = document.createElement("div");
+      el.textContent = text;
+      // 如果你的雪花融化特效需要特定的 class (例如 about-image)，可以在这里用空格隔开加上它
+      el.className = "word-cloud-item melt-target"; 
+      
+      // 获取对应单词的权重
+      const weight = isLeft ? cloudConfig.leftWeights[index] : cloudConfig.rightWeights[index];
+      
+      const minRem = 0.5 * weight; // 最小尺寸 (极窄屏幕)
+      const preferredVw = 0.8 * weight; // 随宽度动态缩放的比例
+      const maxRem = 1.0 * weight; // 最大尺寸 (宽屏)
+      el.style.fontSize = `clamp(${minRem}rem, ${preferredVw}vw, ${maxRem}rem)`;
+      
+      // 取消所有 3D 倾斜，改为水平平放
+      el.style.transform = `scale(1)`;
+
+      // 计算 X 轴：左侧使用 left 定位，右侧使用 right 定位
+      // 根据左右侧使用不同的基准 padding 控制与中心的距离，并增加 15vw 的大范围随机错位
+      const basePadding = isLeft ? cloudConfig.leftHorizontalPadding : cloudConfig.rightHorizontalPadding;
+      const xPos = basePadding + seededRandom() * 15; 
+      
+      if (isLeft) {
+        el.style.left = `${xPos}vw`;
+        el.style.transformOrigin = "left center"; // 左侧文字放大向右延展
+      } else {
+        el.style.right = `${xPos}vw`;
+        el.style.transformOrigin = "right center"; // 右侧文字放大向左延展
+      }
+      
+      // 计算 Y 轴：根据该侧的总单词数动态分配行高。单词量越少，上下间距自然拉得越远
+      const totalHeightVh = 70; // 稍微收缩总高度 (原为75)
+      const startY = 15; // 起始位置往下移一点 (原为12)，防止第一个词跑出屏幕
+      const slotHeight = totalHeightVh / total;
+      const randomYOffset = (seededRandom() - 0.5) * (slotHeight * 0.2); // 减小上下浮动剧烈程度 (原为0.7)，防止相邻单词间距过大
+      
+      el.style.top = `calc(${startY}vh + ${index * slotHeight}vh + ${randomYOffset}vh)`;
+      
+      container.appendChild(el);
+      words.push(el);
+    }
+
+    // 生成两侧词云
+    cloudConfig.leftWords.forEach((w, i) => createWord(w, true, i, cloudConfig.leftWords.length));
+    cloudConfig.rightWords.forEach((w, i) => createWord(w, false, i, cloudConfig.rightWords.length));
+
+    // 鼠标移动时的景深（呼吸）特效
+    let ticking = false;
+    let currentMouseX = -1000;
+    let currentMouseY = -1000;
+
+    function renderCloud() {
+      // 精确获取核心元素：头像、名字与Slogan区块、链接图标栏
+      const safeEls = document.querySelectorAll('.about-image, .about-contents, .about-links');
+      const safeRects = Array.from(safeEls).map(el => el.getBoundingClientRect());
+
+      words.forEach(word => {
+        // 使用 offset 属性来获取坐标，无视 scale 缩放带来的中心点偏移，彻底解决“无限抖动/闪烁”的 Bug
+        const wordX = word.offsetLeft + word.offsetWidth / 2;
+        const wordY = word.offsetTop + word.offsetHeight / 2;
+        
+        // 1. 计算核心区排斥因子 (Exclusion Factor)
+        // 如果文字进入正文区域 (头像、名字、链接)，则强制透明度衰减，禁止清晰化
+        let exclusionFactor = 1;
+        if (safeRects.length > 0) {
+          let minDist = Infinity;
+          
+          // 遍历所有核心小模块，计算单词离它们中最接近的那个元素的距离
+          safeRects.forEach(rect => {
+            const dx = Math.max(rect.left - wordX, 0, wordX - rect.right);
+            const dy = Math.max(rect.top - wordY, 0, wordY - rect.bottom);
+            const distToRect = Math.sqrt(dx * dx + dy * dy);
+            if (distToRect < minDist) minDist = distToRect;
+          });
+          
+          if (minDist < cloudConfig.exclusionPadding) {
+            exclusionFactor = minDist / cloudConfig.exclusionPadding; 
+          }
+        }
+
+        // 2. 计算鼠标接近因子
+        const dist = Math.hypot(currentMouseX - wordX, currentMouseY - wordY);
+        let intensity = 0;
+        if (dist < cloudConfig.maxDistance) {
+          intensity = 1; 
+          if (dist > cloudConfig.clearDistance) {
+            intensity = 1 - ((dist - cloudConfig.clearDistance) / (cloudConfig.maxDistance - cloudConfig.clearDistance));
+          }
+        }
+
+        // 3. 综合计算：排斥因子拥有绝对否决权 (相乘)
+        const finalIntensity = intensity * exclusionFactor;
+        const finalBaseOpacity = cloudConfig.minOpacity * exclusionFactor; // 如果与正文重叠，基础透明度也会降到极低甚至 0
+        
+        const opacity = finalBaseOpacity + ((cloudConfig.maxOpacity - finalBaseOpacity) * finalIntensity);
+        const blur = cloudConfig.maxBlur - (cloudConfig.maxBlur * finalIntensity);
+        const scale = 1 + (0.25 * finalIntensity);
+        
+        word.style.opacity = opacity;
+        word.style.filter = `blur(${blur}px)`;
+        word.style.transform = `scale(${scale})`;
+      });
+      
+      ticking = false;
+    }
+
+    // 页面加载完成后初始化渲染一次
+    setTimeout(renderCloud, 100);
+
+    document.addEventListener("mousemove", (e) => {
+      currentMouseX = e.clientX;
+      currentMouseY = e.clientY;
+      if (!ticking) {
+        window.requestAnimationFrame(renderCloud);
+        ticking = true;
+      }
+    });
+
+    // 当鼠标移出浏览器时，让所有单词恢复模糊
+    document.addEventListener("mouseleave", () => {
+      currentMouseX = -1000;
+      currentMouseY = -1000;
+      if (!ticking) {
+        window.requestAnimationFrame(renderCloud);
+        ticking = true;
+      }
+    });
+
+    // 窗口缩放时重新计算排斥区域
+    window.addEventListener("resize", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(renderCloud);
+        ticking = true;
+      }
+    });
+  });
+</script>

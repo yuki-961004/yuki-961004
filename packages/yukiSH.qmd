@@ -1,0 +1,6 @@
+---
+title: yukiSH
+description: "This package is designed to split datasets according to input category variables (e.g., subject, experimental condition). It systematically applies four different split-half methods (Odd-Even, First-Second, Permuted Split-Half, and Monte Carlo Split-Half) to each sub-dataset, providing a standardized data foundation for subsequent reliability analysis."
+github: "https://github.com/yuki-961004/yukiSH"
+categories: [archived]
+---

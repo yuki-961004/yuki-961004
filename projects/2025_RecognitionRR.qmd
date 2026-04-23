@@ -1,0 +1,37 @@
+---
+title: "Registered Reports in Psychology Across Scholarly Citations and Public Dissemination: A Comparative Metaevaluation of More Than a Decade of Practice"
+short_title: "Recognition of the Registered Reports"
+format: html
+date: "2025-01-30"
+doi: https://dx.doi.org/10.1037/amp0001503
+github: https://github.com/HelenLiu0609/Effectiveness_RegisteredReport
+osf: https://osf.io/2kezn/
+image: "fig/2025_RecognitionRR/paired_raincloud(log)_3row.png" 
+categories: [publication]
+list_description: "This study conducted a matched meta-evaluation of 119 pairs of original research articles (Registered Reports [RRs] vs. traditional non-registered reports [non-RRs]) across 33 psychology journals, matching them by publication venue, time, and research topic. The findings indicate that while RRs are designed to improve scientific transparency and reduce bias, they have not yet garnered higher academic or public attention compared to traditional reports; in fact, RRs were found to receive relatively fewer citations."
+responsibilities: "When I first joined this project, it was nothing more than a rough concept with no existing roadmap to follow. I brainstormed several analytical approaches and created the visualizations that clearly highlight how RRs and non-RRs differ across various dimensions. I wrote over 95% of the code and drafted the entire Methods and Results sections. Regarding the Introduction and Discussion sections, I proposed several potential narrative directions and thematic outlines grounded in the results we obtained. I also took the lead in addressing the statistical concerns raised by the reviewers during the peer-review process."
+---
+
+Registered Reports (RRs) represent a novel publishing format designed to enhance transparency and mitigate publication bias by conducting peer review before research outcomes are known. This meta-research identified 119 pairs of original research articles matched by journal, publication time, and research topic using keyword matching to compare their scholarly citations and public dissemination. Unfortunately, despite being viewed as a more rigorous publication model, RRs in psychology did not attract significantly higher attention; in fact, they were found to receive fewer scholarly citations than traditional non-registered reports.
+
+<p align="center">
+
+<img src="./fig/2025_RecognitionRR/paired_raincloud(log)_3col.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>
+
+In terms of scientific rigor, RRs demonstrated a clear advantage by significantly reducing the bias against null results, reporting positive findings at a rate of 62.83% compared to the much higher 85.84% found in traditional reports. Furthermore, transparency practices—including preregistration and the sharing of open data, code, and materials—were notably more prevalent in RRs than in their matched non-RR counterparts. However, this improved transparency and methodological quality did not translate into higher impact metrics, as RRs received lower citation counts when controlling for publication days, and overall public impact on social media remained statistically similar to traditional papers.
+
+<p align="center">
+
+<img src="./fig/2025_RecognitionRR/openplot.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>
+
+Because citation data is characterized by extreme positive skewness, we performed a detailed sensitivity analysis to ensure the findings were not driven by outliers. We systematically tested the stability of the results by removing different proportions of the most-cited articles and rerunning their analysis. This robustness check revealed that the finding of lower citation counts for RRs remained statistically significant unless more than 37% of the regression data or 50% of the F-test data were excluded, confirming that the citation disadvantage is a robust phenomenon within the studied sample.
+
+<p align="center">
+
+<img src="./fig/2025_RecognitionRR/Sensitive.png" alt="arrow" width="80%" style="display: inline;"/>
+
+</p>

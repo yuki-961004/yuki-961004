@@ -1,0 +1,14 @@
+---
+title: "Is Self-associative Learning Unique? A Meta-analytical Comparison of the Prioritization Effect of Self- and Non-self Associative Learning"
+short_title: "Meta-analysis of Self‑Matching Task"
+format: html
+date: "2021-07-01"
+language: 
+  title-block-published: "Started on"
+doi: https://doi.org/10.17605/osf.io/euqmf
+github: https://github.com/yuki-961004/Meta_SPMT
+osf: https://osf.io/euqmf
+categories: [longterm]
+description: "This project is a systematic, multi-level meta-analysis designed to synthesize empirical evidence regarding how newly acquired self-relevance modulates cognitive processes. While previous research often used pre-existing self-related stimuli (like one's own name or face), this study focuses on lab-based associative learning tasks, specifically the Self-Matching Task (SMT) and the Ownership Paradigm."
+responsibilities: "I joined this meta-analysis project following the initial coding of 136 papers using the Self-Perceptual Matching Task (SMT). I spearheaded the verification and cross-checking process for these studies and subsequently led the systematic search and coding efforts for newly published literature to ensure the project remained current. As the scope of the study expanded beyond its original goals to improve feasibility, I undertook a comprehensive overhaul of the technical infrastructure, rewriting the analytical code and restructuring the directory architecture. Currently, I continue to lead the project by providing training for new coders on evolving variables and developing R scripts for advanced statistical methodologies."
+---
