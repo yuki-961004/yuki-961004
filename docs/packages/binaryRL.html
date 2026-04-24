@@ -682,487 +682,212 @@ _.__/  _| _|  _| \__,_| _|    \__, |  ║ | ██║  ██║ |  ████
 
 </main> <!-- /main -->
 <!-- 动态雪花物理特效画布 -->
-
 <canvas id="snow-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2;"></canvas>
 
-
-
 <script>
-
   const canvas = document.getElementById('snow-canvas');
-
   const ctx = canvas.getContext('2d');
-
   
-
   let width, height, particles = [];
-
   let mouse = { x: -1000, y: -1000 };
-
   let avatarInfo = { x: -1000, y: -1000, radius: 0, visible: false };
-
-  let currentActiveParticles = 0; // 新增：当前激活的雪花数量，用于实现渐隐渐变大
-
   
-
   // 初始判断当前主题是否为暗色模式
-
-  function isCurrentlyDark() {
-
-    return document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
-
-  }
-
-
-
-  // 根据当前主题读取对应的用户偏好设置
-
-  const currentThemeKey = isCurrentlyDark() ? 'snow-enabled-dark' : 'snow-enabled-light';
-
-  const savedSnowForCurrentTheme = localStorage.getItem(currentThemeKey);
-
-  // 如果当前主题有偏好记录，则使用它；否则，默认暗色模式开，亮色模式关。
-
-  let snowEnabled = savedSnowForCurrentTheme !== null ? (savedSnowForCurrentTheme === 'true') : isCurrentlyDark();
-
-
+  const isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
+  // 改进：默认跟随主题 (暗色开，亮色关)。如果有本地缓存记录则优先使用记录
+  let savedSnow = localStorage.getItem('snow-enabled');
+  let snowEnabled = savedSnow !== null ? savedSnow === 'true' : isDarkMode;
 
   // 动态调整画布尺寸
-
   function resize() {
-
     width = canvas.width = window.innerWidth;
-
     height = canvas.height = window.innerHeight;
-
   }
-
   window.addEventListener('resize', resize);
-
   
-
   // 追踪鼠标位置
-
   document.addEventListener('mousemove', (e) => {
-
     mouse.x = e.clientX;
-
     mouse.y = e.clientY;
-
   });
-
   document.addEventListener('mouseleave', () => {
-
     mouse.x = -1000;
-
     mouse.y = -1000;
-
   });
-
-
 
   // ========== 新增：Logo 交互逻辑 ==========
-
   // Quarto 生成的 Navbar Logo 通常拥有 .navbar-brand 类名
-
   const logoLink = document.querySelector('.navbar-brand');
 
-
-
   // 动态更新 Logo 的发光特效标记 (提升作用域，以便在主题切换时也能调用)
-
   const updateLogoGlow = () => {
-
     if (logoLink) {
-
       if (snowEnabled) {
-
         logoLink.classList.add('snow-glowing');
-
       } else {
-
         logoLink.classList.remove('snow-glowing');
-
       }
-
     }
-
   };
 
-
-
   if (logoLink) {
-
     // 添加一些样式让它看起来更像一个按钮
-
     logoLink.style.cursor = 'pointer';
-
     logoLink.title = "Click to Toggle Snow";
-
     logoLink.addEventListener('mouseenter', () => logoLink.style.opacity = '0.7');
-
     logoLink.addEventListener('mouseleave', () => logoLink.style.opacity = '1');
-
     
-
     const logoSlogan = document.getElementById('logo-slogan');
 
-
-
     logoLink.addEventListener('click', (e) => {
-
       e.preventDefault(); // 阻止点击 Logo 跳转到主页的默认行为
-
       snowEnabled = !snowEnabled;
-
-
-
-      if (snowEnabled) {
-
-        currentActiveParticles = 0; // 重置雪花数量
-
-        particles.forEach(p => p.spawn(false)); // 强制所有雪花从顶部重新落下
-
-      }
-
-
-
-      // 将用户的选择保存到对应主题的缓存中
-
-      const themeKey = isCurrentlyDark() ? 'snow-enabled-dark' : 'snow-enabled-light';
-
-      localStorage.setItem(themeKey, snowEnabled);
-
-
+      localStorage.setItem('snow-enabled', snowEnabled); // 将用户的选择保存到浏览器缓存中
 
       updateLogoGlow(); // 点击后实时更新发光状态
 
-
-
       if (!snowEnabled) {
-
         ctx.clearRect(0, 0, width, height); // 关闭时立即清空屏幕
-
       }
-
     });
 
-
-
     updateLogoGlow(); // 初始化检查并发光
-
   }
-
-
 
   // ===== 监听主题切换，动态改变默认下雪状态 =====
-
   const themeObserver = new MutationObserver(() => {
-
-    const currentlyDark = isCurrentlyDark();
-
+    const currentlyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
     
-
-    // 主题切换时，读取新主题下的用户偏好设置
-
-    const newThemeKey = currentlyDark ? 'snow-enabled-dark' : 'snow-enabled-light';
-
-    const savedPrefForNewTheme = localStorage.getItem(newThemeKey);
-
-    // 如果新主题有存储的偏好，则使用它；否则，默认为暗色开、亮色关
-
-    const newSnowEnabled = savedPrefForNewTheme !== null ? (savedPrefForNewTheme === 'true') : currentlyDark;
-
+    // 切换主题时，雪花状态强制重置为跟随当前主题 (暗色开，亮色关)
+    snowEnabled = currentlyDark;
+    localStorage.setItem('snow-enabled', snowEnabled);
     
-
-    if (newSnowEnabled !== snowEnabled) {
-
-      snowEnabled = newSnowEnabled;
-
-      if (snowEnabled) {
-
-        currentActiveParticles = 0; // 切换主题导致开启下雪时，同样从零开始
-
-        particles.forEach(p => p.spawn(false));
-
-      }
-
-    }
-
-
-
     updateLogoGlow();
-
     if (!snowEnabled && ctx) {
-
       ctx.clearRect(0, 0, width, height);
-
     }
-
   });
-
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
-
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-
-
   class Snowflake {
-
     constructor() {
-
-      // 初始化时设为 false (从顶部开始)，配合渐进式下雪效果
-
-      this.spawn(false);
-
+      this.spawn(true);
     }
-
     
-
     spawn(initial = false) {
-
       this.x = Math.random() * width;
-
       this.y = initial ? Math.random() * height : -this.r;
-
       this.r = Math.random() * 2.5 + 1; // 雪花半径
-
       this.vy = Math.random() * 1 + 0.5; // 下落基础速度
-
       this.vx = (Math.random() - 0.5) * 1; // 左右漂移基础速度
-
       this.angle = Math.random() * Math.PI * 2;
-
       this.opacity = 0.7; // 初始透明度
-
       this.melting = false; // 是否接触到头像开始融化
-
     }
-
     
-
     update() {
-
       if (this.melting) {
-
         this.opacity -= 0.03;
-
         this.y += this.vy * 0.4;
-
         this.x += this.vx * 0.5;
-
         if (this.opacity <= 0) {
-
           this.spawn();
-
         }
-
         return;
-
       }
-
-
 
       this.angle += 0.02;
-
       this.x += this.vx + Math.sin(this.angle) * 0.5;
-
       this.y += this.vy;
 
-
-
       const dx = this.x - mouse.x;
-
       const dy = this.y - mouse.y;
-
       const dist = Math.sqrt(dx * dx + dy * dy);
-
       const minDist = 90;
 
-
-
       if (dist < minDist) {
-
         const force = (minDist - dist) / minDist;
-
         this.x += (dx / dist) * force * 4;
-
         this.y += (dy / dist) * force * 4;
-
       }
-
-
 
       if (avatarInfo.visible) {
-
         const dxAvatar = this.x - avatarInfo.x;
-
         const dyAvatar = this.y - avatarInfo.y;
-
         const distAvatar = Math.sqrt(dxAvatar * dxAvatar + dyAvatar * dyAvatar);
-
         if (distAvatar < avatarInfo.radius) {
-
           this.melting = true;
-
         }
-
       }
-
-
 
       if (this.y > height + this.r) this.spawn();
-
       if (this.x > width + this.r) this.x = -this.r;
-
       if (this.x < -this.r) this.x = width + this.r;
-
     }
-
     
-
     draw(maskRect) {
-
       // ========== 新增：避让正文区域逻辑 ==========
-
       if (maskRect) {
-
         if (this.x > maskRect.left && this.x < maskRect.right &&
-
             this.y > maskRect.top && this.y < maskRect.bottom) {
-
           return; // 如果雪花在正文遮罩区域内，跳过绘制（看起来就像掉到了背景后面）
-
         }
-
       }
-
-
 
       ctx.beginPath();
-
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-
       ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, this.opacity)})`;
-
       ctx.fill();
-
     }
-
   }
-
-
 
   function init() {
-
     resize();
-
     const numParticles = window.innerWidth < 768 ? 40 : 120;
-
     for (let i = 0; i < numParticles; i++) {
-
       particles.push(new Snowflake());
-
     }
-
     animate();
-
   }
-
-
 
   function animate() {
-
     if (!snowEnabled) {
-
       requestAnimationFrame(animate); // 虽然不画雪花了，但保持动画循环以备随时重新开启
-
       return;
-
     }
-
-
-
-    // ========== 新增：逐渐增加雪花数量 ==========
-
-    if (currentActiveParticles < particles.length) {
-
-      currentActiveParticles += particles.length / 1200; // 大约耗时 120 帧（2秒钟）逐渐增加到最大雪量
-
-      if (currentActiveParticles > particles.length) {
-
-        currentActiveParticles = particles.length;
-
-      }
-
-    }
-
-
 
     ctx.clearRect(0, 0, width, height);
-
     
-
     // ===== 核心遮罩判断逻辑 =====
-
     const avatarElement = document.querySelector('.about-image');
-
     let maskRect = null;
 
-
-
     if (avatarElement) {
-
       // 如果找到了头像，说明是 Index 主页。雪花全局全屏下落，且启用头像融化
-
       const rect = avatarElement.getBoundingClientRect();
-
       avatarInfo.x = rect.left + rect.width / 2;
-
       avatarInfo.y = rect.top + rect.height / 2;
-
       avatarInfo.radius = (rect.width / 2) * 0.9;
-
       avatarInfo.visible = true;
-
     } else {
-
       // 如果不是主页，关闭头像融化逻辑，并获取正文区域进行绘制遮挡
-
       avatarInfo.visible = false;
-
       const mainEl = document.querySelector('main'); // Quarto 会将正文放入 <main> 标签
-
       if (mainEl) {
-
         maskRect = mainEl.getBoundingClientRect();
-
       }
-
     }
 
-
-
-    const activeCount = Math.floor(currentActiveParticles);
-
-    for (let i = 0; i < activeCount; i++) {
-
-      particles[i].update();
-
-      particles[i].draw(maskRect);
-
-    }
-
+    particles.forEach(p => {
+      p.update();
+      p.draw(maskRect); // 将遮挡区域传给画笔
+    });
     
-
     requestAnimationFrame(animate);
-
   }
 
-
-
   init();
-
 </script>
 <style>
 
