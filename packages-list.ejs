@@ -17,12 +17,35 @@
     color: #ced4da; /* 提亮的浅灰色文字，确保对比度 */
     border-color: rgba(255, 255, 255, 0.2);
   }
+  
+  /* 包列表项基础布局 */
+  .pkg-item-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+  
+  /* 针对首个 Active 包的去除底边距样式 */
+  .pkg-item-layout-first {
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    border-bottom: none;
+  }
 </style>
 <div class="quarto-listing-container-custom">
   <% for (let i = 0; i < items.length; i++) { %>
     <% const item = items[i]; %>
     <% const isActiveItem = item.categories && item.categories.includes('active'); %>
-    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: <%= (isActiveItem && i === 0) ? '0px' : '35px' %>; padding-bottom: <%= (isActiveItem && i === 0) ? '10px' : '25px' %>; border-bottom: <%= (isActiveItem && i === 0) ? 'none' : '1px solid var(--bs-border-color)' %>;">
+    <% const isFirstActive = isActiveItem && i === 0; %>
+    
+    <% if (isFirstActive) { %>
+    <div class="package-item pkg-item-layout pkg-item-layout-first">
+    <% } else { %>
+    <div class="package-item pkg-item-layout">
+    <% } %>
       
       <!-- 渲染包的 Logo -->
       <% if (item.image) { %>

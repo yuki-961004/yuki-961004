@@ -459,9 +459,9 @@ window.Quarto = {
   }
 
   #interactive-divider:hover {
-    max-height: 500px; /* 展开后足够容纳文字的高度 */
+    max-height: 800px; /* 增加最大高度，防止手机端多行文本换行后被截断 */
     background-color: rgba(128, 128, 128, 0.05); /* 轻微的高亮背景 */
-    padding: 20px 30px;
+    padding: 25px 30px;
     border: 1px solid var(--bs-border-color); /* 展开后显现一个淡淡的边框 */
     cursor: auto;
   }
@@ -472,11 +472,20 @@ window.Quarto = {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* 延迟出现 */
+    /* 基于窗口大小动态缩放字体：最小 0.8rem，最大 0.95em，中间随屏幕宽度自适应 */
+    font-size: clamp(0.8rem, 3.5vw, 0.95em); 
   }
 
   #interactive-divider:hover .pkg-desc-text {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* 针对手机端极窄屏幕优化，留出更多横向空间给文字 */
+  @media (max-width: 768px) {
+    #interactive-divider:hover {
+      padding: 15px 12px;
+    }
   }
 </style>
 
@@ -518,12 +527,33 @@ document.addEventListener("DOMContentLoaded", function() {
     color: #ced4da; /* 提亮的浅灰色文字，确保对比度 */
     border-color: rgba(255, 255, 255, 0.2);
   }
+  
+  /* 包列表项基础布局 */
+  .pkg-item-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+  
+  /* 针对首个 Active 包的去除底边距样式 */
+  .pkg-item-layout-first {
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    border-bottom: none;
+  }
 </style>
 <div class="quarto-listing-container-custom">
   
     
     
-    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 0px; padding-bottom: 10px; border-bottom: none;">
+    
+    
+    
+    <div class="package-item pkg-item-layout pkg-item-layout-first">
+    
       
       <!-- 渲染包的 Logo -->
       
@@ -582,7 +612,11 @@ document.addEventListener("DOMContentLoaded", function() {
   
     
     
-    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
+    
+    
+    
+    <div class="package-item pkg-item-layout">
+    
       
       <!-- 渲染包的 Logo -->
       
@@ -684,12 +718,33 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
     color: #ced4da; /* 提亮的浅灰色文字，确保对比度 */
     border-color: rgba(255, 255, 255, 0.2);
   }
+  
+  /* 包列表项基础布局 */
+  .pkg-item-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+  
+  /* 针对首个 Active 包的去除底边距样式 */
+  .pkg-item-layout-first {
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    border-bottom: none;
+  }
 </style>
 <div class="quarto-listing-container-custom">
   
     
     
-    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
+    
+    
+    
+    <div class="package-item pkg-item-layout">
+    
       
       <!-- 渲染包的 Logo -->
       
@@ -729,7 +784,11 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
   
     
     
-    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
+    
+    
+    
+    <div class="package-item pkg-item-layout">
+    
       
       <!-- 渲染包的 Logo -->
       
