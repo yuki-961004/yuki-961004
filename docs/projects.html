@@ -933,6 +933,12 @@ window.Quarto = {
   const canvas = document.getElementById('snow-canvas');
   const ctx = canvas.getContext('2d');
   
+  // 核心修复 1：将 canvas 强制移出可能带有 transform 动画的父节点，置于 body 根层级
+  // 防止 position: fixed 降级为 absolute，从而解决页面向下滚动时长页面底部没有雪花的问题
+  if (canvas.parentElement !== document.body) {
+    document.body.appendChild(canvas);
+  }
+
   let width, height, particles = [];
   let mouse = { x: -1000, y: -1000 };
   let avatarInfo = { x: -1000, y: -1000, radius: 0, visible: false };
@@ -1101,14 +1107,17 @@ window.Quarto = {
       if (this.x < -this.r) this.x = width + this.r;
     }
     
-    draw(maskRect) {
+    draw(maskRects) {
       if (this.y - this.r > height) return; // 性能优化：不再浪费资源绘制超出屏幕的雪花
 
       // ========== 新增：避让正文区域逻辑 ==========
-      if (maskRect) {
-        if (this.x > maskRect.left && this.x < maskRect.right &&
-            this.y > maskRect.top && this.y < maskRect.bottom) {
-          return; // 如果雪花在正文遮罩区域内，跳过绘制（看起来就像掉到了背景后面）
+      if (maskRects && maskRects.length > 0) {
+        for (let i = 0; i < maskRects.length; i++) {
+          const rect = maskRects[i];
+          if (this.x > rect.left && this.x < rect.right &&
+              this.y > rect.top && this.y < rect.bottom) {
+            return; // 如果雪花在任何受保护的遮罩区域内，跳过绘制
+          }
         }
       }
 
@@ -1139,7 +1148,7 @@ window.Quarto = {
 
     // ===== 核心遮罩判断逻辑 =====
     const avatarElement = document.querySelector('.about-image');
-    let maskRect = null;
+    let maskRects = [];
 
     if (avatarElement) {
       // 如果找到了头像，说明是 Index 主页。雪花全局全屏下落，且启用头像融化
@@ -1151,15 +1160,16 @@ window.Quarto = {
     } else {
       // 如果不是主页，关闭头像融化逻辑，并获取正文区域进行绘制遮挡
       avatarInfo.visible = false;
-      const mainEl = document.querySelector('main'); // Quarto 会将正文放入 <main> 标签
-      if (mainEl) {
-        maskRect = mainEl.getBoundingClientRect();
-      }
+      // 核心修复 2：获取所有需要保护的正文与列表区块，彻底防止雪花遮盖摘要里的图片和卡片
+      const safeEls = document.querySelectorAll('main, .quarto-listing-container-custom, .project-item, .package-item');
+      safeEls.forEach(el => {
+        maskRects.push(el.getBoundingClientRect());
+      });
     }
 
     particles.forEach(p => {
       p.update();
-      p.draw(maskRect); // 将遮挡区域传给画笔
+      p.draw(maskRects); // 将多个遮挡区域组成的数组传给画笔
     });
     
     requestAnimationFrame(animate);

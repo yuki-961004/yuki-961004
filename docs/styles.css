@@ -6,10 +6,12 @@ body:not(.quarto-dark) .navbar {
 body:not(.quarto-dark) .navbar .navbar-brand,
 body:not(.quarto-dark) .navbar .nav-link {
   color: #222222 !important;
+  transition: color 0.3s ease, transform 0.3s ease; /* 增加平滑过渡 */
 }
 
 body:not(.quarto-dark) .navbar .nav-link:hover {
   color: #555555 !important; /* 鼠标悬停时的颜色 */
+  transform: translateY(-1px); /* 悬停时微微上浮一点点 */
 }
 
 body:not(.quarto-dark) .navbar .dropdown-item:hover {
@@ -25,10 +27,12 @@ body.quarto-dark .navbar {
 body.quarto-dark .navbar .navbar-brand,
 body.quarto-dark .navbar .nav-link {
   color: #e0e0e0 !important;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 body.quarto-dark .navbar .nav-link:hover {
   color: #ffffff !important;
+  transform: translateY(-1px);
 }
 
 body.quarto-dark .navbar .dropdown-item:hover {
@@ -44,6 +48,7 @@ body:not(.quarto-dark) {
 }
 body:not(.quarto-dark) a {
   color: var(--bs-link-color);
+  transition: color 0.3s ease; /* 全局链接增加平滑颜色过渡 */
 }
 body:not(.quarto-dark) a:hover {
   color: var(--bs-link-hover-color);
@@ -56,6 +61,7 @@ body.quarto-dark {
 }
 body.quarto-dark a {
   color: var(--bs-link-color);
+  transition: color 0.3s ease;
 }
 body.quarto-dark a:hover {
   color: var(--bs-link-hover-color);
@@ -162,6 +168,8 @@ body.quarto-dark .navbar-brand.snow-glowing:hover {
 #quarto-content {
   position: relative;
   z-index: 10;
+  /* 挂载页面入场动画 */
+  animation: pageFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ===== 📏 Navbar Size Adjustment (调整导航栏厚度/高度) ===== */
@@ -175,4 +183,38 @@ body.quarto-dark .navbar-brand.snow-glowing:hover {
 .navbar .nav-link {
   padding-top: 0.2rem !important;
   padding-bottom: 0.2rem !important;
+}
+
+/* ===== 🚀 全局动画与交互特效 (Animations & Interactions) ===== */
+
+/* 1. 页面入场动画：由于雪花是自上而下，页面内容设为从下往上渐现，形成唯美的视觉交错 */
+@keyframes pageFadeInUp {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. 导航栏下拉菜单动画：轻柔地下滑展开 */
+.dropdown-menu.show {
+  animation: dropdownSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes dropdownSlideDown {
+  0% { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Details / Summary (折叠抽屉) 动画 */
+details summary {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+details summary:hover {
+  color: var(--bs-link-hover-color); /* 鼠标悬停时给标题一点反馈 */
+}
+/* 当 details 展开时，内部的所有同级元素执行下拉淡入动画 */
+details[open] summary ~ * {
+  animation: drawerSlideDown 0.4s ease-out forwards;
+}
+@keyframes drawerSlideDown {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }

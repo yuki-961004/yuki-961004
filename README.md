@@ -4,7 +4,7 @@
 
 <h1 align="center"><sup>multi</sub> ❅ <sub>🅁L</sub></h1>
 
-<p align="center">Where is my Harvey Specter 🥹</p>
+<p align="center">Where is Harvey?</p>
 
 
 <table border="0">
