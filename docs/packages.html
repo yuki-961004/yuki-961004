@@ -423,6 +423,80 @@ window.Quarto = {
 </header>
 
 
+<style>
+  .pkg-desc-text {
+    font-size: 0.95em; 
+    font-family: 'Georgia', serif; 
+    max-width: 900px;
+    color: #777777; /* 纯正的深灰色，用于默认亮色主题 */
+  }
+  body.quarto-dark .pkg-desc-text,
+  html[data-bs-theme="dark"] .pkg-desc-text {
+    color: #cccccc; /* 提亮的浅灰色，用于暗黑主题 */
+  }
+
+  /* --- Active 专属交互式分割线 --- */
+  #interactive-divider {
+    position: relative;
+    max-height: 2px; /* 初始状态表现为一条线 */
+    background-color: var(--bs-border-color); /* 融入系统的边框颜色 */
+    margin: 15px 0 35px 0; /* 留出合适的上下间距 */
+    overflow: hidden;
+    transition: max-height 0.6s ease, background-color 0.4s ease, padding 0.4s ease;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* 扩大不可见的鼠标触发区域，方便触发 hover */
+  #interactive-divider::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  #interactive-divider:hover {
+    max-height: 500px; /* 展开后足够容纳文字的高度 */
+    background-color: rgba(128, 128, 128, 0.05); /* 轻微的高亮背景 */
+    padding: 20px 30px;
+    border: 1px solid var(--bs-border-color); /* 展开后显现一个淡淡的边框 */
+    cursor: auto;
+  }
+
+  #interactive-divider .pkg-desc-text {
+    position: relative;
+    z-index: 2; /* 确保文字在伪元素之上，防止被遮挡无法选中文字 */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* 延迟出现 */
+  }
+
+  #interactive-divider:hover .pkg-desc-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const moveDivider = () => {
+    const placeholder = document.getElementById('interactive-divider-placeholder');
+    const divider = document.getElementById('interactive-divider');
+    // 将隐藏的描述特效块精确移动到 EJS 模板预留的插槽中
+    if (placeholder && divider && placeholder.children.length === 0) {
+      placeholder.appendChild(divider);
+    }
+  };
+  
+  moveDivider();
+  // 额外的延迟调用，防止 Quarto 渲染结构较慢
+  setTimeout(moveDivider, 150);
+  setTimeout(moveDivider, 500);
+});
+</script>
 <section id="active" class="level2">
 <h2 class="anchored" data-anchor-id="active">Active</h2>
 <div id="listing-list-active" class="quarto-listing quarto-listing-container-custom">
@@ -447,7 +521,9 @@ window.Quarto = {
 </style>
 <div class="quarto-listing-container-custom">
   
-    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
+    
+    
+    <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 0px; padding-bottom: 10px; border-bottom: none;">
       
       <!-- 渲染包的 Logo -->
       
@@ -499,7 +575,13 @@ window.Quarto = {
         
       </div>
     </div>
+
+    
+      <div id="interactive-divider-placeholder"></div>
+    
   
+    
+    
     <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
       
       <!-- 渲染包的 Logo -->
@@ -556,17 +638,33 @@ window.Quarto = {
         
       </div>
     </div>
+
+    
   
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
-<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: -1.5em; max-width: 900px;">
-</p><p><code>multiRL</code> is not simply a larger version or straightforward extension of <code>binaryRL</code> (much like how an F-test is not just a “bigger” t-test). The difference is not merely about displaying more bandits on the screen. Instead, <code>multiRL</code> supports more complex cognitive architectures, including latent rule learning, simultaneous updating of multiple Q-tables (e.g., RL + WM systems), and a much more flexible platform for model construction. It also supports a wider range of parameter estimation approaches, including MLE, MAP, ABC, and RNN-based methods.</p>
-<p>Although the two packages differ substantially in functionality, they share a very similar high-level structure. This allows users who are already familiar with <code>binaryRL</code> to transition smoothly to <code>multiRL</code> with minimal additional learning. At the same time, <code>multiRL</code> introduces many new interfaces and customization options, giving advanced users much greater flexibility in defining complex models.</p>
-<p></p>
+<div id="interactive-divider">
+<div class="pkg-desc-text">
+<p>It is not just from binary to multi, but a universal platform for constructing RL models.</p>
+<ul>
+<li><p><strong>Latent Rule Learning</strong><br>
+Supports learning latent rules (cues != responses).</p></li>
+<li><p><strong>Multiple Cognitive Systems</strong><br>
+Supports parallel updating of multiple Q-tables (<span class="math inline">\(Q_{RL}\)</span>, <span class="math inline">\(Q_{WM}\)</span>, <span class="math inline">\(Q_{..}\)</span>).</p></li>
+<li><p><strong>Flexible Trial-by-Trial Model Construction</strong><br>
+Supports infinite parameters and variables.</p></li>
+<li><p><strong>Multiple Parameter Estimation Methods</strong><br>
+Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="archived" class="level2">
 <h2 class="anchored" data-anchor-id="archived">Archived</h2>
+<div class="pkg-desc-text">
+<p>These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.</p>
+</div>
 <div id="listing-list-archived" class="quarto-listing quarto-listing-container-custom">
 <style>
   /* 默认（亮色）模式下的 Archived 标签样式 */
@@ -589,6 +687,8 @@ window.Quarto = {
 </style>
 <div class="quarto-listing-container-custom">
   
+    
+    
     <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
       
       <!-- 渲染包的 Logo -->
@@ -624,7 +724,11 @@ window.Quarto = {
         
       </div>
     </div>
+
+    
   
+    
+    
     <div class="package-item" style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--bs-border-color);">
       
       <!-- 渲染包的 Logo -->
@@ -660,13 +764,12 @@ window.Quarto = {
         
       </div>
     </div>
+
+    
   
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
-<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: -1.5em; max-width: 900px;">
-</p><p>These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.</p>
-<p></p>
 
 
 
@@ -693,17 +796,29 @@ window.Quarto = {
 
   let avatarInfo = { x: -1000, y: -1000, radius: 0, visible: false };
 
+  let currentActiveParticles = 0; // 新增：当前激活的雪花数量，用于实现渐隐渐变大
+
   
 
   // 初始判断当前主题是否为暗色模式
 
-  const isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
+  function isCurrentlyDark() {
 
-  // 改进：默认跟随主题 (暗色开，亮色关)。如果有本地缓存记录则优先使用记录
+    return document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
 
-  let savedSnow = localStorage.getItem('snow-enabled');
+  }
 
-  let snowEnabled = savedSnow !== null ? savedSnow === 'true' : isDarkMode;
+
+
+  // 根据当前主题读取对应的用户偏好设置
+
+  const currentThemeKey = isCurrentlyDark() ? 'snow-enabled-dark' : 'snow-enabled-light';
+
+  const savedSnowForCurrentTheme = localStorage.getItem(currentThemeKey);
+
+  // 如果当前主题有偏好记录，则使用它；否则，默认暗色模式开，亮色模式关。
+
+  let snowEnabled = savedSnowForCurrentTheme !== null ? (savedSnowForCurrentTheme === 'true') : isCurrentlyDark();
 
 
 
@@ -795,7 +910,23 @@ window.Quarto = {
 
       snowEnabled = !snowEnabled;
 
-      localStorage.setItem('snow-enabled', snowEnabled); // 将用户的选择保存到浏览器缓存中
+
+
+      if (snowEnabled) {
+
+        currentActiveParticles = 0; // 重置雪花数量
+
+        particles.forEach(p => p.spawn(false)); // 强制所有雪花从顶部重新落下
+
+      }
+
+
+
+      // 将用户的选择保存到对应主题的缓存中
+
+      const themeKey = isCurrentlyDark() ? 'snow-enabled-dark' : 'snow-enabled-light';
+
+      localStorage.setItem(themeKey, snowEnabled);
 
 
 
@@ -823,17 +954,37 @@ window.Quarto = {
 
   const themeObserver = new MutationObserver(() => {
 
-    const currentlyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
+    const currentlyDark = isCurrentlyDark();
 
     
 
-    // 切换主题时，雪花状态强制重置为跟随当前主题 (暗色开，亮色关)
+    // 主题切换时，读取新主题下的用户偏好设置
 
-    snowEnabled = currentlyDark;
+    const newThemeKey = currentlyDark ? 'snow-enabled-dark' : 'snow-enabled-light';
 
-    localStorage.setItem('snow-enabled', snowEnabled);
+    const savedPrefForNewTheme = localStorage.getItem(newThemeKey);
+
+    // 如果新主题有存储的偏好，则使用它；否则，默认为暗色开、亮色关
+
+    const newSnowEnabled = savedPrefForNewTheme !== null ? (savedPrefForNewTheme === 'true') : currentlyDark;
 
     
+
+    if (newSnowEnabled !== snowEnabled) {
+
+      snowEnabled = newSnowEnabled;
+
+      if (snowEnabled) {
+
+        currentActiveParticles = 0; // 切换主题导致开启下雪时，同样从零开始
+
+        particles.forEach(p => p.spawn(false));
+
+      }
+
+    }
+
+
 
     updateLogoGlow();
 
@@ -855,7 +1006,9 @@ window.Quarto = {
 
     constructor() {
 
-      this.spawn(true);
+      // 初始化时设为 false (从顶部开始)，配合渐进式下雪效果
+
+      this.spawn(false);
 
     }
 
@@ -1025,6 +1178,22 @@ window.Quarto = {
 
 
 
+    // ========== 新增：逐渐增加雪花数量 ==========
+
+    if (currentActiveParticles < particles.length) {
+
+      currentActiveParticles += particles.length / 1200; // 大约耗时 120 帧（2秒钟）逐渐增加到最大雪量
+
+      if (currentActiveParticles > particles.length) {
+
+        currentActiveParticles = particles.length;
+
+      }
+
+    }
+
+
+
     ctx.clearRect(0, 0, width, height);
 
     
@@ -1069,13 +1238,15 @@ window.Quarto = {
 
 
 
-    particles.forEach(p => {
+    const activeCount = Math.floor(currentActiveParticles);
 
-      p.update();
+    for (let i = 0; i < activeCount; i++) {
 
-      p.draw(maskRect); // 将遮挡区域传给画笔
+      particles[i].update();
 
-    });
+      particles[i].draw(maskRect);
+
+    }
 
     
 

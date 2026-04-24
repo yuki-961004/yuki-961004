@@ -83,8 +83,8 @@ h1.title {
 
 /* ===== 🖨️ Print Styles for PDF ===== */
 @page {
-  /* 关键：将页面的物理边距设为0，这会直接屏蔽浏览器的默认页眉和页脚（时间、文件名、页码） */
-  margin: 0mm; 
+  /* 统一设置每页的物理边距。这样能保证每一页都有相同的上下左右留白 */
+  margin: 7mm; 
   size: A4 portrait;
 }
 
@@ -101,16 +101,15 @@ h1.title {
   
   /* 强制锁定为A4纸的排版宽度，并在内容区重新增加安全边距，防止文字贴近纸张边缘 */
   html, body {
-    width: 210mm !important;
-    min-width: 210mm !important;
-    max-width: 210mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
     -webkit-text-size-adjust: none !important;
     text-size-adjust: none !important;
   }
   body {
-    padding: 15mm 20mm !important; 
-    box-sizing: border-box !important; /* 关键：确保 padding 包含在 210mm 宽度内，防止移动端缩放导致边距异常变大 */
+    padding: 0 !important; /* 取消 body 的 padding，完全交由 @page 控制，保证每页边距一致 */
+    box-sizing: border-box !important; 
   }
   /* 强制写死打印时的字号 */
   main, main p, main li {

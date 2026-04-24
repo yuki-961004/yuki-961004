@@ -16,26 +16,114 @@ listing:
       categories: ["archived"]
 ---
 
+```{=html}
+<style>
+  .pkg-desc-text {
+    font-size: 0.95em; 
+    font-family: 'Georgia', serif; 
+    max-width: 900px;
+    color: #777777; /* 纯正的深灰色，用于默认亮色主题 */
+  }
+  body.quarto-dark .pkg-desc-text,
+  html[data-bs-theme="dark"] .pkg-desc-text {
+    color: #cccccc; /* 提亮的浅灰色，用于暗黑主题 */
+  }
+
+  /* --- Active 专属交互式分割线 --- */
+  #interactive-divider {
+    position: relative;
+    max-height: 2px; /* 初始状态表现为一条线 */
+    background-color: var(--bs-border-color); /* 融入系统的边框颜色 */
+    margin: 15px 0 35px 0; /* 留出合适的上下间距 */
+    overflow: hidden;
+    transition: max-height 0.6s ease, background-color 0.4s ease, padding 0.4s ease;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* 扩大不可见的鼠标触发区域，方便触发 hover */
+  #interactive-divider::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  #interactive-divider:hover {
+    max-height: 500px; /* 展开后足够容纳文字的高度 */
+    background-color: rgba(128, 128, 128, 0.05); /* 轻微的高亮背景 */
+    padding: 20px 30px;
+    border: 1px solid var(--bs-border-color); /* 展开后显现一个淡淡的边框 */
+    cursor: auto;
+  }
+
+  #interactive-divider .pkg-desc-text {
+    position: relative;
+    z-index: 2; /* 确保文字在伪元素之上，防止被遮挡无法选中文字 */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* 延迟出现 */
+  }
+
+  #interactive-divider:hover .pkg-desc-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const moveDivider = () => {
+    const placeholder = document.getElementById('interactive-divider-placeholder');
+    const divider = document.getElementById('interactive-divider');
+    // 将隐藏的描述特效块精确移动到 EJS 模板预留的插槽中
+    if (placeholder && divider && placeholder.children.length === 0) {
+      placeholder.appendChild(divider);
+    }
+  };
+  
+  moveDivider();
+  // 额外的延迟调用，防止 Quarto 渲染结构较慢
+  setTimeout(moveDivider, 150);
+  setTimeout(moveDivider, 500);
+});
+</script>
+```
+
 ## Active
 
 ::: {#list-active}
 :::
 
-<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: -1.5em; max-width: 900px;">
+::: {#interactive-divider}
+::: {.pkg-desc-text}
 
-  `multiRL` is not simply a larger version or straightforward extension of `binaryRL` (much like how an F-test is not just a “bigger” t-test). The difference is not merely about displaying more bandits on the screen. Instead, `multiRL` supports more complex cognitive architectures, including latent rule learning, simultaneous updating of multiple Q-tables (e.g., RL + WM systems), and a much more flexible platform for model construction. It also supports a wider range of parameter estimation approaches, including MLE, MAP, ABC, and RNN-based methods.
+  It is not just from binary to multi, but a universal platform for constructing RL models.
 
-  Although the two packages differ substantially in functionality, they share a very similar high-level structure. This allows users who are already familiar with `binaryRL` to transition smoothly to `multiRL` with minimal additional learning. At the same time, `multiRL` introduces many new interfaces and customization options, giving advanced users much greater flexibility in defining complex models.
+  - **Latent Rule Learning**  
+    Supports learning latent rules (cues != responses).
 
-</p>
+  - **Multiple Cognitive Systems**  
+    Supports parallel updating of multiple Q-tables ($Q_{RL}$, $Q_{WM}$, $Q_{..}$).
+
+  - **Flexible Trial-by-Trial Model Construction**  
+    Supports infinite parameters and variables.
+
+  - **Multiple Parameter Estimation Methods**  
+    Supports MLE, MAP, ABC, and RNN-based estimation approaches.
+
+:::
+:::
 
 ## Archived
+
+::: {.pkg-desc-text}
+These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.
+:::
 
 ::: {#list-archived}
 :::
 
-<p style="font-size: 0.95em; color: var(--bs-secondary-color); margin-bottom: -1.5em; max-width: 900px;">
-
-  These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.
-
-</p>

@@ -433,8 +433,8 @@ h1.title {
 
 /* ===== 🖨️ Print Styles for PDF ===== */
 @page {
-  /* 关键：将页面的物理边距设为0，这会直接屏蔽浏览器的默认页眉和页脚（时间、文件名、页码） */
-  margin: 0mm; 
+  /* 统一设置每页的物理边距。这样能保证每一页都有相同的上下左右留白 */
+  margin: 7mm; 
   size: A4 portrait;
 }
 
@@ -451,16 +451,15 @@ h1.title {
   
   /* 强制锁定为A4纸的排版宽度，并在内容区重新增加安全边距，防止文字贴近纸张边缘 */
   html, body {
-    width: 210mm !important;
-    min-width: 210mm !important;
-    max-width: 210mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
     -webkit-text-size-adjust: none !important;
     text-size-adjust: none !important;
   }
   body {
-    padding: 15mm 20mm !important; 
-    box-sizing: border-box !important; /* 关键：确保 padding 包含在 210mm 宽度内，防止移动端缩放导致边距异常变大 */
+    padding: 0 !important; /* 取消 body 的 padding，完全交由 @page 控制，保证每页边距一致 */
+    box-sizing: border-box !important; 
   }
   /* 强制写死打印时的字号 */
   main, main p, main li {
@@ -720,17 +719,29 @@ Business Decision-making Game Facilitates Training Effectiveness: A Three-level 
 
   let avatarInfo = { x: -1000, y: -1000, radius: 0, visible: false };
 
+  let currentActiveParticles = 0; // 新增：当前激活的雪花数量，用于实现渐隐渐变大
+
   
 
   // 初始判断当前主题是否为暗色模式
 
-  const isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
+  function isCurrentlyDark() {
 
-  // 改进：默认跟随主题 (暗色开，亮色关)。如果有本地缓存记录则优先使用记录
+    return document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
 
-  let savedSnow = localStorage.getItem('snow-enabled');
+  }
 
-  let snowEnabled = savedSnow !== null ? savedSnow === 'true' : isDarkMode;
+
+
+  // 根据当前主题读取对应的用户偏好设置
+
+  const currentThemeKey = isCurrentlyDark() ? 'snow-enabled-dark' : 'snow-enabled-light';
+
+  const savedSnowForCurrentTheme = localStorage.getItem(currentThemeKey);
+
+  // 如果当前主题有偏好记录，则使用它；否则，默认暗色模式开，亮色模式关。
+
+  let snowEnabled = savedSnowForCurrentTheme !== null ? (savedSnowForCurrentTheme === 'true') : isCurrentlyDark();
 
 
 
@@ -822,7 +833,23 @@ Business Decision-making Game Facilitates Training Effectiveness: A Three-level 
 
       snowEnabled = !snowEnabled;
 
-      localStorage.setItem('snow-enabled', snowEnabled); // 将用户的选择保存到浏览器缓存中
+
+
+      if (snowEnabled) {
+
+        currentActiveParticles = 0; // 重置雪花数量
+
+        particles.forEach(p => p.spawn(false)); // 强制所有雪花从顶部重新落下
+
+      }
+
+
+
+      // 将用户的选择保存到对应主题的缓存中
+
+      const themeKey = isCurrentlyDark() ? 'snow-enabled-dark' : 'snow-enabled-light';
+
+      localStorage.setItem(themeKey, snowEnabled);
 
 
 
@@ -850,17 +877,37 @@ Business Decision-making Game Facilitates Training Effectiveness: A Three-level 
 
   const themeObserver = new MutationObserver(() => {
 
-    const currentlyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
+    const currentlyDark = isCurrentlyDark();
 
     
 
-    // 切换主题时，雪花状态强制重置为跟随当前主题 (暗色开，亮色关)
+    // 主题切换时，读取新主题下的用户偏好设置
 
-    snowEnabled = currentlyDark;
+    const newThemeKey = currentlyDark ? 'snow-enabled-dark' : 'snow-enabled-light';
 
-    localStorage.setItem('snow-enabled', snowEnabled);
+    const savedPrefForNewTheme = localStorage.getItem(newThemeKey);
+
+    // 如果新主题有存储的偏好，则使用它；否则，默认为暗色开、亮色关
+
+    const newSnowEnabled = savedPrefForNewTheme !== null ? (savedPrefForNewTheme === 'true') : currentlyDark;
 
     
+
+    if (newSnowEnabled !== snowEnabled) {
+
+      snowEnabled = newSnowEnabled;
+
+      if (snowEnabled) {
+
+        currentActiveParticles = 0; // 切换主题导致开启下雪时，同样从零开始
+
+        particles.forEach(p => p.spawn(false));
+
+      }
+
+    }
+
+
 
     updateLogoGlow();
 
@@ -882,7 +929,9 @@ Business Decision-making Game Facilitates Training Effectiveness: A Three-level 
 
     constructor() {
 
-      this.spawn(true);
+      // 初始化时设为 false (从顶部开始)，配合渐进式下雪效果
+
+      this.spawn(false);
 
     }
 
@@ -1052,6 +1101,22 @@ Business Decision-making Game Facilitates Training Effectiveness: A Three-level 
 
 
 
+    // ========== 新增：逐渐增加雪花数量 ==========
+
+    if (currentActiveParticles < particles.length) {
+
+      currentActiveParticles += particles.length / 1200; // 大约耗时 120 帧（2秒钟）逐渐增加到最大雪量
+
+      if (currentActiveParticles > particles.length) {
+
+        currentActiveParticles = particles.length;
+
+      }
+
+    }
+
+
+
     ctx.clearRect(0, 0, width, height);
 
     
@@ -1096,13 +1161,15 @@ Business Decision-making Game Facilitates Training Effectiveness: A Three-level 
 
 
 
-    particles.forEach(p => {
+    const activeCount = Math.floor(currentActiveParticles);
 
-      p.update();
+    for (let i = 0; i < activeCount; i++) {
 
-      p.draw(maskRect); // 将遮挡区域传给画笔
+      particles[i].update();
 
-    });
+      particles[i].draw(maskRect);
+
+    }
 
     
 
