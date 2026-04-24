@@ -787,6 +787,8 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
   let mouse = { x: -1000, y: -1000 };
   let avatarInfo = { x: -1000, y: -1000, radius: 0, visible: false };
   
+  let snowTransition = 0; // 控制雪花逐渐增加的进度 (0 到 1)
+
   // 初始判断当前主题是否为暗色模式
   const isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
   // 改进：默认跟随主题 (暗色开，亮色关)。如果有本地缓存记录则优先使用记录
@@ -841,8 +843,9 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 
       updateLogoGlow(); // 点击后实时更新发光状态
 
-      if (!snowEnabled) {
-        ctx.clearRect(0, 0, width, height); // 关闭时立即清空屏幕
+      if (snowEnabled) {
+        snowTransition = 0; // 重置进度
+        particles.forEach(p => p.resetToTop()); // 让所有雪花回到顶部错落准备落下
       }
     });
 
@@ -853,13 +856,17 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
   const themeObserver = new MutationObserver(() => {
     const currentlyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
     
-    // 切换主题时，雪花状态强制重置为跟随当前主题 (暗色开，亮色关)
-    snowEnabled = currentlyDark;
-    localStorage.setItem('snow-enabled', snowEnabled);
-    
-    updateLogoGlow();
-    if (!snowEnabled && ctx) {
-      ctx.clearRect(0, 0, width, height);
+    // 只在状态确实发生变化时才触发过渡动画
+    if (snowEnabled !== currentlyDark) {
+      snowEnabled = currentlyDark;
+      localStorage.setItem('snow-enabled', snowEnabled);
+      
+      updateLogoGlow();
+      
+      if (snowEnabled) {
+        snowTransition = 0;
+        particles.forEach(p => p.resetToTop());
+      }
     }
   });
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
@@ -867,34 +874,51 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 
   class Snowflake {
     constructor() {
-      this.spawn(true);
+      this.spawn();
+      if (snowEnabled) {
+        // 初始若为开启状态，将雪花随机分布在屏幕上方，以实现初始下落效果
+        this.y = -this.r - Math.random() * (height * 0.8); 
+      } else {
+        // 初始关闭，将雪花藏在屏幕下方
+        this.y = height + 100; 
+      }
     }
     
-    spawn(initial = false) {
+    spawn() {
       this.x = Math.random() * width;
-      this.y = initial ? Math.random() * height : -this.r;
+      this.y = -this.r; // 正常重置在屏幕正上方
       this.r = Math.random() * 2.5 + 1; // 雪花半径
-      this.vy = Math.random() * 1 + 0.5; // 下落基础速度
-      this.vx = (Math.random() - 0.5) * 1; // 左右漂移基础速度
+      this.baseVy = Math.random() * 1 + 0.5; // 存储下落基础速度
+      this.baseVx = (Math.random() - 0.5) * 1; // 存储左右漂移基础速度
       this.angle = Math.random() * Math.PI * 2;
       this.opacity = 0.7; // 初始透明度
       this.melting = false; // 是否接触到头像开始融化
     }
     
+    resetToTop() {
+      this.spawn();
+      // 将新雪花分布在屏幕上方较广的区域，使其错落有致地逐渐下落进入屏幕
+      this.y = -this.r - Math.random() * (height * 0.8);
+    }
+
     update() {
       if (this.melting) {
         this.opacity -= 0.03;
-        this.y += this.vy * 0.4;
-        this.x += this.vx * 0.5;
+        this.y += this.baseVy * 0.4;
+        this.x += this.baseVx * 0.5;
         if (this.opacity <= 0) {
-          this.spawn();
+          if (snowEnabled) this.spawn();
+          else this.y = height + 100; // 停雪时停留在屏幕外
         }
         return;
       }
 
-      this.angle += 0.02;
-      this.x += this.vx + Math.sin(this.angle) * 0.5;
-      this.y += this.vy;
+      // 根据 snowTransition 计算当前加速乘数 (0.2起步，防止彻底静止导致的卡顿感)
+      const speedMult = snowEnabled ? (0.2 + 0.8 * snowTransition) : 1.0;
+
+      this.angle += 0.02 * speedMult;
+      this.x += (this.baseVx + Math.sin(this.angle) * 0.5) * speedMult;
+      this.y += this.baseVy * speedMult;
 
       const dx = this.x - mouse.x;
       const dy = this.y - mouse.y;
@@ -916,12 +940,20 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
         }
       }
 
-      if (this.y > height + this.r) this.spawn();
+      if (this.y > height + this.r) {
+        if (snowEnabled) {
+          this.spawn(); // 下雪时正常重生
+        } else {
+          this.y = height + 100; // 停雪时到达底部后滞留，不再产生新雪
+        }
+      }
       if (this.x > width + this.r) this.x = -this.r;
       if (this.x < -this.r) this.x = width + this.r;
     }
     
     draw(maskRect) {
+      if (this.y - this.r > height) return; // 性能优化：不再浪费资源绘制超出屏幕的雪花
+
       // ========== 新增：避让正文区域逻辑 ==========
       if (maskRect) {
         if (this.x > maskRect.left && this.x < maskRect.right &&
@@ -947,13 +979,14 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
   }
 
   function animate() {
-    if (!snowEnabled) {
-      requestAnimationFrame(animate); // 虽然不画雪花了，但保持动画循环以备随时重新开启
-      return;
-    }
-
     ctx.clearRect(0, 0, width, height);
     
+    // 渐进式增加下雪速度 (200帧左右达到最大速度，约 3.3 秒完全成型)
+    if (snowEnabled && snowTransition < 1) {
+      snowTransition += 0.005;
+      if (snowTransition > 1) snowTransition = 1;
+    }
+
     // ===== 核心遮罩判断逻辑 =====
     const avatarElement = document.querySelector('.about-image');
     let maskRect = null;
@@ -1472,7 +1505,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       } else {
 
-        // 如果400毫秒内没有继续点击，且尚未达到阈值，判定为正常跳转需求
+        // 如果400毫秒内没有继续点击，仅重置点击次数，不触发强制刷新页面（避免与下雪开关冲突）
 
         clickTimer = setTimeout(() => {
 
@@ -1481,8 +1514,6 @@ document.addEventListener('DOMContentLoaded', () => {
           if (currentCount === clickCount && currentCount < 7) {
 
             sessionStorage.setItem('eggClickCount', 0);
-
-            window.location.href = logo.getAttribute('href') || '/';
 
           }
 

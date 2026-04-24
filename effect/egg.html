@@ -242,12 +242,11 @@ document.addEventListener('DOMContentLoaded', () => {
         suitsEgg.style.display = 'flex';
         sessionStorage.setItem('eggClickCount', 0); // 触发后清零
       } else {
-        // 如果400毫秒内没有继续点击，且尚未达到阈值，判定为正常跳转需求
+        // 如果400毫秒内没有继续点击，仅重置点击次数，不触发强制刷新页面（避免与下雪开关冲突）
         clickTimer = setTimeout(() => {
           const currentCount = parseInt(sessionStorage.getItem('eggClickCount') || '0');
           if (currentCount === clickCount && currentCount < 7) {
             sessionStorage.setItem('eggClickCount', 0);
-            window.location.href = logo.getAttribute('href') || '/';
           }
         }, 400); 
       }
