@@ -128,6 +128,17 @@ h1.title {
 <a class="floating-dl-btn" onclick="window.print()" title="Download as PDF">
   <i class="bi bi-file-earmark-arrow-down-fill" style="font-size: 24px;"></i>
 </a>
+
+<script>
+  // 强制将下载按钮移出带有 transform 动画的 #quarto-content 父节点，置于 body 根层级
+  // 从而防止 position: fixed 失效降级，确保按钮始终悬浮在浏览器窗口右下角
+  document.addEventListener("DOMContentLoaded", function() {
+    const dlBtn = document.querySelector('.floating-dl-btn');
+    if (dlBtn && dlBtn.parentElement !== document.body) {
+      document.body.appendChild(dlBtn);
+    }
+  });
+</script>
 ```
 
 ::: {.text-center}

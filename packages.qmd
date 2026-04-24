@@ -29,55 +29,77 @@ listing:
     color: #cccccc; /* 提亮的浅灰色，用于暗黑主题 */
   }
 
-  /* --- Active 专属交互式分割线 --- */
-  #interactive-divider {
+  /* 取消 Archived 标题默认生成的底边框，由下方的交互线替代 */
+  #archived h2, h2#archived {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* --- 交互式隐藏分割线统一样式 --- */
+  .interactive-divider {
     position: relative;
-    max-height: 2px; /* 初始状态表现为一条线 */
-    background-color: var(--bs-border-color); /* 融入系统的边框颜色 */
+    background-color: transparent; /* 背景透明 */
+    border: 0px solid transparent; 
+    border-top: 1px solid var(--bs-border-color-translucent); /* 使用半透明边框变量，完美伪装原生的柔和二级横线 */
     margin: 15px 0 35px 0; /* 留出合适的上下间距 */
-    overflow: hidden;
-    transition: max-height 0.6s ease, background-color 0.4s ease, padding 0.4s ease;
-    border-radius: 8px;
+    transition: background-color 0.4s ease, padding 0.4s ease, border-width 0.4s ease, border-color 0.4s ease, border-radius 0.4s ease;
+    border-radius: 0px; /* 初始状态为锋利的直线，无圆角 */
     cursor: pointer;
   }
 
+  /* 暗黑模式下，精准匹配原生二级标题下划线的颜色 */
+  html[data-bs-theme="dark"] .interactive-divider,
+  body.quarto-dark .interactive-divider {
+    border-top-color: #434343;
+  }
+
   /* 扩大不可见的鼠标触发区域，方便触发 hover */
-  #interactive-divider::before {
+  .interactive-divider::before {
     content: "";
     position: absolute;
-    top: -15px;
-    bottom: -15px;
+    top: -25px; /* 上下各延伸 25px，创造一个厚达 50px 的隐形触碰区 */
+    bottom: -25px;
     left: 0;
     right: 0;
     z-index: 1;
   }
 
-  #interactive-divider:hover {
-    max-height: 800px; /* 增加最大高度，防止手机端多行文本换行后被截断 */
+  .interactive-divider:hover {
     background-color: rgba(128, 128, 128, 0.05); /* 轻微的高亮背景 */
     padding: 25px 30px;
-    border: 1px solid var(--bs-border-color); /* 展开后显现一个淡淡的边框 */
+    border: 1px solid var(--bs-border-color-translucent); /* 展开后的边框也保持柔和的半透明色 */
+    border-radius: 8px; /* 展开后平滑浮现出卡片的圆角 */
     cursor: auto;
   }
 
-  #interactive-divider .pkg-desc-text {
+  /* 暗黑模式下展开的边框颜色也保持一致 */
+  html[data-bs-theme="dark"] .interactive-divider:hover,
+  body.quarto-dark .interactive-divider:hover {
+    border-color: #434343;
+  }
+
+  .interactive-divider .pkg-desc-text {
     position: relative;
+    max-height: 0px; /* 将隐藏高度的逻辑转移给内部文本 */
+    overflow: hidden; /* 内部文本收缩时自己隐藏，释放外部容器 */
     z-index: 2; /* 确保文字在伪元素之上，防止被遮挡无法选中文字 */
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* 延迟出现 */
+    transition: max-height 0.6s ease, opacity 0.3s ease, transform 0.3s ease; /* 收起时立刻消失 */
     /* 基于窗口大小动态缩放字体：最小 0.8rem，最大 0.95em，中间随屏幕宽度自适应 */
     font-size: clamp(0.8rem, 3.5vw, 0.95em); 
   }
 
-  #interactive-divider:hover .pkg-desc-text {
+  .interactive-divider:hover .pkg-desc-text {
+    max-height: 800px; /* 内部文本展开 */
     opacity: 1;
     transform: translateY(0);
+    transition: max-height 0.6s ease, opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* 展开时延迟淡入 */
   }
 
   /* 针对手机端极窄屏幕优化，留出更多横向空间给文字 */
   @media (max-width: 768px) {
-    #interactive-divider:hover {
+    .interactive-divider:hover {
       padding: 15px 12px;
     }
   }
@@ -85,19 +107,22 @@ listing:
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const moveDivider = () => {
-    const placeholder = document.getElementById('interactive-divider-placeholder');
-    const divider = document.getElementById('interactive-divider');
-    // 将隐藏的描述特效块精确移动到 EJS 模板预留的插槽中
-    if (placeholder && divider && placeholder.children.length === 0) {
-      placeholder.appendChild(divider);
-    }
+  const moveDividers = () => {
+    const move = (placeholderId, dividerId) => {
+      const placeholder = document.getElementById(placeholderId);
+      const divider = document.getElementById(dividerId);
+      // 将隐藏的描述特效块精确移动到 EJS 模板预留的插槽中
+      if (placeholder && divider && placeholder.children.length === 0) {
+        placeholder.appendChild(divider);
+      }
+    };
+    move('interactive-divider-active-placeholder', 'interactive-divider-active');
   };
   
-  moveDivider();
+  moveDividers();
   // 额外的延迟调用，防止 Quarto 渲染结构较慢
-  setTimeout(moveDivider, 150);
-  setTimeout(moveDivider, 500);
+  setTimeout(moveDividers, 150);
+  setTimeout(moveDividers, 500);
 });
 </script>
 ```
@@ -107,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ::: {#list-active}
 :::
 
-::: {#interactive-divider}
+::: {#interactive-divider-active .interactive-divider}
 ::: {.pkg-desc-text}
 
   It is not just from binary to multi, but a universal platform for constructing RL models.
@@ -127,10 +152,12 @@ document.addEventListener("DOMContentLoaded", function() {
 :::
 :::
 
-## Archived
+## Archived {#archived}
 
+::: {#interactive-divider-archived .interactive-divider style="margin-top: 0px; margin-bottom: 35px;"}
 ::: {.pkg-desc-text}
 These packages were developed to manage and analyze the large datasets involved in the <a href="projects/2025_ReliabilitySMT.html"><i>Reliability of the Self‑Matching Task</i></a> project. By packaging core functions, they avoid the messiness of traditional procedural scripts, facilitating both smooth project progression and reproducible research.
+:::
 :::
 
 ::: {#list-archived}

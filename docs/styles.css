@@ -210,9 +210,13 @@ details summary {
 details summary:hover {
   color: var(--bs-link-hover-color); /* 鼠标悬停时给标题一点反馈 */
 }
+/* 修复反复点击时动画失效的问题：在关闭状态下强制清空动画缓存 */
+details:not([open]) summary ~ * {
+  animation: none !important;
+}
 /* 当 details 展开时，内部的所有同级元素执行下拉淡入动画 */
 details[open] summary ~ * {
-  animation: drawerSlideDown 0.4s ease-out forwards;
+  animation: drawerSlideDown 0.3s ease-out; /* 移除 forwards 避免状态被锁死，并稍微加快速度使得连续点击更跟手 */
 }
 @keyframes drawerSlideDown {
   0% { opacity: 0; transform: translateY(-10px); }

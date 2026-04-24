@@ -815,13 +815,13 @@ window.Quarto = {
 
     left: 0;
 
-    width: 100vw;
+    width: 100%;
 
-    height: 100vh;
+    height: 100%;
 
     background: rgba(0, 0, 0, 0.75);
 
-    z-index: 10000;
+    z-index: 999; /* 默认 fallback 层级，稍后将由 JS 动态获取真实导航栏层级并覆盖 */
 
     display: none;
 
@@ -1179,6 +1179,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  // 核心修复：强制将彩蛋弹窗移出带有 transform 动画的父节点，置于 body 根层级
+
+  // 防止 position: fixed 降级为 absolute 导致整个弹窗基于正文向右偏移
+
+  if (suitsEgg && suitsEgg.parentElement !== document.body) {
+
+    document.body.appendChild(suitsEgg);
+
+  }
+
+
+
   // 使用 Quarto 自带的 offset 处理不同嵌套层级页面的图像路径引用
 
   const offset = (function() {
@@ -1286,6 +1298,32 @@ document.addEventListener('DOMContentLoaded', () => {
       
 
       if (clickCount >= 7) {
+
+        // 动态获取 Navbar 的实际高度与层级 (z-index)，彻底与硬编码解绑
+
+        const targetNav = document.querySelector('.fixed-top') || document.querySelector('.navbar');
+
+        if (targetNav) {
+
+          // 1. 获取实时渲染的高/宽度尺寸
+
+          const navHeight = targetNav.getBoundingClientRect().height + 'px';
+
+          suitsEgg.style.top = navHeight;
+
+          suitsEgg.style.height = `calc(100% - ${navHeight})`;
+
+          
+
+          // 2. 获取实时计算出的 z-index，并使其始终低于导航栏 1 个层级
+
+          const navZIndex = parseInt(window.getComputedStyle(targetNav).zIndex, 10);
+
+          if (!isNaN(navZIndex)) suitsEgg.style.zIndex = navZIndex - 1;
+
+        }
+
+
 
         suitsEgg.style.display = 'flex';
 
