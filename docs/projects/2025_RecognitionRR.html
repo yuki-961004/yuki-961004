@@ -581,33 +581,30 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
       this.y = y;
       this.r = Math.random() * 2.5 + 1; // 随机大小
       
-      // 修改：为了实现“从左上向右下”的礼花喷射感
-      const angle = Math.random() * Math.PI * 2; 
-      const speed = Math.random() * 4 + 2; 
-      // 增加一个向右(+6)和向下(+1.5)的强大初始速度偏移，形成烟花喷射感
-      this.vx = Math.cos(angle) * speed + 6; 
-      this.vy = Math.sin(angle) * speed + 1.5; 
+      // 核心修改：向下、成半圆形的爆炸加速度
+      // Math.PI 的弧度正好对应 0 到 180 度（即正右到正左，覆盖整个正下方区域）
+      const angle = Math.random() * Math.PI; 
+      const speed = Math.random() * 8 + 4; // 提高初始爆发速度，增强爆炸冲击力
+      
+      this.vx = Math.cos(angle) * speed; 
+      this.vy = Math.sin(angle) * speed; 
       
       this.opacity = 0.7; // 与普通雪花保持一致的透明度
       this.baseVy = Math.random() * 1 + 0.5; // 最终自然下落的基础速度
-      this.baseVx = Math.random() * 0.8 + 0.2; // 新增：平缓后也会保持微弱的向右风力
+      this.baseVx = (Math.random() - 0.5) * 1; // 恢复自然下落时的随机左右飘动，移除向右的固定风力
       this.driftAngle = Math.random() * Math.PI * 2; // 左右摇摆的初始角度
     }
 
     update() {
-      // 1. 模拟空气阻力，让初始的爆炸速度在零点几秒内迅速平缓
+      // 1. 空气阻力让水平方向的爆炸冲力迅速平缓
       this.vx *= 0.92;
       
-      // 2. 垂直方向受重力影响加速，但最终限制在普通雪花的自然下落速度以内
-      if (this.vy < this.baseVy) {
-        this.vy += 0.2; 
-      } else {
-        this.vy = this.baseVy;
-      }
+      // 2. 垂直方向的爆炸冲力同样通过空气阻力衰减，并极其平滑地过渡到自然的恒定下落速度
+      // 公式：当前速度 = 当前速度 * 阻力衰减 + 基础速度 * (1 - 阻力衰减)
+      this.vy = this.vy * 0.92 + this.baseVy * 0.08;
 
-      // 3. 像普通雪花一样，平缓后加入轻微的左右摇摆漂移
+      // 3. 平缓后加入轻微的左右摇摆漂移
       this.driftAngle += 0.02;
-      // 将向右的 baseVx 加入，使得雪花爆发后依然顺着“风”向右下方飘落
       this.x += this.vx + this.baseVx + Math.sin(this.driftAngle) * 0.5;
       this.y += this.vy;
     }
