@@ -65,6 +65,12 @@ html[data-bs-theme="dark"] #snowy-slogan {
     const toggleBtn = document.querySelector('.quarto-color-scheme-toggle'); 
 
     if (slogan) {
+      // 核心修复：将 slogan 移出带有 transform 动画的父节点，置于 body 根层级
+      // 防止 position: fixed 失效降级为 absolute 导致定位错误
+      if (slogan.parentElement !== document.body) {
+        document.body.appendChild(slogan);
+      }
+
       const updateSloganPos = () => {
         if (toggleBtn && toggleBtn.getBoundingClientRect().width > 0) {
           // 如果找到了按钮且按钮可见，就绑定在按钮下方
