@@ -223,12 +223,15 @@
             // 成功后2.5秒自动关闭弹窗
             setTimeout(closeModal, 2500);
           } else {
-            const data = await response.json();
-            if (Object.hasOwn(data, 'errors')) {
-              statusDiv.innerText = data["errors"].map(err => err["message"]).join(", ");
-            } else {
-              statusDiv.innerText = "Oops! There was a problem submitting your form.";
+            let errorMessage = "Oops! There was a problem submitting your form.";
+            try {
+              const data = await response.json();
+              if (data && data.errors) errorMessage = data.errors.map(err => err.message).join(", ");
+              else if (data && data.error) errorMessage = data.error;
+            } catch (err) {
+              errorMessage = `HTTP ${response.status}: Backend function not found. (Make sure you test on Netlify!)`;
             }
+            statusDiv.innerText = errorMessage;
             statusDiv.style.color = "var(--bs-danger, #dc3545)";
           }
         } catch (error) {

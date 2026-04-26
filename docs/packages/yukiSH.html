@@ -1671,17 +1671,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
           } else {
 
-            const data = await response.json();
+            let errorMessage = "Oops! There was a problem submitting your form.";
 
-            if (Object.hasOwn(data, 'errors')) {
+            try {
 
-              statusDiv.innerText = data["errors"].map(err => err["message"]).join(", ");
+              const data = await response.json();
 
-            } else {
+              if (data && data.errors) errorMessage = data.errors.map(err => err.message).join(", ");
 
-              statusDiv.innerText = "Oops! There was a problem submitting your form.";
+              else if (data && data.error) errorMessage = data.error;
+
+            } catch (err) {
+
+              errorMessage = `HTTP ${response.status}: Backend function not found. (Make sure you test on Netlify!)`;
 
             }
+
+            statusDiv.innerText = errorMessage;
 
             statusDiv.style.color = "var(--bs-danger, #dc3545)";
 
