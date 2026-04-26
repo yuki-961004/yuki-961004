@@ -431,6 +431,12 @@ h1.title {
   opacity: 0.8;
 }
 
+/* ===== Dark Mode Shadow for Floating Button ===== */
+html[data-bs-theme="dark"] .floating-dl-btn,
+body.quarto-dark .floating-dl-btn {
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+}
+
 /* ===== Hide Global Email Button ===== */
 .floating-email-btn {
   display: none !important;
@@ -1640,6 +1646,18 @@ document.addEventListener('DOMContentLoaded', () => {
   transform: scale(1.1);
 
   opacity: 0.8;
+
+}
+
+
+
+/* 暗黑模式下纸飞机的浅色悬浮阴影 */
+
+html[data-bs-theme="dark"] .floating-email-btn,
+
+body.quarto-dark .floating-email-btn {
+
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
 
 }
 
