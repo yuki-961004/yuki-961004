@@ -1701,7 +1701,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (response.ok) {
 
-            statusDiv.innerText = "Message sent successfully! ✅";
+            statusDiv.innerText = "Message sent successfully!";
 
             statusDiv.style.color = "var(--bs-success, #198754)";
 
@@ -1727,15 +1727,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
               if (response.status === 404) {
 
-                errorMessage = "HTTP 404: Netlify 未能找到该后端函数。请检查 netlify.toml 是否已成功提交并部署。";
+                errorMessage = "HTTP 404: Netlify could not find the backend function. Please check if netlify.toml has been successfully committed and deployed.";
 
               } else if (response.status === 500) {
 
-                errorMessage = "HTTP 500: 后端发送失败，请去 Netlify 的 Functions 面板查看具体报错日志。";
+                errorMessage = "HTTP 500: Backend failed to send. Please check the specific error logs in the Netlify Functions panel.";
 
               } else {
 
-                errorMessage = `HTTP ${response.status}: 发生未知错误。`;
+                errorMessage = `HTTP ${response.status}: An unknown error occurred.`;
 
               }
 
