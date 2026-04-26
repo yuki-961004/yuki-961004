@@ -355,7 +355,7 @@ html[data-bs-theme="dark"] #snowy-slogan {
     const sloganSeenKey = 'yuki-slogan-seen';
     // 1. 检查是否需要显示 Slogan
     // 如果用户已经看过，或者初始主题就是暗色，则永久隐藏
-    const isInitiallyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+    const isInitiallyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
     if (localStorage.getItem(sloganSeenKey) || isInitiallyDark) {
       slogan.style.display = 'none';
       // 如果是首次访问且为暗色主题，则记录下来
@@ -365,17 +365,20 @@ html[data-bs-theme="dark"] #snowy-slogan {
       return; // 直接退出，不执行后续的定位和监听逻辑
     }
     // 2. 如果需要显示，则设置监听器，在用户切换到暗色时记录状态
-    const observer = new MutationObserver((mutationsList) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-bs-theme') {
-          if (document.documentElement.getAttribute('data-bs-theme') === 'dark') {
-            localStorage.setItem(sloganSeenKey, 'true');
-            observer.disconnect(); // 任务完成，停止监听
-          }
-        }
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
+      if (isDark) {
+        localStorage.setItem(sloganSeenKey, 'true');
+        // 修复：等待 0.5 秒 CSS 渐隐动画结束后，将其彻底从图层隐藏。
+        // 这样即使用户在不刷新页面的情况下切回亮色，它也绝对不会再出现了。
+        setTimeout(() => {
+          slogan.style.display = 'none';
+        }, 500);
+        observer.disconnect(); // 任务完成，停止监听
       }
     });
-    observer.observe(document.documentElement, { attributes: true });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme', 'class'] });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     // 3. Slogan 定位逻辑 (仅在需要显示时执行)
     const navbar = document.querySelector('.navbar');
     const toggleBtn = document.querySelector('.quarto-color-scheme-toggle');
