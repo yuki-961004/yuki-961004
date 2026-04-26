@@ -1,4 +1,22 @@
-/* ===== 🌞 Light mode: Main Navbar ===== */
+/* ===== 🌓 Global Theme Transition & Network Fallback ===== */
+/* 为网页主体增加平滑颜色过渡，并预加载底色，防止网络不佳时上下变色不同步 */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease !important;
+}
+
+html[data-bs-theme="dark"] body,
+body.quarto-dark {
+  background-color: #222222;
+  color: #e0e0e0;
+}
+
+html[data-bs-theme="light"] body,
+body:not(.quarto-dark) {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+/* ===== � Light mode: Main Navbar ===== */
 body:not(.quarto-dark) .navbar {
   background-color: #ffffff !important;
 }
