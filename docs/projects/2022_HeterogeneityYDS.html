@@ -1686,19 +1686,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
           } else {
 
-            let errorMessage = "Oops! There was a problem submitting your form.";
+            let errorMessage = `HTTP ${response.status} Error.`;
 
             try {
 
               const data = await response.json();
 
-              if (data && data.errors) errorMessage = data.errors.map(err => err.message).join(", ");
+              if (data && data.error) errorMessage = data.error;
 
-              else if (data && data.error) errorMessage = data.error;
+              else if (data && data.message) errorMessage = data.message;
 
             } catch (err) {
 
-              errorMessage = `HTTP ${response.status}: Backend function not found. (Make sure you test on Netlify!)`;
+              if (response.status === 404) {
+
+                errorMessage = "HTTP 404: Netlify 未能找到该后端函数。请检查 netlify.toml 是否已成功提交并部署。";
+
+              } else if (response.status === 500) {
+
+                errorMessage = "HTTP 500: 后端发送失败，请去 Netlify 的 Functions 面板查看具体报错日志。";
+
+              } else {
+
+                errorMessage = `HTTP ${response.status}: 发生未知错误。`;
+
+              }
 
             }
 
