@@ -1,0 +1,245 @@
+<style>
+/* ✈️ 纸飞机悬浮按钮样式 */
+.floating-email-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.floating-email-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* 📩 邮件表单弹窗遮罩层 */
+#contact-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+/* 弹窗显示状态 */
+#contact-modal-overlay.contact-modal-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 表单内容容器 */
+#contact-modal-content {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  width: 90%;
+  max-width: 450px;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--bs-border-color-translucent, rgba(128,128,128,0.2));
+}
+#contact-modal-overlay.contact-modal-show #contact-modal-content {
+  transform: translateY(0);
+}
+
+/* 头部与关闭按钮 */
+.contact-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.contact-modal-header h4 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.contact-modal-close {
+  font-size: 28px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.contact-modal-close:hover {
+  opacity: 1;
+}
+
+/* 表单输入框与按钮 */
+.contact-input {
+  width: 100%;
+  background-color: transparent;
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color-translucent, rgba(128,128,128,0.3));
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.contact-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+.contact-submit-btn {
+  width: 100%;
+  background-color: var(--bs-body-color);
+  color: var(--bs-body-bg);
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.contact-submit-btn:hover {
+  opacity: 0.8;
+}
+.contact-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 提示信息 */
+#contact-status {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+</style>
+
+<!-- 纸飞机按钮 -->
+<a class="floating-email-btn" title="Contact YuKi">
+  <i class="bi bi-send-fill" style="font-size: 24px;"></i>
+</a>
+
+<!-- 联系表单弹窗层 -->
+<div id="contact-modal-overlay">
+  <div id="contact-modal-content">
+    <div class="contact-modal-header">
+      <h4>Get in touch</h4>
+      <span class="contact-modal-close" title="Close">&times;</span>
+    </div>
+    <!-- Formspree 或类似服务主要依赖 name 属性来抓取字段 -->
+    <form id="contact-form">
+      <input type="email" name="email" placeholder="Your Email Address (Optional)" class="contact-input">
+      <textarea name="message" rows="5" placeholder="What's on your mind?" required class="contact-input"></textarea>
+      <button type="submit" class="contact-submit-btn">Send Message</button>
+    </form>
+    <div id="contact-status"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const emailBtn = document.querySelector('.floating-email-btn');
+    const modalOverlay = document.getElementById('contact-modal-overlay');
+    const closeBtn = document.querySelector('.contact-modal-close');
+    const form = document.getElementById('contact-form');
+    const statusDiv = document.getElementById('contact-status');
+
+    // 将元素置于 body 根层级防止局部 z-index 失效
+    if (emailBtn && emailBtn.parentElement !== document.body) document.body.appendChild(emailBtn);
+    if (modalOverlay && modalOverlay.parentElement !== document.body) document.body.appendChild(modalOverlay);
+
+    const openModal = () => modalOverlay.classList.add('contact-modal-show');
+    const closeModal = () => {
+      modalOverlay.classList.remove('contact-modal-show');
+      // 等待动画结束后重置表单
+      setTimeout(() => {
+        form.reset();
+        statusDiv.innerText = '';
+      }, 300);
+    };
+
+    // 绑定打开/关闭事件
+    if (emailBtn) {
+      emailBtn.addEventListener('click', openModal);
+    }
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modalOverlay) {
+      // 点击背景遮罩处关闭弹窗
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+    }
+
+    // 拦截表单提交事件，使用 Fetch API 无刷新发送
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = form.querySelector('.contact-submit-btn');
+        const originalBtnText = submitBtn.innerText;
+        
+        // 按钮进入发送中状态
+        submitBtn.innerText = 'Sending...';
+        submitBtn.disabled = true;
+        statusDiv.innerText = '';
+        
+        const formData = new FormData(form);
+        const dataObj = Object.fromEntries(formData.entries());
+        
+        try {
+          // =========================================================
+          // 指向 Netlify 无服务器函数
+          // =========================================================
+          const endpoint = "/.netlify/functions/send-email"; 
+
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(dataObj),
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json' 
+            }
+          });
+          
+          if (response.ok) {
+            statusDiv.innerText = "Message sent successfully! ✅";
+            statusDiv.style.color = "var(--bs-success, #198754)";
+            form.reset();
+            // 成功后2.5秒自动关闭弹窗
+            setTimeout(closeModal, 2500);
+          } else {
+            const data = await response.json();
+            if (Object.hasOwn(data, 'errors')) {
+              statusDiv.innerText = data["errors"].map(err => err["message"]).join(", ");
+            } else {
+              statusDiv.innerText = "Oops! There was a problem submitting your form.";
+            }
+            statusDiv.style.color = "var(--bs-danger, #dc3545)";
+          }
+        } catch (error) {
+          statusDiv.innerText = error.message;
+          statusDiv.style.color = "var(--bs-danger, #dc3545)";
+        } finally {
+          // 恢复按钮状态
+          submitBtn.innerText = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+  });
+</script>

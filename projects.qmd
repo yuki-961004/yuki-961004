@@ -32,17 +32,21 @@ listing:
 ---
 
 ## Publications
+
 ::: {#list-publication}
 :::
 
 ## Manuscript
+
 ::: {#list-manuscript}
 :::
 
 ## Work-In-Progress
+
 ::: {#list-ongoing}
 :::
 
 ## Long-term Initiatives
+
 ::: {#list-longterm}
 :::

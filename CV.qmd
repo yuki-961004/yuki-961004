@@ -81,6 +81,11 @@ h1.title {
   opacity: 0.8;
 }
 
+/* ===== Hide Global Email Button ===== */
+.floating-email-btn {
+  display: none !important;
+}
+
 /* ===== 🖨️ Print Styles for PDF ===== */
 @page {
   /* 统一设置每页的物理边距。这样能保证每一页都有相同的上下左右留白 */

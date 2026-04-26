@@ -1,0 +1,8 @@
+{
+  "name": "yuki-website",
+  "version": "1.0.0",
+  "description": "YuKi's personal website",
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
+}

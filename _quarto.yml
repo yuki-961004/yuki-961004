@@ -28,6 +28,7 @@ format:
     include-after-body: 
       - effect/snow.html
       - effect/egg.html
+      - effect/airplane.html
     theme:
       light: flatly
       dark: darkly
