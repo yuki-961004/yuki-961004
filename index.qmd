@@ -20,38 +20,11 @@ about:
 ---
 
 
-<div style="text-align: center; font-size: 1.2em; color: var(--bs-secondary-color); margin-top: -10px; margin-bottom: -20px;">
+<div class="index-subtitle">
   <i>Fool-Stack Developer</i>
 </div>
 
 ```{=html}
-<style>
-/* Slogan 绝对定位，具体坐标由 JS 动态计算 */
-#snowy-slogan {
-  position: fixed;
-  font-size: 0.85em;
-  color: var(--bs-secondary-color);
-  z-index: 1000;
-  text-align: center;
-  pointer-events: none; /* 防止文字框阻挡下方的鼠标点击事件 */
-  background: rgba(128, 128, 128, 0.1); /* 加一点极淡的背景框提升辨识度 */
-  padding: 8px 12px;
-  border-radius: 8px;
-  backdrop-filter: blur(4px);
-  transition: opacity 0.5s ease, visibility 0.5s ease, left 0.3s ease, top 0.3s ease;
-}
-@media (max-width: 768px) {
-  #snowy-slogan { font-size: 0.8em; }
-}
-
-/* 暗黑模式下的显示与隐藏逻辑 (兼容 Quarto 与 Bootstrap 新规范) */
-body.quarto-dark #snowy-slogan,
-html[data-bs-theme="dark"] #snowy-slogan {
-  opacity: 0;
-  visibility: hidden;
-}
-</style>
-
 <div id="snowy-slogan">
   <i>Try switching to <b>Dark Mode</b></i>
 </div>

@@ -1,26 +1,3 @@
-<style>
-  /* 词云基础样式 */
-  .word-cloud-item {
-    position: fixed;
-    z-index: 1; /* 最底层：置于雪花和网页正文之后 */
-    color: #888888; /* 亮色模式下的专用灰色 */
-    opacity: 0.15; /* 默认微透明 */
-    filter: blur(4px); /* 默认模糊 */
-    pointer-events: none; /* 穿透鼠标事件，防止遮挡背后的链接点击 */
-    user-select: none; /* 防止意外选中文字产生系统高亮色 */
-    white-space: nowrap;
-    font-weight: 600;
-    font-family: inherit;
-    /* 让雪花脚本也能识别该元素（如果你现有的雪花脚本需要特定的 class 才能融化，可以加在这里） */
-  }
-
-  /* 暗色模式下的词云字体灰色 */
-  html[data-bs-theme="dark"] .word-cloud-item,
-  body.quarto-dark .word-cloud-item {
-    color: #bbbbbb; 
-  }
-</style>
-
 <div id="word-cloud-container"></div>
 
 <script>

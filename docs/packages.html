@@ -534,42 +534,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <section id="active" class="level2">
 <h2 class="anchored" data-anchor-id="active">Active</h2>
 <div id="listing-list-active" class="quarto-listing quarto-listing-container-custom">
-<style>
-  /* 默认（亮色）模式下的 Archived 标签样式 */
-  .archived-badge {
-    font-size: 0.5em;
-    font-weight: normal;
-    background-color: rgba(0, 0, 0, 0.05); /* 极淡的灰底 */
-    color: #6c757d; /* 柔和的次要文字颜色 */
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 2px 6px;
-  }
-  /* 暗黑模式下的 Archived 标签样式 */
-  body.quarto-dark .archived-badge,
-  html[data-bs-theme="dark"] .archived-badge {
-    background-color: rgba(255, 255, 255, 0.1); /* 半透明白底 */
-    color: #ced4da; /* 提亮的浅灰色文字，确保对比度 */
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* 包列表项基础布局 */
-  .pkg-item-layout {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin-bottom: 35px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid var(--bs-border-color);
-  }
-  
-  /* 针对首个 Active 包的去除底边距样式 */
-  .pkg-item-layout-first {
-    margin-bottom: 0px;
-    padding-bottom: 10px;
-    border-bottom: none;
-  }
-</style>
 <div class="quarto-listing-container-custom">
   
     
@@ -582,41 +546,41 @@ document.addEventListener("DOMContentLoaded", function() {
       
       <!-- 渲染包的 Logo -->
       
-        <div class="package-logo" style="flex: 0 0 160px; display: flex; justify-content: center; align-items: flex-start;">
+        <div class="package-logo">
           <a href="./packages/multiRL.html">
             <!-- object-fit: contain 保证 Logo 不会被裁切 -->
-            <img src="./packages/fig/multiRL.png" alt="multiRL logo" style="width: 100%; max-width: 160px; border-radius: 8px; object-fit: contain;">
+            <img src="./packages/fig/multiRL.png" alt="multiRL logo">
           </a>
         </div>
       
 
       <!-- 渲染内容部分 -->
-      <div class="package-content" style="flex: 1; min-width: 300px;">
-        <h3 style="margin-top: 0; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px;" class="anchored">
-          <a href="./packages/multiRL.html" style="text-decoration: none; color: var(--bs-link-color);">multiRL</a>
+      <div class="package-content">
+        <h3 class="anchored">
+          <a href="./packages/multiRL.html">multiRL</a>
           
         </h3>
         
         <!-- 包的相关链接 (如 CRAN, GitHub 等，你可以在 YAML 中配置这些字段) -->
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--bs-secondary-color); margin-bottom: 15px; font-size: 0.9em;">
+        <div class="listing-meta-row gap-12">
           
-            <a href="https://yuki-961004.github.io/multiRL/" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://yuki-961004.github.io/multiRL/" target="_blank" class="secondary-icon-link">
               <i class="bi bi-house-door"></i> Homepage
             </a>
           
           
-            <a href="https://CRAN.R-project.org/package=multiRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://CRAN.R-project.org/package=multiRL" target="_blank" class="secondary-icon-link">
               <i class="fa-brands fa-r-project"></i> CRAN
             </a>
           
           
-            <a href="https://github.com/yuki-961004/multiRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://github.com/yuki-961004/multiRL" target="_blank" class="secondary-icon-link">
               <i class="bi bi-github"></i> GitHub
             </a>
           
           
         
-          <a href="https://doi.org/10.32614/CRAN.package.multiRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+          <a href="https://doi.org/10.32614/CRAN.package.multiRL" target="_blank" class="secondary-icon-link">
               <i class="ai ai-doi"></i> DOI
             </a>
           
@@ -624,7 +588,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <!-- 包的简介 (直接展示，不使用折叠) -->
         
-          <div style="color: var(--bs-body-color); font-size: 0.95em; line-height: 1.6; opacity: 0.9;">
+          <div class="listing-description">
             This package is designed to help users build Rescorla–Wagner models for <b>multi</b>-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into <b>six</b> core components, allowing users to flexibly construct models using simple <code>if-else</code> logic.
           </div>
         
@@ -645,45 +609,45 @@ document.addEventListener("DOMContentLoaded", function() {
       
       <!-- 渲染包的 Logo -->
       
-        <div class="package-logo" style="flex: 0 0 160px; display: flex; justify-content: center; align-items: flex-start;">
+        <div class="package-logo">
           <a href="./packages/binaryRL.html">
             <!-- object-fit: contain 保证 Logo 不会被裁切 -->
-            <img src="./packages/fig/binaryRL.png" alt="binaryRL logo" style="width: 100%; max-width: 160px; border-radius: 8px; object-fit: contain;">
+            <img src="./packages/fig/binaryRL.png" alt="binaryRL logo">
           </a>
         </div>
       
 
       <!-- 渲染内容部分 -->
-      <div class="package-content" style="flex: 1; min-width: 300px;">
-        <h3 style="margin-top: 0; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px;" class="anchored">
-          <a href="./packages/binaryRL.html" style="text-decoration: none; color: var(--bs-link-color);">binaryRL</a>
+      <div class="package-content">
+        <h3 class="anchored">
+          <a href="./packages/binaryRL.html">binaryRL</a>
           
         </h3>
         
         <!-- 包的相关链接 (如 CRAN, GitHub 等，你可以在 YAML 中配置这些字段) -->
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--bs-secondary-color); margin-bottom: 15px; font-size: 0.9em;">
+        <div class="listing-meta-row gap-12">
           
-            <a href="https://yuki-961004.github.io/binaryRL/" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://yuki-961004.github.io/binaryRL/" target="_blank" class="secondary-icon-link">
               <i class="bi bi-house-door"></i> Homepage
             </a>
           
           
-            <a href="https://CRAN.R-project.org/package=binaryRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://CRAN.R-project.org/package=binaryRL" target="_blank" class="secondary-icon-link">
               <i class="fa-brands fa-r-project"></i> CRAN
             </a>
           
           
-            <a href="https://github.com/yuki-961004/binaryRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://github.com/yuki-961004/binaryRL" target="_blank" class="secondary-icon-link">
               <i class="bi bi-github"></i> GitHub
             </a>
           
           
-            <a href="https://osf.io/b7tvc" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://osf.io/b7tvc" target="_blank" class="secondary-icon-link">
               <i class="ai ai-osf"></i> OSF
             </a>
           
         
-          <a href="https://doi.org/10.31234/osf.io/b7tvc_v1" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+          <a href="https://doi.org/10.31234/osf.io/b7tvc_v1" target="_blank" class="secondary-icon-link">
               <i class="ai ai-doi"></i> DOI
             </a>
           
@@ -691,7 +655,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <!-- 包的简介 (直接展示，不使用折叠) -->
         
-          <div style="color: var(--bs-body-color); font-size: 0.95em; line-height: 1.6; opacity: 0.9;">
+          <div class="listing-description">
             This package is designed to help users build Rescorla–Wagner models for <b>two</b>-armed bandit–like tasks. It modularizes the Markov Decision Process (MDP) into <b>five</b> core components, allowing users to flexibly construct models using simple <code>if-else</code> logic.
           </div>
         
@@ -727,42 +691,6 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 </div>
 </div>
 <div id="listing-list-archived" class="quarto-listing quarto-listing-container-custom">
-<style>
-  /* 默认（亮色）模式下的 Archived 标签样式 */
-  .archived-badge {
-    font-size: 0.5em;
-    font-weight: normal;
-    background-color: rgba(0, 0, 0, 0.05); /* 极淡的灰底 */
-    color: #6c757d; /* 柔和的次要文字颜色 */
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 2px 6px;
-  }
-  /* 暗黑模式下的 Archived 标签样式 */
-  body.quarto-dark .archived-badge,
-  html[data-bs-theme="dark"] .archived-badge {
-    background-color: rgba(255, 255, 255, 0.1); /* 半透明白底 */
-    color: #ced4da; /* 提亮的浅灰色文字，确保对比度 */
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* 包列表项基础布局 */
-  .pkg-item-layout {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin-bottom: 35px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid var(--bs-border-color);
-  }
-  
-  /* 针对首个 Active 包的去除底边距样式 */
-  .pkg-item-layout-first {
-    margin-bottom: 0px;
-    padding-bottom: 10px;
-    border-bottom: none;
-  }
-</style>
 <div class="quarto-listing-container-custom">
   
     
@@ -777,20 +705,20 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
       
 
       <!-- 渲染内容部分 -->
-      <div class="package-content" style="flex: 1; min-width: 300px;">
-        <h3 style="margin-top: 0; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px;" class="anchored">
-          <a href="./packages/yukiSH.html" style="text-decoration: none; color: var(--bs-link-color);">yukiSH</a>
+      <div class="package-content">
+        <h3 class="anchored">
+          <a href="./packages/yukiSH.html">yukiSH</a>
           
             <span class="archived-badge">Archived</span>
           
         </h3>
         
         <!-- 包的相关链接 (如 CRAN, GitHub 等，你可以在 YAML 中配置这些字段) -->
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--bs-secondary-color); margin-bottom: 15px; font-size: 0.9em;">
+        <div class="listing-meta-row gap-12">
           
           
           
-            <a href="https://github.com/yuki-961004/yukiSH" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://github.com/yuki-961004/yukiSH" target="_blank" class="secondary-icon-link">
               <i class="bi bi-github"></i> GitHub
             </a>
           
@@ -800,7 +728,7 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 
         <!-- 包的简介 (直接展示，不使用折叠) -->
         
-          <div style="color: var(--bs-body-color); font-size: 0.95em; line-height: 1.6; opacity: 0.9;">
+          <div class="listing-description">
             This package is designed to split datasets according to input category variables (e.g., subject, experimental condition). It systematically applies four different split-half methods (Odd-Even, First-Second, Permuted Split-Half, and Monte Carlo Split-Half) to each sub-dataset, providing a standardized data foundation for subsequent reliability analysis.
           </div>
         
@@ -821,20 +749,20 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
       
 
       <!-- 渲染内容部分 -->
-      <div class="package-content" style="flex: 1; min-width: 300px;">
-        <h3 style="margin-top: 0; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px;" class="anchored">
-          <a href="./packages/yukiBP.html" style="text-decoration: none; color: var(--bs-link-color);">yukiBP</a>
+      <div class="package-content">
+        <h3 class="anchored">
+          <a href="./packages/yukiBP.html">yukiBP</a>
           
             <span class="archived-badge">Archived</span>
           
         </h3>
         
         <!-- 包的相关链接 (如 CRAN, GitHub 等，你可以在 YAML 中配置这些字段) -->
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--bs-secondary-color); margin-bottom: 15px; font-size: 0.9em;">
+        <div class="listing-meta-row gap-12">
           
           
           
-            <a href="https://github.com/yuki-961004/yukiBP" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+            <a href="https://github.com/yuki-961004/yukiBP" target="_blank" class="secondary-icon-link">
               <i class="bi bi-github"></i> GitHub
             </a>
           
@@ -844,7 +772,7 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 
         <!-- 包的简介 (直接展示，不使用折叠) -->
         
-          <div style="color: var(--bs-body-color); font-size: 0.95em; line-height: 1.6; opacity: 0.9;">
+          <div class="listing-description">
             Working seamlessly with the split datasets generated by <code>yukiSH</code>, this package calculates split-half reliability across six key metrics: reaction time (RT), accuracy (ACC), efficiency (RT/ACC), d-prime, DDM drift rate (v), and DDM starting point (z). Since the computation process is highly parallelized across datasets, it dramatically accelerates the entire analytical workflow.
           </div>
         
@@ -863,7 +791,7 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 
 </main> <!-- /main -->
 <!-- 动态雪花物理特效画布 -->
-<canvas id="snow-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2;"></canvas>
+<canvas id="snow-canvas"></canvas>
 
 <script>
   const canvas = document.getElementById('snow-canvas');
@@ -1193,332 +1121,6 @@ Supports MLE, MAP, ABC, and RNN-based estimation approaches.</p></li>
 
   init();
 </script>
-<style>
-
-  #suits-easter-egg {
-
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    background: rgba(0, 0, 0, 0.75);
-
-    z-index: 999; /* 默认 fallback 层级，稍后将由 JS 动态获取真实导航栏层级并覆盖 */
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    backdrop-filter: blur(5px);
-
-    -webkit-backdrop-filter: blur(5px);
-
-  }
-
-
-
-  .egg-modal {
-
-    background-color: var(--bs-body-bg, #fff);
-
-    color: var(--bs-body-color, #212529);
-
-    border: 2px solid var(--bs-border-color, #dee2e6);
-
-    padding: clamp(15px, 3vw, 30px);
-
-    position: relative;
-
-    max-width: 95vw;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
-  }
-
-
-
-  html[data-bs-theme="dark"] .egg-modal,
-
-  body.quarto-dark .egg-modal {
-
-    background-color: #2b2b2b !important;
-
-    border-color: #7b8a8b !important;
-
-  }
-
-
-
-  .egg-close {
-
-    position: absolute;
-
-    top: 5px;
-
-    right: 10px;
-
-    background: transparent;
-
-    border: none;
-
-    font-size: 24px;
-
-    font-weight: bold;
-
-    color: var(--bs-body-color, #212529);
-
-    cursor: pointer;
-
-    opacity: 0.7;
-
-    transition: opacity 0.2s;
-
-  }
-
-
-
-  .egg-close:hover {
-
-    opacity: 1;
-
-  }
-
-
-
-  .suits-container {
-
-    display: flex;
-
-    flex-direction: row;
-
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-
-    justify-content: space-evenly; /* Distribute space to reduce large gaps on sides */
-
-    align-items: center;
-
-    gap: clamp(20px, 4vw, 40px);
-
-  }
-
-
-
-  .character-group {
-
-    display: flex;
-
-    flex-wrap: nowrap;
-
-    align-items: center;
-
-  }
-
-
-
-  .avatar-img {
-
-    width: clamp(80px, 12vw, 150px);
-
-    height: clamp(80px, 12vw, 150px);
-
-    object-fit: cover;
-
-    border: 2px solid var(--bs-border-color, #dee2e6);
-
-    background-color: var(--bs-body-bg, #fff);
-
-  }
-
-
-
-  .dialog-box {
-
-    background-color: var(--bs-body-bg, #fff);
-
-    color: var(--bs-body-color); /* Explicitly set text color for robustness */
-
-    border: 2px solid var(--bs-border-color, #dee2e6);
-
-    padding: clamp(10px, 2vw, 20px);
-
-    font-family: inherit;
-
-    text-transform: uppercase;
-
-    font-weight: bold;
-
-    font-size: clamp(0.75rem, 1.5vw, 1.1rem);
-
-    max-width: 65vw; /* 宽度随屏幕动态调整 */
-
-    border-radius: 0;
-
-    position: relative;
-
-    line-height: 1.4;
-
-  }
-
-
-
-  .dialog-box.left-arrow {
-
-    margin-left: 15px;
-
-  }
-
-  .dialog-box.left-arrow::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: 50%;
-
-    left: -14px;
-
-    transform: translateY(-50%);
-
-    border-width: 10px 14px 10px 0;
-
-    border-style: solid;
-
-    border-color: transparent var(--bs-border-color, #dee2e6) transparent transparent;
-
-  }
-
-  .dialog-box.left-arrow::after {
-
-    content: '';
-
-    position: absolute;
-
-    top: 50%;
-
-    left: -10px;
-
-    transform: translateY(-50%);
-
-    border-width: 8px 11px 8px 0;
-
-    border-style: solid;
-
-    border-color: transparent var(--bs-body-bg, #fff) transparent transparent;
-
-  }
-
-
-
-  .dialog-box.right-arrow {
-
-    margin-right: 15px;
-
-  }
-
-  .dialog-box.right-arrow::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: 50%;
-
-    right: -14px;
-
-    transform: translateY(-50%);
-
-    border-width: 10px 0 10px 14px;
-
-    border-style: solid;
-
-    border-color: transparent transparent transparent var(--bs-border-color, #dee2e6);
-
-  }
-
-  .dialog-box.right-arrow::after {
-
-    content: '';
-
-    position: absolute;
-
-    top: 50%;
-
-    right: -10px;
-
-    transform: translateY(-50%);
-
-    border-width: 8px 0 8px 11px;
-
-    border-style: solid;
-
-    border-color: transparent transparent transparent var(--bs-body-bg, #fff);
-
-  }
-
-
-
-  /* ===== 🌙 Dark mode explicit overrides for Dialog ===== */
-
-  html[data-bs-theme="dark"] .dialog-box,
-
-  body.quarto-dark .dialog-box {
-
-    background-color: #2b2b2b !important;
-
-    color: #e0e0e0 !important;
-
-    border-color: #555555 !important;
-
-  }
-
-
-
-  html[data-bs-theme="dark"] .dialog-box.left-arrow::before,
-
-  body.quarto-dark .dialog-box.left-arrow::before {
-
-    border-right-color: #555555 !important;
-
-  }
-
-  html[data-bs-theme="dark"] .dialog-box.left-arrow::after,
-
-  body.quarto-dark .dialog-box.left-arrow::after {
-
-    border-right-color: #2b2b2b !important;
-
-  }
-
-
-
-  html[data-bs-theme="dark"] .dialog-box.right-arrow::before,
-
-  body.quarto-dark .dialog-box.right-arrow::before {
-
-    border-left-color: #555555 !important;
-
-  }
-
-  html[data-bs-theme="dark"] .dialog-box.right-arrow::after,
-
-  body.quarto-dark .dialog-box.right-arrow::after {
-
-    border-left-color: #2b2b2b !important;
-
-  }
-
-</style>
-
-
-
 <div id="suits-easter-egg">
 
   <div class="egg-modal">
