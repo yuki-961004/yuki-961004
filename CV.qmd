@@ -235,7 +235,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 -	Liu, Z., Wang, X., Wang, Z., Yan, W., & **Hu, M.** (2025). Registered reports in psychology across scholarly citations and public dissemination: A comparative meta evaluation of more than a decade of practice. *American Psychologist*. https://doi.org/10.1037/amp0001503
 
 ## Manuscript 
--	**Hu, M.**, Liu, Z., Wang, X., & Li, R. (2025). binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R—A Step-by-Step Tutorial. *OSF* https://doi.org/10.31234/osf.io/b7tvc_v1. 
+-	**Hu, M.**, Liu, Z., Wang, X., & Li, R. (2025). binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R—A Step-by-Step Tutorial. *OSF* https://doi.org/10.31234/osf.io/b7tvc_v2. 
 
 ## Research Projects 
 ### Project 1
