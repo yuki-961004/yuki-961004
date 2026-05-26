@@ -1,6 +1,13 @@
 ---
 title: "My Packages"
 listing:
+  - id: list-developing
+    contents: "packages/*.qmd"
+    template: packages-list.ejs
+    sort: "title desc"
+    include: 
+      categories: ["developing"]
+
   - id: list-active
     contents: "packages/*.qmd"
     template: packages-list.ejs
@@ -126,6 +133,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 ```
+
+## Developing
+
+::: {#list-developing}
+:::
 
 ## Active
 

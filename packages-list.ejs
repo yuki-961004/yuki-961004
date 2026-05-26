@@ -4,6 +4,8 @@
     <% const item = items[i]; %>
     <% const isActiveItem = item.categories && item.categories.includes('active'); %>
     <% const isFirstActive = isActiveItem && i === 0; %>
+    <% const isDevelopingItem = item.categories && item.categories.includes('developing'); %>
+    <% const primaryHref = isDevelopingItem && item.github ? item.github : item.path; %>
     
     <% if (isFirstActive) { %>
     <div class="package-item pkg-item-layout pkg-item-layout-first">
@@ -14,7 +16,7 @@
       <!-- 渲染包的 Logo -->
       <% if (item.image) { %>
         <div class="package-logo">
-          <a href="<%= item.path %>">
+          <a href="<%= primaryHref %>"<% if (isDevelopingItem && item.github) { %> target="_blank"<% } %>>
             <!-- object-fit: contain 保证 Logo 不会被裁切 -->
             <img src="<%= item.image %>" alt="<%= item.title %> logo">
           </a>
@@ -24,9 +26,12 @@
       <!-- 渲染内容部分 -->
       <div class="package-content">
         <h3>
-          <a href="<%= item.path %>"><%= item.title %></a>
+          <a href="<%= primaryHref %>"<% if (isDevelopingItem && item.github) { %> target="_blank"<% } %>><%= item.title %></a>
           <% if (item.categories && item.categories.includes('archived')) { %>
             <span class="archived-badge">Archived</span>
+          <% } %>
+          <% if (isDevelopingItem) { %>
+            <span class="archived-badge">Developing</span>
           <% } %>
         </h3>
         

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-05-26">
+<meta name="description" content="metaSDT is a cross-language Signal Detection Theory modeling framework built around a modular C++ backend. It currently implements the basic SDT model, with an architecture designed to extend SDT-family and meta-d′ models by adding model-specific probability modules rather than rewriting the estimation stack. The framework unifies MLE, MAP, MCMC, and ABC under shared R/Python interfaces, and aims to provide a reproducible four-step modeling workflow for model construction, recovery, real-data fitting, and experiment replay.">
 
-<title>Beyond the Ten Simple Rules: Reliability, Validity, and Parsimony in Evaluating the RLWMH Models – Mengzhen Hu (YuKi)</title>
+<title>metaSDT – Mengzhen Hu (YuKi)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -312,23 +312,22 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Beyond the Ten Simple Rules: Reliability, Validity, and Parsimony in Evaluating the RLWMH Models</h1>
+<h1 class="title">metaSDT</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">ongoing</div>
+    <div class="quarto-category">developing</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <code>metaSDT</code> is a cross-language Signal Detection Theory modeling framework built around a modular C++ backend. It currently implements the basic SDT model, with an architecture designed to extend SDT-family and meta-d′ models by adding model-specific probability modules rather than rewriting the estimation stack. The framework unifies MLE, MAP, MCMC, and ABC under shared R/Python interfaces, and aims to provide a reproducible four-step modeling workflow for model construction, recovery, real-data fitting, and experiment replay.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Updated on</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 26, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -338,47 +337,6 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 </header>
 
 
-<p>Our goal in model building was to develop a model with recoverable parameters (indicating good reliability) that could also reproduce the three experimental effects shown below (indicating good validity).</p>
-<ol type="1">
-<li>If a parameter isn’t recoverable, it suggests it may be redundant or effectively masked by other parameters.</li>
-<li>If a model cannot even reproduce the experimental effects—oh come on, then there is really no point in discussing it further.</li>
-</ol>
-<div style="text-align: center;">
-<div>
-<p><img src="./fig/2026_RemakeRLWMH/SetSize_Effect_Human.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Error_Effect_Human.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_Human.png" width="30%"></p>
-</div>
-<p style="margin-top: 10px;">
-<strong>Figure:</strong> Human
-</p>
-</div>
-<p>Here is my personal interpretation of Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>). In an MDP, two systems are involved: a reinforcement learning system and a working memory system. Within the reinforcement learning system, the process can be further differentiated into standard RL and Habit (H) based on whether the feedback is constantly treated as a subjective value of 1. The WM system consists of three parameters: the memory decay rate(<code>zeta</code>), working memory <code>capacity</code>, and the mixture <code>weight</code> between the RL and WM systems. Additionally, there are two system-independent parameters: sticky choice (action perseveration) and lapse rate (the probability of making an accidental motor error).</p>
-<div style="text-align: center;">
-<div>
-<p><img src="./fig/2026_RemakeRLWMH/HWM_alpha.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/HWM_zeta.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/HWM_weight.png" width="30%"></p>
-</div>
-<div>
-<p><img src="./fig/2026_RemakeRLWMH/HWM_capacity.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/HWM_sticky.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/HWM_weight.png" width="30%"></p>
-</div>
-<div>
-<p><img src="./fig/2026_RemakeRLWMH/SetSize_Effect_HWM.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Error_Effect_HWM.png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_HWM.png" width="30%"></p>
-</div>
-<p style="margin-top: 10px;">
-<strong>Figure:</strong> HWM(6-parameter)
-</p>
-</div>
-<p>HWM model remade using <code>multiRL</code> (originally proposed by Collins (<a href="https://doi.org/10.1038/s41562-025-02340-0">2025</a>)) did not show good parameter recovery (in fact, the parameter recovery results reported in the original paper were also relatively weak for several parameters). It also failed to reproduce the experimental effects observed in human participants.</p>
-<div style="text-align: center;">
-<div>
-<p><img src="./fig/2026_RemakeRLWMH/HWM(-weight)_alpha.png" width="30%" style="display: inline;"> <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_zeta.png" width="30%" style="display: inline;"> <img src="./fig/2026_RemakeRLWMH/HWM(-weight)_capacity.png" width="30%" style="display: inline;"></p>
-</div>
-<div>
-<p><img src="./fig/2026_RemakeRLWMH/SetSize_Effect_HWM(-weight).png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Error_Effect_HWM(-weight).png" width="30%"> <img src="./fig/2026_RemakeRLWMH/Avoid_Effect_HWM(-weight).png" width="30%"></p>
-</div>
-<p style="margin-top: 10px;">
-<strong>Figure:</strong> HWM(3-parameter)
-</p>
-</div>
-<p>Compared to the full six-parameter HWM model, the simplified HWM model without the <code>weight</code>, <code>lapse</code>, and <code>sticky</code> parameters was already able to reproduce the main experimental effects reasonably well. In addition, it showed substantially better parameter recovery performance.</p>
 
 
 

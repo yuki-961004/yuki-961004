@@ -14,6 +14,8 @@
   {
     "listing": "/packages.html",
     "items": [
+      "/packages/metaSDT.html",
+      "/packages/abcpp.html",
       "/packages/multiRL.html",
       "/packages/binaryRL.html",
       "/packages/yukiSH.html",

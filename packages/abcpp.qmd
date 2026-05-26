@@ -1,0 +1,7 @@
+---
+title: abcpp
+description: "<code>abcpp</code> is a lightweight, embeddable C++ backend for offline Approximate Bayesian Computation workflows, inspired by CRAN's <code>abc</code> package and exposed through thin R and Python frontends. It currently focuses on matrix-based ABC estimation with <code>target</code>, <code>params</code>, <code>sumstats</code>, and <code>control</code>, while laying the groundwork for a future NLopt-like ABC algorithm library supporting both offline simulation-table ABC and online simulator-callback ABC for projects such as <code>metaSDT</code>."
+image: "../fig/abcpp.png"
+github: "https://github.com/yuki-961004/abcpp"
+categories: [developing]
+---

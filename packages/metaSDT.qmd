@@ -1,0 +1,7 @@
+---
+title: metaSDT
+description: "<code>metaSDT</code> is a cross-language Signal Detection Theory modeling framework built around a modular C++ backend. It currently implements the basic SDT model, with an architecture designed to extend SDT-family and meta-d′ models by adding model-specific probability modules rather than rewriting the estimation stack. The framework unifies MLE, MAP, MCMC, and ABC under shared R/Python interfaces, and aims to provide a reproducible four-step modeling workflow for model construction, recovery, real-data fitting, and experiment replay."
+image: "../fig/metaSDT.png"
+github: "https://github.com/yuki-961004/metaSDT"
+categories: [developing]
+---
