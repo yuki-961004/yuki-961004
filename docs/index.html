@@ -620,665 +620,335 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 </div>
  <!-- /main -->
 <!-- 动态雪花物理特效画布 -->
-
 <canvas id="snow-canvas"></canvas>
 
-
-
 <script>
-
   const canvas = document.getElementById('snow-canvas');
-
   const ctx = canvas.getContext('2d');
-
   
-
   // 核心修复 1：将 canvas 强制移出可能带有 transform 动画的父节点，置于 body 根层级
-
   // 防止 position: fixed 降级为 absolute，从而解决页面向下滚动时长页面底部没有雪花的问题
-
   if (canvas.parentElement !== document.body) {
-
     document.body.appendChild(canvas);
-
   }
-
-
 
   let width, height, particles = [];
-
   let burstParticles = []; // 新增：用于存储点击散射出来的短生命周期雪花
-
   let mouse = { x: -1000, y: -1000 };
-
   let avatarInfo = { x: -1000, y: -1000, radius: 0, visible: false };
-
   
-
   let snowTransition = 0; // 控制雪花逐渐增加的进度 (0 到 1)
 
-
-
   // 初始判断当前主题是否为暗色模式
-
   const isDarkMode = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
-
   // 改进：默认跟随主题 (暗色开，亮色关)。如果有本地缓存记录则优先使用记录
-
   let savedSnow = localStorage.getItem('snow-enabled');
-
   let snowEnabled = savedSnow !== null ? savedSnow === 'true' : isDarkMode;
 
-
-
   // 动态调整画布尺寸
-
   function resize() {
-
     width = canvas.width = window.innerWidth;
-
     height = canvas.height = window.innerHeight;
-
   }
-
   window.addEventListener('resize', resize);
-
   
-
   // 追踪鼠标位置
-
   document.addEventListener('mousemove', (e) => {
-
     mouse.x = e.clientX;
-
     mouse.y = e.clientY;
-
   });
-
   document.addEventListener('mouseleave', () => {
-
     mouse.x = -1000;
-
     mouse.y = -1000;
-
   });
-
-
 
   // ========== 新增：Logo 交互逻辑 ==========
-
   // Quarto 生成的 Navbar Logo 通常拥有 .navbar-brand 类名
-
   const logoLink = document.querySelector('.navbar-brand');
 
-
-
   // 动态更新 Logo 的发光特效标记 (提升作用域，以便在主题切换时也能调用)
-
   const updateLogoGlow = () => {
-
     if (logoLink) {
-
       if (snowEnabled) {
-
         logoLink.classList.add('snow-glowing');
-
       } else {
-
         logoLink.classList.remove('snow-glowing');
-
       }
-
     }
-
   };
 
-
-
   if (logoLink) {
-
     // 添加一些样式让它看起来更像一个按钮
-
     logoLink.style.cursor = 'pointer';
-
     logoLink.title = "Click to Toggle Snow";
-
     logoLink.addEventListener('mouseenter', () => logoLink.style.opacity = '0.7');
-
     logoLink.addEventListener('mouseleave', () => logoLink.style.opacity = '1');
-
     
-
     const logoSlogan = document.getElementById('logo-slogan');
 
-
-
     logoLink.addEventListener('click', (e) => {
-
       e.preventDefault(); // 阻止点击 Logo 跳转到主页的默认行为
-
       snowEnabled = !snowEnabled;
-
       localStorage.setItem('snow-enabled', snowEnabled); // 将用户的选择保存到浏览器缓存中
-
-
 
       updateLogoGlow(); // 点击后实时更新发光状态
 
-
-
       if (snowEnabled) {
-
         snowTransition = 0; // 重置进度
-
         particles.forEach(p => p.resetToTop()); // 让所有雪花回到顶部错落准备落下
-
       }
-
-
 
       // ========== 新增：生成散射雪花特效 ==========
-
       const rect = logoLink.getBoundingClientRect();
-
       const centerX = rect.left + rect.width / 2;
-
       const centerY = rect.top + rect.height / 2;
-
       // 每次点击生成 30 片爆发雪花
-
       for (let i = 0; i < 30; i++) {
-
         burstParticles.push(new BurstSnowflake(centerX, centerY));
-
       }
-
     });
-
-
 
     updateLogoGlow(); // 初始化检查并发光
-
   }
-
-
 
   // ===== 监听主题切换，动态改变默认下雪状态 =====
-
   const themeObserver = new MutationObserver(() => {
-
     const currentlyDark = document.documentElement.getAttribute('data-bs-theme') === 'dark' || document.body.classList.contains('quarto-dark');
-
     
-
     // 只在状态确实发生变化时才触发过渡动画
-
     if (snowEnabled !== currentlyDark) {
-
       snowEnabled = currentlyDark;
-
       localStorage.setItem('snow-enabled', snowEnabled);
-
       
-
       updateLogoGlow();
-
       
-
       if (snowEnabled) {
-
         snowTransition = 0;
-
         particles.forEach(p => p.resetToTop());
-
       }
-
     }
-
   });
-
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
-
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-
-
   class Snowflake {
-
     constructor() {
-
       this.spawn();
-
       if (snowEnabled) {
-
         // 初始若为开启状态，将雪花随机分布在屏幕上方，以实现初始下落效果
-
         this.y = -this.r - Math.random() * (height * 0.8); 
-
       } else {
-
         // 初始关闭，将雪花藏在屏幕下方
-
         this.y = height + 100; 
-
       }
-
     }
-
     
-
     spawn() {
-
       this.x = Math.random() * width;
-
       this.y = -this.r; // 正常重置在屏幕正上方
-
       this.r = Math.random() * 2.5 + 1; // 雪花半径
-
       this.baseVy = Math.random() * 1 + 0.5; // 存储下落基础速度
-
       this.baseVx = (Math.random() - 0.5) * 1; // 存储左右漂移基础速度
-
       this.angle = Math.random() * Math.PI * 2;
-
       this.opacity = 0.7; // 初始透明度
-
       this.melting = false; // 是否接触到头像开始融化
-
     }
-
     
-
     resetToTop() {
-
       this.spawn();
-
       // 将新雪花分布在屏幕上方较广的区域，使其错落有致地逐渐下落进入屏幕
-
       this.y = -this.r - Math.random() * (height * 0.8);
-
     }
-
-
 
     update() {
-
       if (this.melting) {
-
         this.opacity -= 0.03;
-
         this.y += this.baseVy * 0.4;
-
         this.x += this.baseVx * 0.5;
-
         if (this.opacity <= 0) {
-
           if (snowEnabled) this.spawn();
-
           else this.y = height + 100; // 停雪时停留在屏幕外
-
         }
-
         return;
-
       }
-
-
 
       // 根据 snowTransition 计算当前加速乘数 (0.2起步，防止彻底静止导致的卡顿感)
-
       const speedMult = snowEnabled ? (0.2 + 0.8 * snowTransition) : 1.0;
 
-
-
       this.angle += 0.02 * speedMult;
-
       this.x += (this.baseVx + Math.sin(this.angle) * 0.5) * speedMult;
-
       this.y += this.baseVy * speedMult;
 
-
-
       const dx = this.x - mouse.x;
-
       const dy = this.y - mouse.y;
-
       const dist = Math.sqrt(dx * dx + dy * dy);
-
       const minDist = 90;
 
-
-
       if (dist < minDist) {
-
         const force = (minDist - dist) / minDist;
-
         this.x += (dx / dist) * force * 4;
-
         this.y += (dy / dist) * force * 4;
-
       }
-
-
 
       if (avatarInfo.visible) {
-
         const dxAvatar = this.x - avatarInfo.x;
-
         const dyAvatar = this.y - avatarInfo.y;
-
         const distAvatar = Math.sqrt(dxAvatar * dxAvatar + dyAvatar * dyAvatar);
-
         if (distAvatar < avatarInfo.radius) {
-
           this.melting = true;
-
         }
-
       }
-
-
 
       if (this.y > height + this.r) {
-
         if (snowEnabled) {
-
           this.spawn(); // 下雪时正常重生
-
         } else {
-
           this.y = height + 100; // 停雪时到达底部后滞留，不再产生新雪
-
         }
-
       }
-
       if (this.x > width + this.r) this.x = -this.r;
-
       if (this.x < -this.r) this.x = width + this.r;
-
     }
-
     
-
     draw(maskRects) {
-
       if (this.y - this.r > height) return; // 性能优化：不再浪费资源绘制超出屏幕的雪花
 
-
-
       // ========== 新增：避让正文区域逻辑 ==========
-
       if (maskRects && maskRects.length > 0) {
-
         for (let i = 0; i < maskRects.length; i++) {
-
           const rect = maskRects[i];
-
           if (this.x > rect.left && this.x < rect.right &&
-
               this.y > rect.top && this.y < rect.bottom) {
-
             return; // 如果雪花在任何受保护的遮罩区域内，跳过绘制
-
           }
-
         }
-
       }
 
-
-
       ctx.beginPath();
-
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-
       ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, this.opacity)})`;
-
       ctx.fill();
-
     }
-
   }
-
-
 
   // ========== 新增：散射雪花类 ==========
-
   class BurstSnowflake {
-
     constructor(x, y) {
-
       this.x = x;
-
       this.y = y;
-
       this.r = Math.random() * 2.5 + 1; // 随机大小
-
       
-
       // 核心修改：向下、成半圆形的爆炸加速度
-
       // Math.PI 的弧度正好对应 0 到 180 度（即正右到正左，覆盖整个正下方区域）
-
       const angle = Math.random() * Math.PI; 
-
       const speed = Math.random() * 8 + 4; // 提高初始爆发速度，增强爆炸冲击力
-
       
-
       this.vx = Math.cos(angle) * speed; 
-
       this.vy = Math.sin(angle) * speed; 
-
       
-
       this.opacity = 0.7; // 与普通雪花保持一致的透明度
-
       this.baseVy = Math.random() * 1 + 0.5; // 最终自然下落的基础速度
-
       this.baseVx = (Math.random() - 0.5) * 1; // 恢复自然下落时的随机左右飘动，移除向右的固定风力
-
       this.driftAngle = Math.random() * Math.PI * 2; // 左右摇摆的初始角度
-
     }
-
-
 
     update() {
-
       // 1. 空气阻力让水平方向的爆炸冲力迅速平缓
-
       this.vx *= 0.92;
-
       
-
       // 2. 垂直方向的爆炸冲力同样通过空气阻力衰减，并极其平滑地过渡到自然的恒定下落速度
-
       // 公式：当前速度 = 当前速度 * 阻力衰减 + 基础速度 * (1 - 阻力衰减)
-
       this.vy = this.vy * 0.92 + this.baseVy * 0.08;
 
-
-
       // 3. 平缓后加入轻微的左右摇摆漂移
-
       this.driftAngle += 0.02;
-
       this.x += this.vx + this.baseVx + Math.sin(this.driftAngle) * 0.5;
-
       this.y += this.vy;
-
     }
-
-
 
     draw(maskRects) {
-
       if (this.y - this.r > height) return;
 
-
-
       // 避让正文区域逻辑，确保散落的雪花也不会遮挡你的卡片和图片
-
       if (maskRects && maskRects.length > 0) {
-
         for (let i = 0; i < maskRects.length; i++) {
-
           const rect = maskRects[i];
-
           if (this.x > rect.left && this.x < rect.right &&
-
               this.y > rect.top && this.y < rect.bottom) {
-
             return; 
-
           }
-
         }
-
       }
-
-
 
       ctx.beginPath();
-
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-
       ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-
       ctx.fill();
-
     }
-
   }
-
-
 
   function init() {
-
     resize();
-
     const numParticles = window.innerWidth < 768 ? 40 : 120;
-
     for (let i = 0; i < numParticles; i++) {
-
       particles.push(new Snowflake());
-
     }
-
     animate();
-
   }
-
-
 
   function animate() {
-
     ctx.clearRect(0, 0, width, height);
-
     
-
     // 渐进式增加下雪速度 (200帧左右达到最大速度，约 3.3 秒完全成型)
-
     if (snowEnabled && snowTransition < 1) {
-
       snowTransition += 0.005;
-
       if (snowTransition > 1) snowTransition = 1;
-
     }
-
-
 
     // ===== 核心遮罩判断逻辑 =====
-
     const avatarElement = document.querySelector('.about-image');
-
     let maskRects = [];
 
-
-
     if (avatarElement) {
-
       // 如果找到了头像，说明是 Index 主页。雪花全局全屏下落，且启用头像融化
-
       const rect = avatarElement.getBoundingClientRect();
-
       avatarInfo.x = rect.left + rect.width / 2;
-
       avatarInfo.y = rect.top + rect.height / 2;
-
       avatarInfo.radius = (rect.width / 2) * 0.9;
-
       avatarInfo.visible = true;
-
     } else {
-
       // 如果不是主页，关闭头像融化逻辑，并获取正文区域进行绘制遮挡
-
       avatarInfo.visible = false;
-
       // 核心修复 2：获取所有需要保护的正文与列表区块，彻底防止雪花遮盖摘要里的图片和卡片
-
       const safeEls = document.querySelectorAll('main, .quarto-listing-container-custom, .project-item, .package-item');
-
       safeEls.forEach(el => {
-
         maskRects.push(el.getBoundingClientRect());
-
       });
-
     }
-
-
 
     particles.forEach(p => {
-
       p.update();
-
       p.draw(maskRects); // 将多个遮挡区域组成的数组传给画笔
-
     });
-
     
-
     // ========== 新增：渲染散射雪花 ==========
-
     // 从后往前遍历以安全地删除消失的粒子
-
     for (let i = burstParticles.length - 1; i >= 0; i--) {
-
       let bp = burstParticles[i];
-
       bp.update();
-
       
-
       // 当雪花完全掉出屏幕底部，或者飘出左右边界时，将其销毁以释放内存
-
       if (bp.y - bp.r > height || bp.x < -50 || bp.x > width + 50) {
-
         burstParticles.splice(i, 1);
-
       } else {
-
         bp.draw(maskRects);
-
       }
-
     }
 
-
-
     requestAnimationFrame(animate);
-
   }
 
-
-
   init();
-
 </script>
 <div id="suits-easter-egg">
 
