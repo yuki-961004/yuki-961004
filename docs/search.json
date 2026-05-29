@@ -91,11 +91,18 @@
     "text": "Education\n\n2024.06 ~ Now (Gap Years)\n\nDeveloping a R package binaryRL and multiRL\nFinishing up previous projects.\n\n2021.09 ~ 2024.06 M.Sc. in Psychology, Nanjing Normal University, Nanjing, China\n2019.06 ~ 2021.09 (Gap Years)\n\nPreparing for graduate entrance exams\nReading textbooks about SEM and HLM\n\n2015.09 ~ 2019.06 B.Sc. in Psychology, Capital Normal University, Beijing, China"
   },
   {
-    "objectID": "CV.html#r-packages",
-    "href": "CV.html#r-packages",
+    "objectID": "CV.html#research-software",
+    "href": "CV.html#research-software",
     "title": "Mengzhen Hu (YuKi)",
-    "section": "R Packages",
-    "text": "R Packages\n\nYuKi & Xinyu. (2026). multiRL: Reinforcement Learning Tools for Multi-Armed Bandit. R package version 0.3.7. https://CRAN.R-project.org/package=multiRL\nYuKi. (2025). binaryRL: Reinforcement Learning Tools for Two-Alternative Forced Choice Tasks. R package version 0.9.9. https://CRAN.R-project.org/package=binaryRL"
+    "section": "Research Software",
+    "text": "Research Software\n\nYuKi & Xinyu. (2026). multiRL: Reinforcement Learning Tools for Multi-Armed Bandit. R package version 0.3.7. https://CRAN.R-project.org/package=multiRL\nYuKi. (2025). binaryRL: Reinforcement Learning Tools for Two-Alternative Forced Choice Tasks. R package version 0.9.9. https://CRAN.R-project.org/package=binaryRL\nYuKi. (2026). metaSDT: A Cross-Language Signal Detection Theory Modeling Framework. Package in development. https://github.com/yuki-961004/metaSDT\nYuKi. (2026). abcpp: A Lightweight, Embeddable C++ Backend for Offline Approximate Bayesian Computation. Package in development. https://github.com/yuki-961004/abcpp"
+  },
+  {
+    "objectID": "CV.html#utility-software",
+    "href": "CV.html#utility-software",
+    "title": "Mengzhen Hu (YuKi)",
+    "section": "Utility Software",
+    "text": "Utility Software\n\nYuKi. (2026). StartFlow: A Windows utility to manage and sequence the execution order of startup programs. https://github.com/yuki-961004/StartFlow\nYuKi. (2026). MultiTap: A Windows audio tool for simultaneous multi-device sound output. https://github.com/yuki-961004/MultiTap"
   },
   {
     "objectID": "CV.html#rstudio-theme",
@@ -130,7 +137,7 @@
     "href": "CV.html#skills",
     "title": "Mengzhen Hu (YuKi)",
     "section": "Skills",
-    "text": "Skills\n\nProgramming:\n\nProficient in R, Rcpp, Mplus, SPSS, HLM, Python and LaTeX.\nProficient in Keras/Keras3 for building Recurrent Neural Networks.\nBasic programming knowledge in PsychoPy and E-prime."
+    "text": "Skills\n\nProgramming:\n\nProficient in C++, R, Python, Mplus, SPSS, HLM and LaTeX.\nProficient in Keras/Keras3 for building Recurrent Neural Networks.\nBasic programming knowledge in PsychoPy and E-prime."
   },
   {
     "objectID": "CV.html#referees",

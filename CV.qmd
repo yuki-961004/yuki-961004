@@ -223,9 +223,15 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 
 - 2015.09 ~ 2019.06	B.Sc. in Psychology, Capital Normal University, Beijing, China
 
-## R Packages
--	YuKi & Xinyu. (2026). multiRL: Reinforcement Learning Tools for Multi-Armed Bandit. R package version 0.3.7. https://CRAN.R-project.org/package=multiRL 
+## Research Software
+- YuKi & Xinyu. (2026). multiRL: Reinforcement Learning Tools for Multi-Armed Bandit. R package version 0.3.7. https://CRAN.R-project.org/package=multiRL 
 - YuKi. (2025). binaryRL: Reinforcement Learning Tools for Two-Alternative Forced Choice Tasks. R package version 0.9.9. https://CRAN.R-project.org/package=binaryRL 
+- YuKi. (2026). metaSDT: A Cross-Language Signal Detection Theory Modeling Framework. Package in development. https://github.com/yuki-961004/metaSDT
+- YuKi. (2026). abcpp: A Lightweight, Embeddable C++ Backend for Offline Approximate Bayesian Computation. Package in development. https://github.com/yuki-961004/abcpp
+
+## Utility Software
+- YuKi. (2026). StartFlow: A Windows utility to manage and sequence the execution order of startup programs. https://github.com/yuki-961004/StartFlow
+- YuKi. (2026). MultiTap: A Windows audio tool for simultaneous multi-device sound output. https://github.com/yuki-961004/MultiTap
 
 ## RStudio Theme
 - A VS Code–inspired dark theme for the RStudio IDE ([RSCode](https://github.com/yuki-961004/RSCode)).
@@ -356,7 +362,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 
 ### Programming: 
 
-- Proficient in R, Rcpp, Mplus, SPSS, HLM, Python and LaTeX. 
+- Proficient in C++, R, Python, Mplus, SPSS, HLM and LaTeX. 
 
 - Proficient in Keras/Keras3 for building Recurrent Neural Networks.
 
