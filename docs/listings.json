@@ -14,10 +14,11 @@
   {
     "listing": "/packages.html",
     "items": [
+      "/packages/minusRL.html",
       "/packages/metaSDT.html",
-      "/packages/abcpp.html",
       "/packages/multiRL.html",
       "/packages/binaryRL.html",
+      "/packages/abcpp.html",
       "/packages/yukiSH.html",
       "/packages/yukiBP.html"
     ]

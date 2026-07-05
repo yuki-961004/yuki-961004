@@ -2,7 +2,7 @@
 title: "Beyond the Ten Simple Rules: Reliability, Validity, and Parsimony in Evaluating the RLWMH Models"
 short_title: "Remake of RLWMH with multiRL"
 format: html
-date: "today"
+date: "2026-05-29"
 language: 
   title-block-published: "Updated on"
 github: https://github.com/yuki-961004/RLWMH

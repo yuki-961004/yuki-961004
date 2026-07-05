@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2021-07-01">
-<meta name="description" content="This project is a large-scale meta-analysis examining how newly acquired self-relevance influences cognitive processing. Specifically, it focuses on two widely used associative learning paradigms: the Self-Matching Task (SMT) and the Ownership Paradigm. By systematically reviewing and synthesizing findings across existing studies, the project aims to estimate the overall size of the self-prioritization effect and identify the conditions under which the effect becomes stronger or weaker.">
+<meta name="description" content="minusRL explores a third path between handcrafted reinforcement-learning models and black-box neural networks. Instead of fixing in advance how trial-level parameters such as learning rate or decision temperature should change, the model starts from a broad set of psychologically meaningful predictors and lets the data decide which relationships are actually needed. Through joint estimation and automatic pruning, minusRL reduces this rich candidate space into explicit, compact regression equations that describe why each parameter changes over time. The goal is to keep the flexibility of data-driven modeling while ending with a model that psychologists can still read, interpret, and test.">
 
-<title>Is Self-associative Learning Unique? A Meta-analytical Comparison of the Prioritization Effect of Self- and Non-self Associative Learning – Mengzhen Hu (YuKi)</title>
+<title>minusRL – Mengzhen Hu (YuKi)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -89,6 +88,35 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -313,15 +341,15 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Is Self-associative Learning Unique? A Meta-analytical Comparison of the Prioritization Effect of Self- and Non-self Associative Learning</h1>
+<h1 class="title">minusRL</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">longterm</div>
+    <div class="quarto-category">developing</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    This project is a large-scale meta-analysis examining how newly acquired self-relevance influences cognitive processing. Specifically, it focuses on two widely used associative learning paradigms: the Self-Matching Task (SMT) and the Ownership Paradigm. By systematically reviewing and synthesizing findings across existing studies, the project aims to estimate the overall size of the self-prioritization effect and identify the conditions under which the effect becomes stronger or weaker.
+    <code>minusRL</code> explores a third path between handcrafted reinforcement-learning models and black-box neural networks. Instead of fixing in advance how trial-level parameters such as learning rate or decision temperature should change, the model starts from a broad set of psychologically meaningful predictors and lets the data decide which relationships are actually needed. Through joint estimation and automatic pruning, minusRL reduces this rich candidate space into explicit, compact regression equations that describe why each parameter changes over time. The goal is to keep the flexibility of data-driven modeling while ending with a model that psychologists can still read, interpret, and test.
   </div>
 </div>
 
@@ -329,22 +357,8 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Started on</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 1, 2021</p>
-    </div>
-  </div>
   
     
-    <div>
-    <div class="quarto-title-meta-heading">Doi</div>
-    <div class="quarto-title-meta-contents">
-      <p class="doi">
-        <a href="https://doi.org/https://doi.org/10.17605/osf.io/euqmf">https://doi.org/10.17605/osf.io/euqmf</a>
-      </p>
-    </div>
-  </div>
   </div>
   
 
@@ -352,6 +366,7 @@ gtag('config', 'G-1SZEQKJ1H1', { 'anonymize_ip': true});
 </header>
 
 
+<p>Reinforcement-learning models of human behavior often seem to follow one of two paths. One is to handcraft psychological rules: researchers write down if-else-like assumptions about when parameters such as the learning rate, <span class="math inline">\(\alpha\)</span>, or inverse temperature, <span class="math inline">\(\beta\)</span>, should change, and then give those rules a plausible cognitive interpretation. These models are easy to understand, but the explanation is often tied closely to a particular task, and may lose predictive power when the paradigm changes. The other path keeps the broad logic of reinforcement learning, such as the Rescorla-Wagner update or the surrounding decision process, while replacing parts of the model with neural networks. This can be far more flexible and can often be refitted across tasks by learning a new set of weights, but the price is that the mechanism becomes difficult to explain: even when the model predicts behavior well, it is rarely clear what its hidden state actually means psychologically. My project explores a third path. Instead of manually deciding how RL parameters should vary over trials, or asking a neural network to learn those dynamics inside a black box, the workflow lets the model search over psychologically meaningful predictors and prune away what it does not need. The result is an explicit regression equation showing why a parameter changes from one trial to the next. The process is still data-driven, but its final representation remains readable: the model may discover, for example, that <span class="math inline">\(\alpha_{t}\)</span> depends on recent prediction error, reward history, uncertainty, or choice streak, and it states that relationship directly. In this sense, the goal is not just to fit behavior, but to build a model that can search for its own explanation and then leave that explanation in a form that psychologists can inspect, question, and test.</p>
 
 
 

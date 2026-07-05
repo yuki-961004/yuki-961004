@@ -246,6 +246,12 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 ## Research Projects 
 ### Project 1
 
+<div class="project-title">Discovering the Rules of Learning: A Self-Pruning Framework for Interpretable Reinforcement Learning</div>
+
+*This project explores a third path between handcrafted reinforcement-learning models and black-box neural networks. Instead of fixing in advance how trial-level parameters such as learning rate or decision temperature should change, the model starts from a broad set of psychologically meaningful predictors and lets the data decide which relationships are actually needed. Through joint estimation and automatic pruning, minusRL reduces this rich candidate space into explicit, compact regression equations that describe why each parameter changes over time. The goal is to keep the flexibility of data-driven modeling while ending with a model that psychologists can still read, interpret, and test.*
+
+### Project 2
+
 <div class="project-title">Beyond the Ten Simple Rules: Reliability, Validity, and Parsimony in Evaluating the RLWMH Models </div>
 
 <div class="cv-links">
@@ -254,9 +260,9 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 
 *In the field of computational modeling, various estimation methods are available to identify optimal parameter values for black-box functions. However, these methods often yield diverging estimates for the same model. To assess the robustness of different estimation methods, this project uses the open-access data and the RLWMH model from Collins ([2025](https://doi.org/10.1038/s41562-025-02340-0)) as a case study. We provide a comprehensive benchmark of different estimation techniques. The goal of this research is to evaluate the stability of these estimation methods. Furthermore, we will systematically increase the number of free parameters, starting from the basic Rescorla-Wagner model and progressing toward the full RLWMH model. This incremental approach allows us to evaluate the model's parsimony and identify potential parameter redundancy within the RLWMH framework proposed by Collins.*
 
-### Project 2
+### Project 3
 
-<div class="project-title">binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R—A Step-by-Step Tutorial.</div>
+<div class="project-title">binaryRL: Reinforcement Learning Modeling of Two-Alternative Forced Choice Decision Making in R, A Step-by-Step Tutorial.</div>
 
 <div class="cv-links">
   <a href="https://github.com/yuki-961004/binaryRL" target="_blank" style="text-decoration: none; color: var(--bs-secondary-color); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"><i class="bi bi-github"></i> GitHub</a>
@@ -265,8 +271,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 </div>
 
 *Building reinforcement learning (RL) models can be a steep learning curve for many psychologists. To bridge this gap, we developed an R package that enables researchers to construct complex RL models using intuitive if-else logic. By providing a streamlined workflow, the package simplifies the entire process—from model specification to parameter estimation—making computational modeling accessible to all.*
-
-### Project 3
+### Project 4
 
 <div class="project-title">Registered reports in psychology across scholarly citations and public dissemination: A comparative meta evaluation of more than a decade of practice</div>
 
@@ -286,7 +291,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
     - Responded to reviewers' statistical questions and provided solutions.
     - Authored the *Methods* and *Results* sections of the original draft.
 
-### Project 4
+### Project 5
 
 <div class="project-title">A multiverse assessment of the reliability of the self-matching task as a measurement of the self-prioritization effect</div>
 
@@ -306,7 +311,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
     - Visualized the results using `ggplot2`.
     - Authored the original draft.
 
-### Project 5
+### Project 6
 
 <div class="project-title">A Meta-analytical Comparison of the Self Prioritization Effect.</div>
 
@@ -325,7 +330,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
     - Visualized the results using `ggplot2`.
     - Authored the original draft.
 
-### Project 6
+### Project 7
 
 <div class="project-title">The Heterogeneity of Youth Depression Scales</div>
 
@@ -341,7 +346,7 @@ Cognition, Decision Making, Reinforcement Learning, Open Science.
 
 - Responsibility: I contributed to the early-stage coding work and visualized the differences in what the scales measure.
 
-### Project 7
+### Project 8
 
 <div class="project-title">Business Decision-making Game Facilitates Training Effectiveness: A Three-level Meta‑Analysis</div>
 

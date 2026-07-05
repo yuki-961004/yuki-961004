@@ -506,3 +506,7 @@ html[data-bs-theme="dark"] .dialog-box.left-arrow::before, body.quarto-dark .dia
 html[data-bs-theme="dark"] .dialog-box.left-arrow::after, body.quarto-dark .dialog-box.left-arrow::after { border-right-color: #2b2b2b !important; }
 html[data-bs-theme="dark"] .dialog-box.right-arrow::before, body.quarto-dark .dialog-box.right-arrow::before { border-left-color: #555555 !important; }
 html[data-bs-theme="dark"] .dialog-box.right-arrow::after, body.quarto-dark .dialog-box.right-arrow::after { border-left-color: #2b2b2b !important; }
+
+#title-block-header .description {
+  display: none;
+}

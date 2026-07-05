@@ -3,5 +3,106 @@ title: abcpp
 description: "<code>abcpp</code> is a lightweight, embeddable C++ backend for offline Approximate Bayesian Computation workflows, inspired by CRAN's <code>abc</code> package and exposed through thin R and Python frontends. It currently focuses on matrix-based ABC estimation with <code>target</code>, <code>params</code>, <code>sumstats</code>, and <code>control</code>, while laying the groundwork for a future NLopt-like ABC algorithm library supporting both offline simulation-table ABC and online simulator-callback ABC for projects such as <code>metaSDT</code>."
 image: "../fig/abcpp.png"
 github: "https://github.com/yuki-961004/abcpp"
-categories: [developing]
+categories: [active]
 ---
+
+<a href="https://yuki-961004.github.io/abcpp/"><img src="./fig/abcpp.png" alt="LOGO" align="right" width="120"/></a>
+
+<!-- badges: start -->
+[![CI](https://github.com/yuki-961004/abcpp/actions/workflows/ci.yaml/badge.svg)](https://github.com/yuki-961004/abcpp/actions/workflows/ci.yaml)
+[![Code Coverage](https://codecov.io/gh/yuki-961004/abcpp/graph/badge.svg?component=interfaces)](https://app.codecov.io/gh/yuki-961004/abcpp/components)
+[![CRAN status](https://www.r-pkg.org/badges/version/abcpp)](https://CRAN.R-project.org/package=abcpp)
+[![PyPI status](https://img.shields.io/pypi/v/abcpp.svg)](https://pypi.org/project/abcpp/)
+<!-- badges: end -->
+
+`abcpp` is a lightweight embeddable C++ library for Approximate Bayesian
+Computation, with R and Python wrappers. The C++ library is the only algorithm
+implementation; R and Python are thin frontends.
+
+## C++ Usage
+
+`abcpp` can be embedded in another CMake project in the same style as small algorithm libraries such as NLopt, using `FetchContent_Declare` to call `abcpp` as the algorithm backend:
+
+```cmake
+include(FetchContent)
+
+FetchContent_Declare(
+  abcpp
+  GIT_REPOSITORY https://github.com/yuki-961004/abcpp.git
+  GIT_TAG main
+  GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(abcpp)
+
+target_link_libraries(my_target PRIVATE abcpp::abcpp)
+```
+
+The primary C++ API is NLopt-like:
+
+```cpp
+#include <abcpp/abcpp.hpp>
+
+abcpp::opt opt;
+abcpp::result fit = opt
+    .set_target(target)
+    .set_params(params)
+    .set_sumstats(sumstats)
+    .set_method(abcpp::method::neuralnet)
+    .set_tol(0.01)
+    .set_nnet_sizenet(8)
+    .run();
+```
+
+## R Usage
+
+Install from CRAN:
+
+```r
+install.packages("abcpp")
+```
+
+The R interface uses four inputs: `target`, `params`, `sumstats`, and
+`control`.
+
+```r
+library(abcpp)
+
+result <- abcpp::abc(
+  target = <target_summary_vector_or_matrix>,
+  params = <parameter_vector_or_matrix>,
+  sumstats = <simulated_summary_vector_or_matrix>,
+  control = list(
+    method = "rejection",
+    tol = <tolerance_between_0_and_1>
+  )
+)
+
+summary(result)
+```
+
+## Python Usage
+
+Install from PyPI:
+
+```bash
+pip install abcpp
+```
+
+The Python interface mirrors the R interface:
+
+```python
+import abcpp
+
+result = abcpp.abc(
+    target=<target_summary_vector_or_matrix>,
+    params=<parameter_vector_or_matrix>,
+    sumstats=<simulated_summary_vector_or_matrix>,
+    control={
+        "method": "rejection",
+        "tol": <tolerance_between_0_and_1>,
+    },
+)
+
+abcpp.summary(result)
+```
