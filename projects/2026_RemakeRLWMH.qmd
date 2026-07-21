@@ -44,7 +44,7 @@ Here is my personal interpretation of Collins ([2025](https://doi.org/10.1038/s4
 <div>
   <img src="./fig/2026_RemakeRLWMH/HWM_capacity.png" width="30%"/>
   <img src="./fig/2026_RemakeRLWMH/HWM_sticky.png" width="30%"/>
-  <img src="./fig/2026_RemakeRLWMH/HWM_weight.png" width="30%"/>
+  <img src="./fig/2026_RemakeRLWMH/HWM_lapse.png" width="30%"/>
 </div>
 
 <div>
