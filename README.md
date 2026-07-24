@@ -15,9 +15,9 @@
 <td align="center">
 <picture>
 <source media="(prefers-color-scheme: dark)"
-srcset="https://github-readme-stats-sigma-five.vercel.app/api?theme=onedark&bg_color=0d1117&hide_border=true&title_color=5991f1&text_color=ffffff&icon_color=5991f1&username=yuki-961004&show_icons=true&include_all_commits=true&show=reviews%2Cdiscussions_answered&rank_icon=percentile&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR">
+srcset="https://github-readme-stats-gamma-beryl-27.vercel.app/api?theme=onedark&bg_color=0d1117&hide_border=true&title_color=5991f1&text_color=ffffff&icon_color=5991f1&username=yuki-961004&show_icons=true&include_all_commits=true&count_private=true&show=reviews%2Cdiscussions_answered&rank_icon=percentile&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR">
 <img height="195"
-src="https://github-readme-stats-sigma-five.vercel.app/api?username=yuki-961004&show_icons=true&include_all_commits=true&show=reviews%2Cdiscussions_answered&rank_icon=percentile&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR">
+src="https://github-readme-stats-gamma-beryl-27.vercel.app/api?username=yuki-961004&show_icons=true&include_all_commits=true&count_private=true&show=reviews%2Cdiscussions_answered&rank_icon=percentile&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR">
 </picture>
 </td>
 
@@ -26,9 +26,9 @@ src="https://github-readme-stats-sigma-five.vercel.app/api?username=yuki-961004&
 <td align="center">
 <picture>
 <source media="(prefers-color-scheme: dark)"
-srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?theme=onedark&bg_color=0d1117&hide_border=true&title_color=5991f1&text_color=ffffff&username=yuki-961004&layout=compact&exclude_repo=Hardware-Course&hide=HTML%2CJupyter%20Notebook%2CMATLAB&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR&langs_count=12">
+srcset="https://github-readme-stats-gamma-beryl-27.vercel.app/api/top-langs/?theme=onedark&bg_color=0d1117&hide_border=true&title_color=5991f1&text_color=ffffff&username=yuki-961004&count_private=true&layout=compact&exclude_repo=Hardware-Course&hide=HTML%2CJupyter%20Notebook%2CMATLAB&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR&langs_count=12">
 <img height="195"
-src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=yuki-961004&layout=compact&exclude_repo=Hardware-Course&hide=HTML%2CJupyter%20Notebook%2CMATLAB&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR&langs_count=12">
+src="https://github-readme-stats-gamma-beryl-27.vercel.app/api/top-langs/?username=yuki-961004&count_private=true&layout=compact&exclude_repo=Hardware-Course&hide=HTML%2CJupyter%20Notebook%2CMATLAB&role=OWNER%2CORGANIZATION_MEMBER%2CCOLLABORATOR&langs_count=12">
 </picture>
 </td>
 </tr>
